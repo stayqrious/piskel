@@ -23,8 +23,10 @@
      * !! WARNING !! ALL THE INITIALISATION BELOW SHOULD BE MOVED TO INIT()
      * IT WILL STAY HERE UNTIL WE CAN REMOVE SETFPS (see comment below)
      */
+    this.previewContainer = document.querySelector('#animated-preview-container');
     this.fpsRangeInput = document.querySelector('#preview-fps');
     this.fpsCounterDisplay = document.querySelector('#display-fps');
+
     this.openPopupPreview = document.querySelector('.open-popup-preview-button');
     this.originalSizeButton = document.querySelector('.original-size-button');
     this.toggleOnionSkinButton = document.querySelector('.preview-toggle-onion-skin');
@@ -82,6 +84,7 @@
   ns.PreviewController.prototype.onOriginalSizeButtonClick_ = function () {
     var isEnabled = pskl.UserSettings.get(pskl.UserSettings.ORIGINAL_SIZE_PREVIEW);
     pskl.UserSettings.set(pskl.UserSettings.ORIGINAL_SIZE_PREVIEW, !isEnabled);
+    this.previewContainer.classList.toggle('use-original-size-preview', !isEnabled);
   };
 
   ns.PreviewController.prototype.onUserSettingsChange_ = function (evt, name, value) {
@@ -168,7 +171,7 @@
   ns.PreviewController.prototype.render = function (delta) {
     this.elapsedTime += delta;
     var index = this.getNextIndex_(delta);
-    if (this.shoudlRender_() || this.currentIndex != index) {
+    if (this.shouldRender_() || this.currentIndex != index) {
       this.currentIndex = index;
       var frame = this.piskelController.getFrameAt(this.currentIndex);
       this.renderer.render(frame);
@@ -240,7 +243,7 @@
     this.renderFlag = bool;
   };
 
-  ns.PreviewController.prototype.shoudlRender_ = function () {
+  ns.PreviewController.prototype.shouldRender_ = function () {
     return this.renderFlag || this.popupPreviewController.renderFlag;
   };
 

@@ -5,7 +5,7 @@
   var DEFAULT_CLEAR_INTERVAL = 10 * 60 * 1000;
 
   var DEFAULT_FRAME_PROCESSOR = function (frame) {
-    return pskl.utils.FrameUtils.toImage(frame);
+    return pskl.utils.FrameUtils.toCanvas(frame);
   };
 
   var DEFAULT_OUTPUT_CLONER = function (o) {return o;};

@@ -16,7 +16,7 @@
   };
 
   ns.BackgroundImageFrameRenderer.prototype.frameToDataUrl_ = function (frame) {
-    var canvas = new pskl.utils.FrameUtils.toImage(frame, this.zoom);
+    var canvas = new pskl.utils.FrameUtils.toCanvas(frame, this.zoom, Constants.TRANSPARENT_COLOR);
     return canvas.toDataURL('image/png');
   };
 

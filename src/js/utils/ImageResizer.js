@@ -2,6 +2,9 @@
   var ns = $.namespace('pskl.utils');
 
   ns.ImageResizer = {
+    /**
+     * @return {Canvas} the resized image wrapped in a Canvas
+     */
     resize : function (image, targetWidth, targetHeight, smoothingEnabled) {
       var canvas = pskl.utils.CanvasUtils.createCanvas(targetWidth, targetHeight);
       var context = canvas.getContext('2d');

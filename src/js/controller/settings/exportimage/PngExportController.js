@@ -82,9 +82,7 @@
   };
 
   ns.PngExportController.prototype.getFrameAsCanvas_ = function (frame) {
-    var canvasRenderer = new pskl.rendering.CanvasRenderer(frame, 1);
-    canvasRenderer.drawTransparentAs(Constants.TRANSPARENT_COLOR);
-    return canvasRenderer.render();
+    return pskl.utils.FrameUtils.toCanvas(frame, 1, Constants.TRANSPARENT_COLOR);
   };
 
   ns.PngExportController.prototype.getPiskelName_ = function () {

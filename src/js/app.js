@@ -145,6 +145,9 @@
       this.penSizeController = new pskl.controller.PenSizeController();
       this.penSizeController.init();
 
+      this.mainController = new pskl.controller.MainController(this.piskelController);
+      this.mainController.init();
+
       this.fileDropperService = new pskl.service.FileDropperService(
         this.piskelController,
         document.querySelector('#drawing-canvas-container'));
@@ -204,7 +207,7 @@
 
     getFirstFrameAsPng : function () {
       var firstFrame = this.piskelController.getFrameAt(0);
-      var firstFrameCanvas = pskl.utils.FrameUtils.toImage(firstFrame);
+      var firstFrameCanvas = pskl.utils.FrameUtils.toCanvas(firstFrame);
       return firstFrameCanvas.toDataURL('image/png');
     },
 

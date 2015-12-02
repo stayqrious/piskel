@@ -41,6 +41,18 @@
   background-position: center;
 }
 
+.content-landscape .background-image-frame-container {
+  background-size: 200px auto;
+}
+
+.content-portrait .background-image-frame-container {
+  background-size: auto 200px;
+}
+
+.use-original-size-preview .background-image-frame-container {
+  background-size: auto auto;
+}
+
 .display-fps {
   float: left;
   color: #aaa;

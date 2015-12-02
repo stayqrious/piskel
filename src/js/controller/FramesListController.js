@@ -215,9 +215,7 @@
   };
 
   ns.FramesListController.prototype.frameToPreviewCanvas_ = function (frame) {
-    var canvasRenderer = new pskl.rendering.CanvasRenderer(frame, this.zoom);
-    canvasRenderer.drawTransparentAs(Constants.TRANSPARENT_COLOR);
-    var canvas = canvasRenderer.render();
+    var canvas = pskl.utils.FrameUtils.toCanvas(frame, this.zoom, Constants.TRANSPARENT_COLOR);
     canvas.classList.add('tile-view', 'canvas');
     return canvas;
   };

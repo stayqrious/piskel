@@ -84,7 +84,6 @@
   "js/rendering/OnionSkinRenderer.js",
   "js/rendering/frame/BackgroundImageFrameRenderer.js",
   "js/rendering/frame/CachedFrameRenderer.js",
-  "js/rendering/CanvasRenderer.js",
   "js/rendering/FramesheetRenderer.js",
   "js/rendering/PiskelRenderer.js",
 
@@ -100,6 +99,7 @@
   "js/controller/preview/PopupPreviewController.js",
   "js/controller/preview/PreviewController.js",
   "js/controller/MinimapController.js",
+  "js/controller/MainController.js",
   "js/controller/ToolController.js",
   "js/controller/PaletteController.js",
   "js/controller/PalettesListController.js",

@@ -9,11 +9,25 @@
      * @param zoom {Number} zoom
      * @return {Image}
      */
-    toImage : function (frame, zoom) {
+    toCanvas : function (frame, zoom, transparentColor) {
       zoom = zoom || 1;
-      var canvasRenderer = new pskl.rendering.CanvasRenderer(frame, zoom);
-      canvasRenderer.drawTransparentAs(Constants.TRANSPARENT_COLOR);
-      return canvasRenderer.render();
+      transparentColor = transparentColor || 'white';
+
+      var width = frame.getWidth();
+      var height = frame.getHeight();
+      var canvas = pskl.utils.CanvasUtils.createCanvas(width, height);
+
+      // Draw in canvas
+      pskl.utils.FrameUtils.drawToCanvas(frame, canvas, transparentColor);
+
+      if (zoom > 5) {
+        return pskl.utils.ImageResizer.resize(canvas, width * zoom, height * zoom, false);
+      } else if (zoom > 1) {
+        var roundZoom = Math.round(zoom);
+        return pskl.utils.ImageResizer.resize(canvas, width * roundZoom, height * roundZoom, false);
+      } else {
+        return pskl.utils.ImageResizer.resize(canvas, width * zoom, height * zoom, true);
+      }
     },
 
     /**
@@ -85,7 +99,7 @@
     },
 
     resize : function (frame, targetWidth, targetHeight, smoothing) {
-      var image = pskl.utils.FrameUtils.toImage(frame);
+      var image = pskl.utils.FrameUtils.toCanvas(frame, 1, Constants.TRANSPARENT_COLOR);
       var resizedImage = pskl.utils.ImageResizer.resize(image, targetWidth, targetHeight, smoothing);
       return pskl.utils.FrameUtils.createFromImage(resizedImage);
     },
