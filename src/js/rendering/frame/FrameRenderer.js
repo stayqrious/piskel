@@ -267,8 +267,16 @@
       var scaled = pskl.utils.ImageResizer.resizeNearestNeighbour(this.canvas, this.zoom, gridWidth);
       displayContext.drawImage(scaled, 0, 0);
     } else {
-      displayContext.scale(this.zoom, this.zoom);
-      displayContext.drawImage(this.canvas, 0, 0);
+      if (this.zoom < 4) {
+        var rounded = Math.round(this.zoom);
+        var canvas = pskl.utils.ImageResizer.scale(this.canvas, rounded);
+        canvas = pskl.utils.ImageResizer.scale(canvas, this.zoom/rounded, true);
+        displayContext.drawImage(canvas, 0, 0);
+      } else {
+        displayContext.scale(this.zoom, this.zoom);
+        displayContext.drawImage(this.canvas, 0, 0);
+      }
+
     }
     displayContext.restore();
   };

@@ -3,31 +3,33 @@
   var colorCache = {};
   ns.FrameUtils = {
     /**
-     * Render a Frame object as an image.
-     * Can optionally scale it (zoom)
+     * Render a Frame object as an image wrapped in a Canvas element
      * @param frame {Frame} frame
-     * @param zoom {Number} zoom
-     * @return {Image}
+     * @param transparentColor {String} the color to use for transparent pixels
+     * @return {Canvas}
      */
-    toCanvas : function (frame, zoom, transparentColor) {
-      zoom = zoom || 1;
-      transparentColor = transparentColor || 'white';
-
-      var width = frame.getWidth();
-      var height = frame.getHeight();
-      var canvas = pskl.utils.CanvasUtils.createCanvas(width, height);
-
-      // Draw in canvas
-      pskl.utils.FrameUtils.drawToCanvas(frame, canvas, transparentColor);
-
-      if (zoom > 5) {
-        return pskl.utils.ImageResizer.resize(canvas, width * zoom, height * zoom, false);
-      } else if (zoom > 1) {
-        var roundZoom = Math.round(zoom);
-        return pskl.utils.ImageResizer.resize(canvas, width * roundZoom, height * roundZoom, false);
-      } else {
-        return pskl.utils.ImageResizer.resize(canvas, width * zoom, height * zoom, true);
+    toCanvas : function (frame, transparentColor) {
+      if (!frame || !transparentColor) {
+        throw 'Invalid arguments passed to pskl.utils.FrameUtils.toCanvas';
       }
+
+      var canvas = pskl.utils.CanvasUtils.createCanvas(frame.getWidth(), frame.getHeight());
+      pskl.utils.FrameUtils.drawToCanvas(frame, canvas, transparentColor);
+      return canvas;
+
+      // if (zoom > 5) {
+      //   return pskl.utils.ImageResizer.scale(canvas, zoom, false);
+      // } else if (zoom > 1) {
+      //   return pskl.utils.ImageResizer.scale(canvas, Math.round(zoom), false);
+      // } else {
+      //   return pskl.utils.ImageResizer.scale(canvas, zoom, true);
+      // }
+    },
+
+    resize : function (frame, targetWidth, targetHeight, smoothing) {
+      var image = pskl.utils.FrameUtils.toCanvas(frame, Constants.TRANSPARENT_COLOR);
+      var resizedImage = pskl.utils.ImageResizer.resize(image, targetWidth, targetHeight, smoothing);
+      return pskl.utils.FrameUtils.createFromImage(resizedImage);
     },
 
     /**
@@ -96,12 +98,6 @@
           frameA.setPixel(col, row, color);
         }
       });
-    },
-
-    resize : function (frame, targetWidth, targetHeight, smoothing) {
-      var image = pskl.utils.FrameUtils.toCanvas(frame, 1, Constants.TRANSPARENT_COLOR);
-      var resizedImage = pskl.utils.ImageResizer.resize(image, targetWidth, targetHeight, smoothing);
-      return pskl.utils.FrameUtils.createFromImage(resizedImage);
     },
 
     /*

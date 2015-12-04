@@ -128,7 +128,8 @@
 
     for (var i = 0 ; i < this.piskelController.getFrameCount() ; i++) {
       var frame = this.piskelController.getFrameAt(i);
-      var canvas = pskl.utils.FrameUtils.toCanvas(frame, zoom, transparentColor);
+      var canvas = pskl.utils.FrameUtils.toCanvas(frame, transparentColor);
+      canvas = pskl.utils.ImageResizer.scale(canvas, zoom);
       gif.addFrame(canvas.getContext('2d'), {
         delay: 1000 / fps
       });

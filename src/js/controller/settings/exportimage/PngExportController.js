@@ -28,11 +28,7 @@
     var outputCanvas = this.getFramesheetAsCanvas();
 
     var scalingFactor = pskl.UserSettings.get(pskl.UserSettings.EXPORT_SCALING);
-    if (scalingFactor > 1) {
-      var width = outputCanvas.width * scalingFactor;
-      var height = outputCanvas.height * scalingFactor;
-      outputCanvas = pskl.utils.ImageResizer.resize(outputCanvas, width, height, false);
-    }
+    outputCanvas = pskl.utils.ImageResizer.scale(outputCanvas, scalingFactor);
 
     pskl.utils.BlobUtils.canvasToBlob(outputCanvas, function(blob) {
       pskl.utils.FileUtils.downloadAsFile(blob, fileName);
@@ -82,7 +78,7 @@
   };
 
   ns.PngExportController.prototype.getFrameAsCanvas_ = function (frame) {
-    return pskl.utils.FrameUtils.toCanvas(frame, 1, Constants.TRANSPARENT_COLOR);
+    return pskl.utils.FrameUtils.toCanvas(frame, Constants.TRANSPARENT_COLOR);
   };
 
   ns.PngExportController.prototype.getPiskelName_ = function () {

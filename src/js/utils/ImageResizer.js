@@ -2,6 +2,10 @@
   var ns = $.namespace('pskl.utils');
 
   ns.ImageResizer = {
+    scale : function (image, zoom, smoothingEnabled) {
+      return ns.ImageResizer.resize(image, image.width * zoom, image.height * zoom, smoothingEnabled);
+    },
+
     /**
      * @return {Canvas} the resized image wrapped in a Canvas
      */

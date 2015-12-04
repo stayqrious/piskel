@@ -207,7 +207,7 @@
 
     getFirstFrameAsPng : function () {
       var firstFrame = this.piskelController.getFrameAt(0);
-      var firstFrameCanvas = pskl.utils.FrameUtils.toCanvas(firstFrame);
+      var firstFrameCanvas = pskl.utils.FrameUtils.toCanvas(firstFrame, Constants.TRANSPARENT_COLOR);
       return firstFrameCanvas.toDataURL('image/png');
     },
 

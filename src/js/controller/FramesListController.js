@@ -215,7 +215,9 @@
   };
 
   ns.FramesListController.prototype.frameToPreviewCanvas_ = function (frame) {
-    var canvas = pskl.utils.FrameUtils.toCanvas(frame, this.zoom, Constants.TRANSPARENT_COLOR);
+    var canvas = pskl.utils.FrameUtils.toCanvas(frame, Constants.TRANSPARENT_COLOR);
+    var zoom = this.zoom < 4 ? Math.round(this.zoom) : this.zoom;
+    canvas = pskl.utils.ImageResizer.scale(canvas, Math.max(1, zoom));
     canvas.classList.add('tile-view', 'canvas');
     return canvas;
   };

@@ -123,7 +123,9 @@
     var useOriginalSize = originalSizeEnabled || tiledPreviewEnabled;
 
     var zoom = useOriginalSize ? 1 : this.calculateZoom_();
-    this.renderer.setZoom(zoom);
+    zoom = zoom < 4 ? Math.round(zoom) : zoom;
+
+    this.renderer.setZoom(Math.max(1, zoom));
     this.setRenderFlag_(true);
   };
 
