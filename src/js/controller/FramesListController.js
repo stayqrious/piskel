@@ -216,8 +216,14 @@
 
   ns.FramesListController.prototype.frameToPreviewCanvas_ = function (frame) {
     var canvas = pskl.utils.FrameUtils.toCanvas(frame, Constants.TRANSPARENT_COLOR);
-    var zoom = this.zoom < 4 ? Math.round(this.zoom) : this.zoom;
-    canvas = pskl.utils.ImageResizer.scale(canvas, Math.max(1, zoom));
+
+    var zoom = this.zoom;
+    var antiAliasing = pskl.UserSettings.get(pskl.UserSettings.ANTIALIASING);
+    if (antiAliasing) {
+      zoom = zoom < 4 ? Math.round(zoom) : zoom;
+      zoom = Math.max(1, zoom);
+    }
+    canvas = pskl.utils.ImageResizer.scale(canvas, zoom);
     canvas.classList.add('tile-view', 'canvas');
     return canvas;
   };

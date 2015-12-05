@@ -67,6 +67,7 @@
     this.updateOnionSkinPreview_();
     this.updateOriginalSizeButton_();
     this.updateMaxFPS_();
+    this.updateContainerClasslist_();
     this.updateContainerDimensions_();
   };
 
@@ -84,7 +85,12 @@
   ns.PreviewController.prototype.onOriginalSizeButtonClick_ = function () {
     var isEnabled = pskl.UserSettings.get(pskl.UserSettings.ORIGINAL_SIZE_PREVIEW);
     pskl.UserSettings.set(pskl.UserSettings.ORIGINAL_SIZE_PREVIEW, !isEnabled);
-    this.previewContainer.classList.toggle('use-original-size-preview', !isEnabled);
+  };
+
+  ns.PreviewController.prototype.updateContainerClasslist_ = function () {
+    var originalSizeEnabled = pskl.UserSettings.get(pskl.UserSettings.ORIGINAL_SIZE_PREVIEW);
+    var tiledPreviewEnabled = pskl.UserSettings.get(pskl.UserSettings.TILED_PREVIEW);
+    this.previewContainer.classList.toggle('use-original-size-preview', originalSizeEnabled || tiledPreviewEnabled);
   };
 
   ns.PreviewController.prototype.onUserSettingsChange_ = function (evt, name, value) {
@@ -123,9 +129,13 @@
     var useOriginalSize = originalSizeEnabled || tiledPreviewEnabled;
 
     var zoom = useOriginalSize ? 1 : this.calculateZoom_();
-    zoom = zoom < 4 ? Math.round(zoom) : zoom;
 
-    this.renderer.setZoom(Math.max(1, zoom));
+    var antiAliasing = pskl.UserSettings.get(pskl.UserSettings.ANTIALIASING);
+    if (antiAliasing) {
+      zoom = zoom < 4 ? Math.round(zoom) : zoom;
+      zoom = Math.max(1, zoom);
+    }
+    this.renderer.setZoom(zoom);
     this.setRenderFlag_(true);
   };
 

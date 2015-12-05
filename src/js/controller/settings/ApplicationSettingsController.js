@@ -34,6 +34,14 @@
     }
     this.addEventListener(tiledPreviewCheckbox, 'change', this.onTiledPreviewChange_);
 
+    // Antialiasing
+    var antialiasing = pskl.UserSettings.get(pskl.UserSettings.ANTIALIASING);
+    var antialiasingCheckbox = document.querySelector('.antialiasing-checkbox');
+    if (antialiasing) {
+      antialiasingCheckbox.setAttribute('checked', antialiasing);
+    }
+    this.addEventListener(antialiasingCheckbox, 'change', this.onAntialiasingChange_);
+
     // Max FPS
     var maxFpsInput = document.querySelector('.max-fps-input');
     maxFpsInput.value = pskl.UserSettings.get(pskl.UserSettings.MAX_FPS);
@@ -57,6 +65,10 @@
 
   ns.ApplicationSettingsController.prototype.onTiledPreviewChange_ = function (evt) {
     pskl.UserSettings.set(pskl.UserSettings.TILED_PREVIEW, evt.currentTarget.checked);
+  };
+
+  ns.ApplicationSettingsController.prototype.onAntialiasingChange_ = function (evt) {
+    pskl.UserSettings.set(pskl.UserSettings.ANTIALIASING, evt.currentTarget.checked);
   };
 
   ns.ApplicationSettingsController.prototype.onBackgroundClick_ = function (evt) {
