@@ -11,21 +11,19 @@
   ns.FramesListController = function (piskelController, container) {
     this.piskelController = piskelController;
     this.container = container;
-    this.refreshZoom_();
-
-    this.redrawFlag = true;
 
     this.cachedFrameProcessor = new pskl.model.frame.CachedFrameProcessor();
     this.cachedFrameProcessor.setFrameProcessor(this.frameToPreviewCanvas_.bind(this));
     this.cachedFrameProcessor.setOutputCloner(this.clonePreviewCanvas_.bind(this));
+
+    this.redrawFlag = true;
   };
 
   ns.FramesListController.prototype.init = function() {
     $.subscribe(Events.TOOL_RELEASED, this.flagForRedraw_.bind(this));
     $.subscribe(Events.PISKEL_RESET, this.flagForRedraw_.bind(this));
     $.subscribe(Events.USER_SETTINGS_CHANGED, this.flagForRedraw_.bind(this));
-
-    $.subscribe(Events.PISKEL_RESET, this.refreshZoom_.bind(this));
+    $.subscribe(Events.PISKEL_RESET, this.flagForRedraw_.bind(this));
 
     $('#preview-list-scroller').scroll(this.updateScrollerOverflows.bind(this));
     this.container.get(0).addEventListener('click', this.onContainerClick_.bind(this));
@@ -36,12 +34,9 @@
     this.redrawFlag = true;
   };
 
-  ns.FramesListController.prototype.refreshZoom_ = function () {
-    this.zoom = this.calculateZoom_();
-  };
-
   ns.FramesListController.prototype.render = function () {
     if (this.redrawFlag) {
+      this.zoom = this.calculateZoom_();
       this.createPreviews_();
       this.redrawFlag = false;
     }
@@ -210,22 +205,24 @@
   };
 
   ns.FramesListController.prototype.getCanvasForFrame = function (frame) {
-    var canvas = this.cachedFrameProcessor.get(frame, this.zoom);
-    return canvas;
+    return this.cachedFrameProcessor.get(frame, this.getRenderingZoom_());
   };
 
   ns.FramesListController.prototype.frameToPreviewCanvas_ = function (frame) {
     var canvas = pskl.utils.FrameUtils.toCanvas(frame, Constants.TRANSPARENT_COLOR);
+    canvas = pskl.utils.ImageResizer.scale(canvas, this.getRenderingZoom_());
+    canvas.classList.add('tile-view', 'canvas');
+    return canvas;
+  };
 
+  ns.FramesListController.prototype.getRenderingZoom_ = function () {
     var zoom = this.zoom;
     var antiAliasing = pskl.UserSettings.get(pskl.UserSettings.ANTIALIASING);
     if (antiAliasing) {
       zoom = zoom < 4 ? Math.round(zoom) : zoom;
       zoom = Math.max(1, zoom);
     }
-    canvas = pskl.utils.ImageResizer.scale(canvas, zoom);
-    canvas.classList.add('tile-view', 'canvas');
-    return canvas;
+    return zoom;
   };
 
   ns.FramesListController.prototype.clonePreviewCanvas_ = function (canvas) {

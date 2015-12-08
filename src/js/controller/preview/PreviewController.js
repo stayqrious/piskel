@@ -101,6 +101,7 @@
     } else {
       this.updateZoom_();
       this.updateOriginalSizeButton_();
+      this.updateContainerClasslist_();
       this.updateContainerDimensions_();
     }
   };
