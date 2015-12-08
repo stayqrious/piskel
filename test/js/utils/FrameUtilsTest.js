@@ -54,15 +54,15 @@ describe("FrameUtils suite", function() {
       [T, B]
     ]);
 
-    var image = pskl.utils.FrameUtils.toImage(frame1);
-    expect(image.width).toBe(2);
-    expect(image.height).toBe(2);
+    var canvas = pskl.utils.FrameUtils.toCanvas(frame1, transparent);
+    expect(canvas.width).toBe(2);
+    expect(canvas.height).toBe(2);
 
-    var biggerImage = pskl.utils.FrameUtils.toImage(frame1, 3);
-    expect(biggerImage.width).toBe(6);
-    expect(biggerImage.height).toBe(6);
+    var biggerCanvas = pskl.utils.ImageResizer.scale(canvas, 3);
+    expect(biggerCanvas.width).toBe(6);
+    expect(biggerCanvas.height).toBe(6);
 
-    var biggerFrame = pskl.utils.FrameUtils.createFromImage(biggerImage);
+    var biggerFrame = pskl.utils.FrameUtils.createFromImage(biggerCanvas);
 
     frameEqualsGrid(biggerFrame, [
       [B, B, B, T, T, T],
@@ -83,7 +83,7 @@ describe("FrameUtils suite", function() {
       [R, B, B, R]
     ]));
 
-    var spritesheet = pskl.utils.FrameUtils.toImage(frame);
+    var spritesheet = pskl.utils.FrameUtils.toCanvas(frame, transparent);
 
     // split the spritesheet by 4
     var frames = pskl.utils.LayerUtils.createLayerFromSpritesheet(spritesheet, 4);
@@ -117,7 +117,7 @@ describe("FrameUtils suite", function() {
       [null, B]
     ]);
 
-    var image = pskl.utils.FrameUtils.toImage(frame);
+    var image = pskl.utils.FrameUtils.toCanvas(frame, transparent);
 
     // transform back to frame for ease of testing
     var testFrame = pskl.utils.FrameUtils.createFromImage(image);
