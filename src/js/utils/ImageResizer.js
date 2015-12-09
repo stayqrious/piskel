@@ -3,7 +3,9 @@
 
   ns.ImageResizer = {
     scale : function (image, zoom, smoothingEnabled) {
-      return ns.ImageResizer.resize(image, image.width * zoom, image.height * zoom, smoothingEnabled);
+      var targetWidth = Math.round(image.width * zoom);
+      var targetHeight = Math.round(image.height * zoom);
+      return ns.ImageResizer.resize(image, targetWidth, targetHeight, smoothingEnabled);
     },
 
     /**
