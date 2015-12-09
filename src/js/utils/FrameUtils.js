@@ -16,14 +16,6 @@
       var canvas = pskl.utils.CanvasUtils.createCanvas(frame.getWidth(), frame.getHeight());
       pskl.utils.FrameUtils.drawToCanvas(frame, canvas, transparentColor);
       return canvas;
-
-      // if (zoom > 5) {
-      //   return pskl.utils.ImageResizer.scale(canvas, zoom, false);
-      // } else if (zoom > 1) {
-      //   return pskl.utils.ImageResizer.scale(canvas, Math.round(zoom), false);
-      // } else {
-      //   return pskl.utils.ImageResizer.scale(canvas, zoom, true);
-      // }
     },
 
     resize : function (frame, targetWidth, targetHeight, smoothing) {
