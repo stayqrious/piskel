@@ -92,7 +92,3 @@
 .settings-item {
   margin : 10px 0;
 }
-
-[name*=checkbox] {
-  vertical-align: middle;
-}

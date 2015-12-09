@@ -51,6 +51,7 @@
     var layerOpacityInput = document.querySelector('.layer-opacity-input');
     layerOpacityInput.value = pskl.UserSettings.get(pskl.UserSettings.LAYER_OPACITY);
     this.addEventListener(layerOpacityInput, 'change', this.onLayerOpacityChange_);
+    this.addEventListener(layerOpacityInput, 'input', this.onLayerOpacityChange_);
     this.updateLayerOpacityText_(layerOpacityInput.value);
 
     // Form
@@ -108,6 +109,8 @@
 
   ns.ApplicationSettingsController.prototype.updateLayerOpacityText_ = function (opacity) {
     var layerOpacityText = document.querySelector('.layer-opacity-text');
+    // pad opacity : 0 -> 0.00, 0.5 -> 0.50, 0.65 -> 0.65
+    opacity = parseFloat(opacity).toFixed(2);
     layerOpacityText.innerHTML = opacity;
   };
 
