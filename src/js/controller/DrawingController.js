@@ -75,7 +75,6 @@
 
   ns.DrawingController.prototype.initMouseBehavior = function() {
     var body = $('body');
-    this.container.mousedown($.proxy(this.onMousedown_, this));
 
     if (pskl.utils.UserAgent.isChrome || pskl.utils.UserAgent.isIE11) {
       this.container.on('mousewheel', $.proxy(this.onMousewheel_, this));
@@ -83,12 +82,14 @@
       this.container.on('wheel', $.proxy(this.onMousewheel_, this));
     }
 
+    window.addEventListener('mousedown', this.onMousedown_.bind(this));
     window.addEventListener('mouseup', this.onMouseup_.bind(this));
     window.addEventListener('mousemove', this.onMousemove_.bind(this));
     window.addEventListener('keyup', this.onKeyup_.bind(this));
-    window.addEventListener('touchstart', this.onMousedown_.bind(this));
-    window.addEventListener('touchmove' , this.onMousemove_.bind(this));
+    window.addEventListener('touchstart', this.onTouchstart_.bind(this));
+    window.addEventListener('touchmove' , this.onTouchmove_.bind(this));
     window.addEventListener('touchend', this.onMouseup_.bind(this));
+
     // Deactivate right click:
     body.contextmenu(this.onCanvasContextMenu_);
 
@@ -141,17 +142,14 @@
    */
   ns.DrawingController.prototype.onMousedown_ = function (event) {
     $.publish(Events.MOUSE_EVENT, [event, this]);
-    var frame = this.piskelController.getCurrentFrame();
-    var coords = this.getSpriteCoordinates(event.clientX, event.clientY);
-    if (event.changedTouches && event.changedTouches[0]) {
-      coords = this.getSpriteCoordinates(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
-    }
 
     this.isClicked = true;
 
     if (event.button === Constants.MIDDLE_BUTTON) {
       this.dragHandler.startDrag(event.clientX, event.clientY);
     } else {
+      var coords = this.getSpriteCoordinates(event.clientX, event.clientY);
+      var frame = this.piskelController.getCurrentFrame();
       this.currentToolBehavior.hideHighlightedPixel(this.overlayFrame);
       $.publish(Events.TOOL_PRESSED);
       this.currentToolBehavior.applyToolAt(
@@ -164,16 +162,27 @@
     }
   };
 
+  ns.DrawingController.prototype.translateTouchEvent_ = function (event) {
+    event.clientX = event.changedTouches[0].clientX;
+    event.clientY = event.changedTouches[0].clientY;
+    return event;
+  };
+
+  ns.DrawingController.prototype.onTouchstart_ = function (event) {
+    this.onMousedown_(this.translateTouchEvent_(event));
+    event.preventDefault();
+  };
+
+  ns.DrawingController.prototype.onTouchmove_ = function (event) {
+    this.onMousemove_(this.translateTouchEvent_(event));
+  };
+
   /**
    * @private
    */
   ns.DrawingController.prototype.onMousemove_ = function (event) {
     this._clientX = event.clientX;
     this._clientY = event.clientY;
-    if (event.changedTouches && event.changedTouches[0]) {
-      this._clientX = event.changedTouches[0].clientX;
-      this._clientY = event.changedTouches[0].clientY;
-    }
 
     var currentTime = new Date().getTime();
     // Throttling of the mousemove event:
