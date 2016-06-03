@@ -1,119 +1,149 @@
 (function () {
   var ns = $.namespace('pskl.controller.settings.exportimage');
 
-  var URL_MAX_LENGTH = 60;
+  var dimensionInfoPattern = '{{width}} x {{height}} px, {{frames}}<br/>{{rows}}, {{columns}}.';
 
-  ns.PngExportController = function (piskelController) {
+  // Shortcut to pskl.utils.Template.replace
+  var replace = pskl.utils.Template.replace;
+
+  // Helper to return "X items" or "1 item" if X is 1.
+  var pluralize = function (word, count) {
+    if (count === 1) {
+      return '1 ' + word;
+    }
+    return count + ' ' + word + 's';
+  };
+
+  // Compute the nearest power of two for the provided number.
+  var getNearestPowerOfTwo = function (number) {
+    return Math.pow(2, Math.ceil(Math.log(number) / Math.log(2)));
+  };
+
+  ns.PngExportController = function (piskelController, exportController) {
     this.piskelController = piskelController;
+    this.exportController = exportController;
+    this.onScaleChanged_ = this.onScaleChanged_.bind(this);
   };
 
   pskl.utils.inherit(ns.PngExportController, pskl.controller.settings.AbstractSettingController);
 
   ns.PngExportController.prototype.init = function () {
-    this.pngFilePrefixInput = document.querySelector('.zip-prefix-name');
-    this.pngFilePrefixInput.value = 'sprite_';
-
-    this.splitByLayersCheckbox =  document.querySelector('.zip-split-layers-checkbox');
-
+    this.layoutContainer = document.querySelector('.png-export-layout-section');
+    this.dimensionInfo = document.querySelector('.png-export-dimension-info');
+    this.columnsInput = document.querySelector('#png-export-columns');
+    this.powerTwo = document.querySelector('#png-export-power-two');
     var downloadButton = document.querySelector('.png-download-button');
-    this.addEventListener(downloadButton, 'click', this.onPngDownloadButtonClick_);
 
-    var zipButton = document.querySelector('.zip-generate-button');
-    this.addEventListener(zipButton, 'click', this.onZipButtonClick_);
+    this.initLayoutSection_();
+    this.updateDimensionLabel_();
+
+    this.addEventListener(downloadButton, 'click', this.onDownloadClick_);
+    this.addEventListener(this.columnsInput, 'input', this.onColumnsChanged_);
+    this.addEventListener(this.powerTwo, 'change', this.onPowerTwoChanged_);
+    $.subscribe(Events.EXPORT_SCALE_CHANGED, this.onScaleChanged_);
   };
 
-  ns.PngExportController.prototype.onPngDownloadButtonClick_ = function (evt) {
-    var fileName = this.getPiskelName_() + '.png';
+  ns.PngExportController.prototype.destroy = function () {
+    $.unsubscribe(Events.EXPORT_SCALE_CHANGED, this.onScaleChanged_);
+    this.superclass.destroy.call(this);
+  };
 
-    var outputCanvas = this.getFramesheetAsCanvas();
+  /**
+   * Initalize all controls related to the spritesheet layout.
+   */
+  ns.PngExportController.prototype.initLayoutSection_ = function () {
+    var frames = this.piskelController.getFrameCount();
+    if (frames === 1) {
+      // Hide the layout section if only one frame is defined.
+      this.layoutContainer.style.display = 'none';
+    } else {
+      this.columnsInput.value = this.getBestFit_();
+      this.powerTwo.checked = pskl.UserSettings.get('EXPORT_PNG_POWER_TWO');
+    }
+  };
 
-    var scalingFactor = pskl.UserSettings.get(pskl.UserSettings.EXPORT_SCALING);
-    if (scalingFactor > 1) {
-      var width = outputCanvas.width * scalingFactor;
-      var height = outputCanvas.height * scalingFactor;
-      outputCanvas = pskl.utils.ImageResizer.resize(outputCanvas, width, height, false);
+  ns.PngExportController.prototype.updateDimensionLabel_ = function () {
+    var zoom = this.exportController.getExportZoom();
+    var frames = this.piskelController.getFrameCount();
+    var width = this.piskelController.getWidth() * zoom;
+    var height = this.piskelController.getHeight() * zoom;
+
+    var columns = this.getColumns_();
+    var rows = Math.ceil(frames / columns);
+    width = columns * width;
+    height = rows * height;
+
+    if (this.isPowerTwoEnabled_()) {
+      width = getNearestPowerOfTwo(width);
+      height = getNearestPowerOfTwo(height);
+    }
+
+    this.dimensionInfo.innerHTML = replace(dimensionInfoPattern, {
+      width: width,
+      height: height,
+      rows: pluralize('row', rows),
+      columns: pluralize('column', columns),
+      frames: pluralize('frame', frames),
+    });
+  };
+
+  ns.PngExportController.prototype.getColumns_ = function () {
+    return parseInt(this.columnsInput.value || 1, 10);
+  };
+
+  ns.PngExportController.prototype.getBestFit_ = function () {
+    var ratio = this.piskelController.getWidth() / this.piskelController.getHeight();
+    var frameCount = this.piskelController.getFrameCount();
+    var bestFit = Math.round(Math.sqrt(frameCount / ratio));
+
+    return Math.max(1, Math.min(bestFit, frameCount));
+  };
+
+  ns.PngExportController.prototype.isPowerTwoEnabled_ = function () {
+    return pskl.UserSettings.get('EXPORT_PNG_POWER_TWO');
+  };
+
+  ns.PngExportController.prototype.onScaleChanged_ = function () {
+    this.updateDimensionLabel_();
+  };
+
+  ns.PngExportController.prototype.onColumnsChanged_ = function () {
+    if (this.getColumns_() > this.piskelController.getFrameCount()) {
+      this.columnsInput.value = this.piskelController.getFrameCount();
+    } else if (this.getColumns_() < 1) {
+      this.columnsInput.value = 1;
+    }
+    this.updateDimensionLabel_();
+  };
+
+  ns.PngExportController.prototype.onPowerTwoChanged_ = function () {
+    pskl.UserSettings.set('EXPORT_PNG_POWER_TWO', this.powerTwo.checked);
+    this.updateDimensionLabel_();
+  };
+
+  ns.PngExportController.prototype.onDownloadClick_ = function (evt) {
+    var name = this.piskelController.getPiskel().getDescriptor().name;
+    var fileName = name + '.png';
+
+    var renderer = new pskl.rendering.PiskelRenderer(this.piskelController);
+    var outputCanvas = renderer.renderAsCanvas(this.getColumns_());
+    var width = outputCanvas.width;
+    var height = outputCanvas.height;
+
+    var zoom = this.exportController.getExportZoom();
+    if (zoom != 1) {
+      outputCanvas = pskl.utils.ImageResizer.resize(outputCanvas, width * zoom, height * zoom, false);
+    }
+
+    if (this.isPowerTwoEnabled_()) {
+      var paddingCanvas = pskl.utils.CanvasUtils.createCanvas(
+        getNearestPowerOfTwo(width * zoom), getNearestPowerOfTwo(height * zoom));
+      paddingCanvas.getContext('2d').drawImage(outputCanvas, 0, 0);
+      outputCanvas = paddingCanvas;
     }
 
     pskl.utils.BlobUtils.canvasToBlob(outputCanvas, function(blob) {
       pskl.utils.FileUtils.downloadAsFile(blob, fileName);
     });
-  };
-
-  ns.PngExportController.prototype.onZipButtonClick_ = function () {
-    var zip = new window.JSZip();
-
-    if (this.splitByLayersCheckbox.checked) {
-      this.splittedExport_(zip);
-    } else {
-      this.mergedExport_(zip);
-    }
-
-    var fileName = this.getPiskelName_() + '.zip';
-
-    var blob = zip.generate({
-      type : 'blob'
-    });
-
-    pskl.utils.FileUtils.downloadAsFile(blob, fileName);
-  };
-
-  ns.PngExportController.prototype.mergedExport_ = function (zip) {
-    var paddingLength = ('' + this.piskelController.getFrameCount()).length;
-    for (var i = 0; i < this.piskelController.getFrameCount(); i++) {
-      var render = this.piskelController.renderFrameAt(i, true);
-      var canvas = pskl.utils.CanvasUtils.createFromImage(render);
-      var basename = this.pngFilePrefixInput.value;
-      var id = pskl.utils.StringUtils.leftPad(i, paddingLength, '0');
-      var filename = basename + id + '.png';
-      zip.file(filename, pskl.utils.CanvasUtils.getBase64FromCanvas(canvas) + '\n', {base64: true});
-    }
-  };
-
-  ns.PngExportController.prototype.splittedExport_ = function (zip) {
-    var layers = this.piskelController.getLayers();
-    var framePaddingLength = ('' + this.piskelController.getFrameCount()).length;
-    var layerPaddingLength = ('' + layers.length).length;
-    for (var j = 0; this.piskelController.hasLayerAt(j); j++) {
-      var layer = this.piskelController.getLayerAt(j);
-      var layerid = pskl.utils.StringUtils.leftPad(j, layerPaddingLength, '0');
-      for (var i = 0; i < this.piskelController.getFrameCount(); i++) {
-        var render = pskl.utils.LayerUtils.renderFrameAt(layer, i, true);
-        var canvas = pskl.utils.CanvasUtils.createFromImage(render);
-        var basename = this.pngFilePrefixInput.value;
-        var frameid = pskl.utils.StringUtils.leftPad(i + 1, framePaddingLength, '0');
-        var filename = 'l' + layerid + '_' + basename + frameid + '.png';
-        zip.file(filename, pskl.utils.CanvasUtils.getBase64FromCanvas(canvas) + '\n', {base64: true});
-      }
-    }
-  };
-
-  ns.PngExportController.prototype.getPiskelName_ = function () {
-    return this.piskelController.getPiskel().getDescriptor().name;
-  };
-
-  ns.PngExportController.prototype.getFramesheetAsCanvas = function () {
-    var renderer = new pskl.rendering.PiskelRenderer(this.piskelController);
-    return renderer.renderAsCanvas();
-  };
-
-  ns.PngExportController.prototype.updateStatus_ = function (imageUrl, error) {
-    if (imageUrl) {
-      var linkTpl = '<a class="image-link" href="{{link}}" target="_blank">{{shortLink}}</a>';
-      var linkHtml = pskl.utils.Template.replace(linkTpl, {
-        link : imageUrl,
-        shortLink : this.shorten_(imageUrl, URL_MAX_LENGTH, '...')
-      });
-      this.uploadStatusContainerEl.innerHTML = 'Your image is now available at : ' + linkHtml;
-    } else {
-      // FIXME : Should display error message instead
-    }
-  };
-
-  ns.PngExportController.prototype.shorten_ = function (url, maxLength, suffix) {
-    if (url.length > maxLength) {
-      url = url.substring(0, maxLength);
-      url += suffix;
-    }
-    return url;
   };
 })();
