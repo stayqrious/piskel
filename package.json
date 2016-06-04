@@ -1,13 +1,13 @@
 {
   "name": "@code-dot-org/piskel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Code.org fork of juliandescottes/piskel for use within the Code Studio learning environment.",
   "author": "Julian Descottes",
   "contributors": [
     "Vincent Renaudin",
     "Brad Buchanan <brad@code.org>"
   ],
-  "license" : "Apache-2.0",
+  "license": "Apache-2.0",
   "homepage": "http://github.com/code-dot-org/piskel",
   "repository": {
     "type": "git",
