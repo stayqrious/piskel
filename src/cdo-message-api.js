@@ -6,12 +6,12 @@
    * @param event
    */
   function receiveMessage(event) {
-    // Should validate origin and not receive commands if embedded on another
-    // domain.
-    // TODO (bbuchanan): Safer cross-domain check.
+    // Ignore messages not sent from the same origin - embedded Piskel should be
+    // loaded on the same domain as its parent frame.
     var origin = event.origin || event.originalEvent.origin; // For Chrome, the origin property is in the event.originalEvent object.
-    if (!/studio\.code\.org/i.test(origin))
+    if (origin !== location.origin) {
       return;
+    }
 
     var message = event.data;
     if (message.type === 'LOAD_IMAGE') {
