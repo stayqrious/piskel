@@ -111,17 +111,17 @@ module.exports = function(grunt) {
         trailing : true,
         curly : true,
         globals: {
-          '$': true,
-          'jQuery': true,
-          'pskl': true,
-          'Events': true,
-          'Constants': true,
-          'ExportedConstants': true,
-          'console': true,
-          'module': true,
-          'exports': true,
-          'require': true,
-          'Q': true
+          $: true,
+          jQuery: true,
+          pskl: true,
+          Events: true,
+          Constants: true,
+          ExportedConstants: true,
+          console: true,
+          module: true,
+          exports: true,
+          require: true,
+          Q: true
         }
       },
       files: [

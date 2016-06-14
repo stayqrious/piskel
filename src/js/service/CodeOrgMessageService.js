@@ -1,14 +1,14 @@
 /* Code.org-specific service for managing communication with the outer page
  * when used as an embedded app in an iframe. */
 (function () {
-  var ns = $.namespace('pskl.service');
   var MessageType = ExportedConstants.MessageType;
 
   /**
    * @param {!ImportService} importService
    * @constructor
    */
-  ns.CodeOrgMessageService = function (importService) {
+  var CodeOrgMessageService = $.namespace('pskl.service').CodeOrgMessageService =
+      function (importService) {
     /**
      * The import service we'll rely on to load animations when they are
      * selected in the outer UI.
@@ -26,12 +26,12 @@
   /**
    * Initialize message service.  Causes service to start listening for messages
    * on window.
-   * @param {!Window} window
+   * @param {!Window} listenerContext
    */
-  ns.CodeOrgMessageService.prototype.init = function (window) {
+  CodeOrgMessageService.prototype.init = function (listenerContext) {
     // We only accept messages sent from the origin hosting Piskel.
-    this.allowedOrigin_ = window.location.origin;
-    window.addEventListener('message', this.receiveMessage_.bind(this));
+    this.allowedOrigin_ = listenerContext.location.origin;
+    listenerContext.addEventListener('message', this.receiveMessage_.bind(this));
   };
 
   /**
@@ -39,7 +39,7 @@
    * @param {Event} event
    * @private
    */
-  ns.CodeOrgMessageService.prototype.receiveMessage_ = function (event) {
+  CodeOrgMessageService.prototype.receiveMessage_ = function (event) {
     // Ignore messages not sent from the allowed origin
     var origin = event.origin || event.originalEvent.origin;
     if (origin !== this.allowedOrigin_) {
@@ -47,13 +47,12 @@
     }
 
     var message = event.data;
-    // TODO: supply an exported LOAD_IMAGE constant.
     if (message.type === MessageType.LOAD_ANIMATION) {
       this.loadAnimation(message.animation);
     }
   };
 
-  ns.CodeOrgMessageService.prototype.loadAnimation = function (animation) {
+  CodeOrgMessageService.prototype.loadAnimation = function (animation) {
     var image = new Image();
     image.onload = function () {
       // Avoid retriggering image onload (something about JsGif?)

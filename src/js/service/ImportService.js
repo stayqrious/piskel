@@ -1,19 +1,15 @@
 /* Image and Animation import service supporting the import dialogs,
  * file dropper service, and headless import API. */
 (function () {
-  var ns = $.namespace('pskl.service');
-
   /**
    * @param {!PiskelController} piskelController
    * @param {!PreviewController} previewController
    * @constructor
    */
-  ns.ImportService = function (piskelController, previewController) {
+  var ImportService = $.namespace('pskl.service').ImportService =
+      function (piskelController, previewController) {
     this.piskelController_ = piskelController;
     this.previewController_ = previewController;
-  };
-
-  ns.ImportService.prototype.init = function () {
   };
 
   /**
@@ -27,7 +23,7 @@
    * @param {!boolean} options.smoothing
    * @param {function} [onComplete]
    */
-  ns.ImportService.prototype.newPiskelFromImage = function (image, options, onComplete) {
+  ImportService.prototype.newPiskelFromImage = function (image, options, onComplete) {
     onComplete = onComplete || function () {};
     var importType = options.importType;
     var frameSizeX = options.frameSizeX;
@@ -37,11 +33,11 @@
     var smoothing = options.smoothing;
 
     var gifLoader = new window.SuperGif({
-      gif : image
+      gif: image
     });
 
     gifLoader.load({
-      success : function () {
+      success: function () {
         var images = gifLoader.getFrames().map(function (frame) {
           return pskl.utils.CanvasUtils.createFromImageData(frame.data);
         });
@@ -79,7 +75,7 @@
    * @returns {canvas[]}
    * @private
    */
-  ns.ImportService.prototype.createImagesFromSheet_ = function (image,
+  ImportService.prototype.createImagesFromSheet_ = function (image,
       frameSizeX, frameSizeY, frameOffsetX, frameOffsetY) {
     return pskl.utils.CanvasUtils.createFramesFromImage(
         image,
@@ -98,7 +94,7 @@
    * @param {!boolean} smoothing
    * @private
    */
-  ns.ImportService.prototype.createPiskelFromImages_ = function (images,
+  ImportService.prototype.createPiskelFromImages_ = function (images,
       frameSizeX, frameSizeY, smoothing) {
     var frames = this.createFramesFromImages_(images, frameSizeX, frameSizeY, smoothing);
     var layer = pskl.model.Layer.fromFrames('Layer 1', frames);
@@ -117,7 +113,7 @@
    * @returns {pskl.model.Frame[]}
    * @private
    */
-  ns.ImportService.prototype.createFramesFromImages_ = function (images, frameSizeX, frameSizeY, smoothing) {
+  ImportService.prototype.createFramesFromImages_ = function (images, frameSizeX, frameSizeY, smoothing) {
     return images.map(function (image) {
       var resizedImage = pskl.utils.ImageResizer.resize(image, frameSizeX, frameSizeY, smoothing);
       return pskl.utils.FrameUtils.createFromImage(resizedImage);
