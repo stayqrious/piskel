@@ -10,6 +10,7 @@
   // Application wide configuration
   "js/Constants.js",
   "js/Events.js",
+  "js/ExportedConstants.js",
 
   // Libraries
   "js/utils/core.js",

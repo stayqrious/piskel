@@ -2,6 +2,7 @@
  * when used as an embedded app in an iframe. */
 (function () {
   var ns = $.namespace('pskl.service');
+  var MessageType = ExportedConstants.MessageType;
 
   /**
    * @param {!ImportService} importService
@@ -47,7 +48,7 @@
 
     var message = event.data;
     // TODO: supply an exported LOAD_IMAGE constant.
-    if (message.type === 'LOAD_IMAGE') {
+    if (message.type === MessageType.LOAD_ANIMATION) {
       this.loadAnimation(message.animation);
     }
   };
