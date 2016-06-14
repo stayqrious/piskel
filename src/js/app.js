@@ -124,6 +124,8 @@
       this.storageService = new pskl.service.storage.StorageService(this.piskelController);
       this.storageService.init();
 
+      this.importService = new pskl.service.ImportService(this.piskelController, this.previewController);
+
       this.imageUploadService = new pskl.service.ImageUploadService();
       this.imageUploadService.init();
 
@@ -149,6 +151,10 @@
         this.piskelController,
         document.querySelector('#drawing-canvas-container'));
       this.fileDropperService.init();
+
+      // Code.org-specific service that can receive messages from the outer page.
+      this.codeOrgMessageService = new pskl.service.CodeOrgMessageService(this.importService);
+      this.codeOrgMessageService.init(window);
 
       var drawingLoop = new pskl.rendering.DrawingLoop();
       drawingLoop.addCallback(this.render, this);

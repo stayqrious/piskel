@@ -10,6 +10,7 @@
   // Application wide configuration
   "js/Constants.js",
   "js/Events.js",
+  "js/ExportedConstants.js",
 
   // Libraries
   "js/utils/core.js",
@@ -169,6 +170,7 @@
   "js/service/keyboard/Shortcut.js",
   "js/service/keyboard/Shortcuts.js",
   "js/service/keyboard/ShortcutService.js",
+  "js/service/ImportService.js",
   "js/service/ImageUploadService.js",
   "js/service/CurrentColorsService.js",
   "js/service/FileDropperService.js",
@@ -177,6 +179,8 @@
   "js/service/storage/LocalStorageService.js",
   "js/service/storage/GalleryStorageService.js",
   "js/service/storage/DesktopStorageService.js",
+  // Code.org-specific services
+  "js/service/CodeOrgMessageService.js",
 
   // Tools
   "js/tools/ToolsHelper.js",
