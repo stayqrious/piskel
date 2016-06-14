@@ -34,6 +34,7 @@
     var frameSizeY = options.frameSizeY;
     var frameOffsetX = options.frameOffsetX;
     var frameOffsetY = options.frameOffsetY;
+    var smoothing = options.smoothing;
 
     var gifLoader = new window.SuperGif({
       gif : image
@@ -47,22 +48,22 @@
 
         if (importType === 'single' || images.length > 1) {
           // Single image import or animated gif
-          this.createPiskelFromImages_(images, frameSizeX, frameSizeY, options.smoothing);
+          this.createPiskelFromImages_(images, frameSizeX, frameSizeY, smoothing);
         } else {
           // Spritesheet
           var frameImages = this.createImagesFromSheet_(images[0]);
-          this.createPiskelFromImages_(frameImages, frameSizeX, frameSizeY, options.smoothing);
+          this.createPiskelFromImages_(frameImages, frameSizeX, frameSizeY, smoothing);
         }
         onComplete();
       }.bind(this),
       error: function () {
         if (importType === 'single') {
           // Single image
-          this.createPiskelFromImages_([image], frameSizeX, frameSizeY, options.smoothing);
+          this.createPiskelFromImages_([image], frameSizeX, frameSizeY, smoothing);
         } else {
           // Spritesheet
           var frameImages = this.createImagesFromSheet_(image, frameSizeX, frameSizeY, frameOffsetX, frameOffsetY);
-          this.createPiskelFromImages_(frameImages, frameSizeX, frameSizeY, options.smoothing);
+          this.createPiskelFromImages_(frameImages, frameSizeX, frameSizeY, smoothing);
         }
         onComplete();
       }.bind(this)

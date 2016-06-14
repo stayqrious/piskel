@@ -178,6 +178,8 @@
   "js/service/storage/LocalStorageService.js",
   "js/service/storage/GalleryStorageService.js",
   "js/service/storage/DesktopStorageService.js",
+  // Code.org-specific services
+  "js/service/CodeOrgMessageService.js",
 
   // Tools
   "js/tools/ToolsHelper.js",
