@@ -79,7 +79,8 @@
    * @returns {canvas[]}
    * @private
    */
-  ns.ImportService.prototype.createImagesFromSheet_ = function (image, frameSizeX, frameSizeY, frameOffsetX, frameOffsetY) {
+  ns.ImportService.prototype.createImagesFromSheet_ = function (image,
+      frameSizeX, frameSizeY, frameOffsetX, frameOffsetY) {
     return pskl.utils.CanvasUtils.createFramesFromImage(
         image,
         frameOffsetX,
@@ -97,7 +98,8 @@
    * @param {!boolean} smoothing
    * @private
    */
-  ns.ImportService.prototype.createPiskelFromImages_ = function (images, frameSizeX, frameSizeY, smoothing) {
+  ns.ImportService.prototype.createPiskelFromImages_ = function (images,
+      frameSizeX, frameSizeY, smoothing) {
     var frames = this.createFramesFromImages_(images, frameSizeX, frameSizeY, smoothing);
     var layer = pskl.model.Layer.fromFrames('Layer 1', frames);
     var descriptor = new pskl.model.piskel.Descriptor('Imported piskel', '');
