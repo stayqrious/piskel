@@ -2,7 +2,7 @@
   "name": "@code-dot-org/piskel",
   "version": "0.2.0",
   "description": "Code.org fork of juliandescottes/piskel for use within the Code Studio learning environment.",
-  "author": "Julian Descottes",
+  "author": "Julian Descottes <julian.descottes@gmail.com>",
   "contributors": [
     "Vincent Renaudin",
     "Brad Buchanan <brad@code.org>"
