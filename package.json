@@ -15,13 +15,13 @@
   },
   "files": [
     "dest/prod",
-    "src/js/ExportedConstants.js",
+    "src/js/PiskelApi.js",
     "misc/scripts/piskel-root"
   ],
   "bin": {
     "piskel-root": "./misc/scripts/piskel-root"
   },
-  "main": "./src/js/ExportedConstants.js",
+  "main": "./src/js/PiskelApi.js",
   "scripts": {
     "test": "grunt test",
     "start": "nodewebkit",

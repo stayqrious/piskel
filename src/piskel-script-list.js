@@ -10,7 +10,7 @@
   // Application wide configuration
   "js/Constants.js",
   "js/Events.js",
-  "js/ExportedConstants.js",
+  "js/PiskelApi.js",
 
   // Libraries
   "js/utils/core.js",
@@ -179,8 +179,7 @@
   "js/service/storage/LocalStorageService.js",
   "js/service/storage/GalleryStorageService.js",
   "js/service/storage/DesktopStorageService.js",
-  // Code.org-specific services
-  "js/service/CodeOrgMessageService.js",
+  "js/service/PiskelApiService.js",
 
   // Tools
   "js/tools/ToolsHelper.js",
