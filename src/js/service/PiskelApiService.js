@@ -62,7 +62,7 @@
   };
 
   // Debug logging utility - should remove at some point.
-  var VERBOSE = true;
+  var VERBOSE = false;
   ns.PiskelApiService.prototype.log = function () {
     if (VERBOSE) {
       var toLog = ['PiskelApiService:'];
