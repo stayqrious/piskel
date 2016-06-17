@@ -1,20 +1,19 @@
-/* Code.org-specific service for managing communication with the outer page
- * when used as an embedded app in an iframe. */
+/* @file Service for managing communication with an external application
+ * when Piskel is embedded in an iframe. */
 (function () {
+  var ns = $.namespace('pskl.service');
   var MessageType = PiskelApi.MessageType;
 
-  // TODO: Rename to EmbeddedPiskelService
-
   /**
-   * This Code.org-specific service manages communication with the document
-   * outside of Piskel's iframe and with the Code.org animations API.  For
-   * messages to work, the outer document must be hosted on the same origin as
-   * Piskel.
+   * Service for managing communication with an external application when
+   * Piskel is embedded in an iframe. Receives from and sends to the PiskelApi
+   * class; see PiskelApi.js for more information.
+   *
    * @param {!PiskelController} piskelController
    * @param {!ImportService} importService
    * @constructor
    */
-  var CodeOrgMessageService = $.namespace('pskl.service').CodeOrgMessageService = function (
+  ns.PiskelApiService = function (
       piskelController, importService) {
     /**
      * The import service
@@ -46,17 +45,17 @@
   /**
    * Initialize message service.  Causes service to start listening for messages
    * on window.
-   * @param {!Window} listenerContext
+   * @param {!Window} piskelWindow
    */
-  CodeOrgMessageService.prototype.init = function (listenerContext) {
-    this.parentWindow_ = listenerContext.parent;
+  ns.PiskelApiService.prototype.init = function (piskelWindow) {
+    this.parentWindow_ = piskelWindow.parent;
 
     // We only accept messages sent from the origin hosting Piskel.
-    this.allowedOrigin_ = listenerContext.location.origin;
-    listenerContext.addEventListener('message', this.receiveMessage_.bind(this));
+    this.allowedOrigin_ = piskelWindow.location.origin;
+    piskelWindow.addEventListener('message', this.receiveMessage_.bind(this));
 
-    // Implementing auto-save: On a save state event, try uploading spritesheet
-    // to S3.
+    // For implementing auto-save: On a save state event, we should notify
+    // the parent app that the animation has changed.
     $.subscribe(Events.PISKEL_SAVE_STATE, this.onSaveStateEvent.bind(this));
 
     this.log('Initialized.');
@@ -64,9 +63,9 @@
 
   // Debug logging utility - should remove at some point.
   var VERBOSE = true;
-  CodeOrgMessageService.prototype.log = function () {
+  ns.PiskelApiService.prototype.log = function () {
     if (VERBOSE) {
-      var toLog = ['CodeOrgMessageService:'];
+      var toLog = ['PiskelApiService:'];
       for (var i = 0; i < arguments.length; i++) {
         toLog.push(arguments[i]);
       }
@@ -79,7 +78,7 @@
    * @param {Object} message
    * @private
    */
-  CodeOrgMessageService.prototype.sendMessage_ = function (message) {
+  ns.PiskelApiService.prototype.sendMessage_ = function (message) {
     this.parentWindow_.postMessage(message, this.allowedOrigin_);
   };
 
@@ -88,7 +87,7 @@
    * @param {Event} event
    * @private
    */
-  CodeOrgMessageService.prototype.receiveMessage_ = function (event) {
+  ns.PiskelApiService.prototype.receiveMessage_ = function (event) {
     // Ignore messages not sent from the allowed origin
     var origin = event.origin || event.originalEvent.origin;
     if (origin !== this.allowedOrigin_) {
@@ -97,17 +96,18 @@
 
     var message = event.data;
     this.log('Received message:', message);
+
+    // Delegate according to message type
     if (message.type === MessageType.LOAD_SPRITESHEET) {
-      this.loadAnimation(message.uri, message.frameSizeX, message.frameSizeY);
+      this.loadSpritesheet(message.uri, message.frameSizeX, message.frameSizeY);
     }
   };
 
-  CodeOrgMessageService.prototype.loadAnimation = function (uri, frameSizeX, frameSizeY) {
+  ns.PiskelApiService.prototype.loadSpritesheet = function (uri, frameSizeX, frameSizeY) {
     var image = new Image();
     image.onload = function () {
       // Avoid retriggering image onload (something about JsGif?)
       image.onload = function () {};
-      this.lastSaveTime_ = Date.now(); // Don't autosave right after load.
       this.importService_.newPiskelFromImage(image, {
         importType: 'spritesheet',
         frameSizeX: frameSizeX,
@@ -122,8 +122,7 @@
     image.src = uri;
   };
 
-  var SAVE_INTERVAL_MS = 5000;
-  CodeOrgMessageService.prototype.onSaveStateEvent = function (evt, action) {
+  ns.PiskelApiService.prototype.onSaveStateEvent = function (evt, action) {
     this.log('onSaveStateEvent');
     var renderer = new pskl.rendering.PiskelRenderer(this.piskelController_);
     var outputCanvas = renderer.renderAsCanvas(this.getBestFit_());
@@ -139,7 +138,7 @@
    * @returns {!number} the ideal number of columns for a generated spritesheet.
    * @private
    */
-  CodeOrgMessageService.prototype.getBestFit_ = function () {
+  ns.PiskelApiService.prototype.getBestFit_ = function () {
     var ratio = this.piskelController_.getWidth() / this.piskelController_.getHeight();
     var frameCount = this.piskelController_.getFrameCount();
     var bestFit = Math.round(Math.sqrt(frameCount / ratio));
