@@ -117,6 +117,7 @@
         smoothing: false
       }, function () {
         this.log('Image loaded.');
+        // TODO: Report load complete out to parent app?
       }.bind(this));
     }.bind(this);
     image.src = uri;
@@ -124,14 +125,22 @@
 
   ns.PiskelApiService.prototype.onSaveStateEvent = function (evt, action) {
     this.log('onSaveStateEvent');
+    // Render spritesheet and return blob, dataURI and metadata to parent app.
     var renderer = new pskl.rendering.PiskelRenderer(this.piskelController_);
     var outputCanvas = renderer.renderAsCanvas(this.getBestFit_());
-    this.sendMessage_({
-      type: MessageType.STATE_SAVED,
-      base64: outputCanvas.toDataURL('image/png')
-      // Or do we want to export a blob here, ready to upload?  Probably that.
-      // It's easier to convert blob->dataurl than the other way around.
-    });
+    var dataURI = outputCanvas.toDataURL();
+    pskl.utils.BlobUtils.dataToBlob(dataURI, 'image/png', function (blob) {
+      this.sendMessage_({
+        type: MessageType.STATE_SAVED,
+        blob: blob,
+        dataURI: dataURI,
+        sourceSizeX: outputCanvas.width,
+        sourceSizeY: outputCanvas.height,
+        frameSizeX: this.piskelController_.getWidth(),
+        frameSizeY: this.piskelController_.getHeight(),
+        frameCount: this.piskelController_.getFrameCount()
+      });
+    }.bind(this));
   };
 
   /**
