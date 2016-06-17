@@ -10,7 +10,7 @@
   // Application wide configuration
   "js/Constants.js",
   "js/Events.js",
-  "js/ExportedConstants.js",
+  "js/PiskelApi.js",
 
   // Libraries
   "js/utils/core.js",

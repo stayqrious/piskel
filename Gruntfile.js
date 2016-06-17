@@ -116,10 +116,9 @@ module.exports = function(grunt) {
           pskl: true,
           Events: true,
           Constants: true,
-          ExportedConstants: true,
+          PiskelApi: true,
           console: true,
           module: true,
-          exports: true,
           require: true,
           Q: true
         }
