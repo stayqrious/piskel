@@ -116,7 +116,7 @@
     var image = new Image();
     image.onload = function () {
       // Avoid retriggering image onload (something about JsGif?)
-      image.onload = function () {};
+      image.onload = Constants.EMPTY_FUNCTION;
       this.importService_.newPiskelFromImage(image, {
         importType: 'spritesheet',
         frameSizeX: frameSizeX,
@@ -127,7 +127,8 @@
         frameRate: frameRate
       }, function () {
         this.log('Image loaded.');
-        // TODO: Report load complete out to parent app?
+        // Report async load completed.
+        this.sendMessage_({type: MessageType.SPRITESHEET_LOADED});
       }.bind(this));
     }.bind(this);
     image.src = uri;

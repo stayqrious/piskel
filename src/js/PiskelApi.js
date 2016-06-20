@@ -26,6 +26,7 @@ var PiskelApi = (function (module) {
 
     // Subscribe to messages from Piskel.
     window.addEventListener('message', this.receiveMessage_.bind(this));
+    // TODO: Have ability to tear down this API.
   }
 
   /** @enum {string} Message type constants for Piskel internal use. */
@@ -33,6 +34,10 @@ var PiskelApi = (function (module) {
     // Load a spritesheet for editing
     // Arguments: uri, frameSizeX, frameSizeY
     LOAD_SPRITESHEET: 'LOAD_SPRITESHEET',
+
+    // Requested spritesheet load has completed
+    // Arguments: none
+    SPRITESHEET_LOADED: 'SPRITESHEET_LOADED',
 
     // The animation changed, and Piskel has internally saved its state.
     // Arguments: ???
@@ -51,9 +56,20 @@ var PiskelApi = (function (module) {
    * @param {number} frameSizeY - Height of a frame within the spritesheet, in
    *        pixels.
    * @param {number} [frameRate] - Animation rate in frames per second.
+   * @param {function} [onComplete] - Called when the spritesheet is loaded.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs
    */
-  PiskelApi.prototype.loadSpritesheet = function (uri, frameSizeX, frameSizeY, frameRate) {
+  PiskelApi.prototype.loadSpritesheet = function (uri, frameSizeX, frameSizeY, frameRate, onComplete) {
+    onComplete = typeof onComplete === 'function' ? onComplete : Constants.EMPTY_FUNCTION;
+
+    // Hook up the one-time onComplete callback.
+    var callback = function () {
+      this.removeCallback_(PiskelApi.MessageType.SPRITESHEET_LOADED, callback);
+      onComplete();
+    }.bind(this);
+    this.addCallback_(PiskelApi.MessageType.SPRITESHEET_LOADED, callback);
+
+    // Send the load message to Piskel.
     this.sendMessage_({
       type: PiskelApi.MessageType.LOAD_SPRITESHEET,
       uri: uri,
@@ -110,6 +126,21 @@ var PiskelApi = (function (module) {
    */
   PiskelApi.prototype.addCallback_ = function (type, callback) {
     this.getCallbacksForType_(type).push(callback);
+  };
+
+  /**
+   * Remove one registered instance of the exact given callback for the given
+   * type.  Silent no-op if callback is not found.
+   * @param {string} type
+   * @param {function} callback
+   * @private
+   */
+  PiskelApi.prototype.removeCallback_ = function (type, callback) {
+    var callbacks = this.getCallbacksForType_(type);
+    var index = callbacks.indexOf(callback);
+    if (index >= 0) {
+      callbacks.splice(index, 1);
+    }
   };
 
   /**
