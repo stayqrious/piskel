@@ -11,23 +11,39 @@ var PiskelApi = (function (module) {
    *
    * @example
    *   var PiskelApi = require('piskel');
-   *   var piskelApi = new PiskelApi(document.querySelector('iframe'));
+   *   var piskelApi = new PiskelApi();
+   *   piskelApi.attachToPiskel(document.querySelector('iframe'));
    *   piskelApi.loadSpritesheet(myImage, 256, 128);
-   *
-   * @param {iframe} iframe hosting an embedded Piskel editor
    * @constructor
    */
   function PiskelApi(iframe) {
     /** @private {iframe} */
-    this.iframe_ = iframe;
+    this.iframe_ = null;
 
     /** @private {Object.<string, function[]>} */
     this.callbacks_ = {};
 
-    // Subscribe to messages from Piskel.
-    window.addEventListener('message', this.receiveMessage_.bind(this));
-    // TODO: Have ability to tear down this API.
+    /** @private {function} Bound so we can subscribe/unsubscribe it later. */
+    this.boundReceiveMessage_ = this.receiveMessage_.bind(this);
   }
+
+  /**
+   * Connect to Piskel in an iframe and start listening for messages from it.
+   * @param {iframe} iframe hosting an embedded Piskel editor
+   * @constructor
+   */
+  PiskelApi.prototype.attachToPiskel = function (iframe) {
+    this.iframe_ = iframe;
+    window.addEventListener('message', this.boundReceiveMessage_);
+  };
+
+  /**
+   * Stop listening for messages and remove our reference to the Piskel frame.
+   */
+  PiskelApi.prototype.detachFromPiskel = function () {
+    window.removeEventListener('message', this.boundReceiveMessage_);
+    this.iframe_ = null;
+  };
 
   /** @enum {string} Message type constants for Piskel internal use. */
   PiskelApi.MessageType = {
@@ -94,6 +110,9 @@ var PiskelApi = (function (module) {
    * @private
    */
   PiskelApi.prototype.sendMessage_ = function (message) {
+    if (!this.iframe_) {
+      throw new Error('Unable to communicate with Piskel; call attachToPiskel first.');
+    }
     this.iframe_.contentWindow.postMessage(message, window.location.origin);
   };
 
