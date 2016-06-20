@@ -50,15 +50,16 @@ var PiskelApi = (function (module) {
    *        pixels.
    * @param {number} frameSizeY - Height of a frame within the spritesheet, in
    *        pixels.
+   * @param {number} [frameRate] - Animation rate in frames per second.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs
    */
-  PiskelApi.prototype.loadSpritesheet = function (uri, frameSizeX, frameSizeY) {
-    // TODO: Do we need to store the key here too, or can something else manage that?
+  PiskelApi.prototype.loadSpritesheet = function (uri, frameSizeX, frameSizeY, frameRate) {
     this.sendMessage_({
       type: PiskelApi.MessageType.LOAD_SPRITESHEET,
       uri: uri,
       frameSizeX: frameSizeX,
-      frameSizeY: frameSizeY
+      frameSizeY: frameSizeY,
+      frameRate: frameRate
     });
   };
 
