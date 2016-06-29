@@ -24,6 +24,7 @@
    * @param {number} [options.frameOffsetX] only used in spritesheet imports.
    * @param {number} [options.frameOffsetY] only used in spritesheet imports.
    * @param {!boolean} options.smoothing
+   * @param {number} [options.frameRate] in frames per second
    * @param {function} [onComplete]
    */
   ns.ImportService.prototype.newPiskelFromImage = function (image, options, onComplete) {
@@ -34,6 +35,15 @@
     var frameOffsetX = options.frameOffsetX;
     var frameOffsetY = options.frameOffsetY;
     var smoothing = options.smoothing;
+    var frameRate = typeof options.frameRate !== 'undefined' ?
+        options.frameRate : Constants.DEFAULT.FPS;
+
+    var setPiskelFromFrameImages = function (frameImages) {
+      var piskel = this.createPiskelFromImages_(frameImages, frameSizeX,
+          frameSizeY, smoothing);
+      this.piskelController_.setPiskel(piskel);
+      this.previewController_.setFPS(frameRate);
+    }.bind(this);
 
     var gifLoader = new window.SuperGif({
       gif: image
@@ -47,22 +57,22 @@
 
         if (importType === 'single' || images.length > 1) {
           // Single image import or animated gif
-          this.createPiskelFromImages_(images, frameSizeX, frameSizeY, smoothing);
+          setPiskelFromFrameImages(images);
         } else {
           // Spritesheet
-          var frameImages = this.createImagesFromSheet_(images[0]);
-          this.createPiskelFromImages_(frameImages, frameSizeX, frameSizeY, smoothing);
+          var frameImages = this.createImagesFromSheet_(images[0], frameSizeX, frameSizeY, frameOffsetX, frameOffsetY);
+          setPiskelFromFrameImages(frameImages);
         }
         onComplete();
       }.bind(this),
       error: function () {
         if (importType === 'single') {
           // Single image
-          this.createPiskelFromImages_([image], frameSizeX, frameSizeY, smoothing);
+          setPiskelFromFrameImages([image]);
         } else {
           // Spritesheet
           var frameImages = this.createImagesFromSheet_(image, frameSizeX, frameSizeY, frameOffsetX, frameOffsetY);
-          this.createPiskelFromImages_(frameImages, frameSizeX, frameSizeY, smoothing);
+          setPiskelFromFrameImages(frameImages);
         }
         onComplete();
       }.bind(this)
@@ -95,6 +105,7 @@
    * @param {!number} frameSizeX
    * @param {!number} frameSizeY
    * @param {!boolean} smoothing
+   * @return {pskl.model.Piskel}
    * @private
    */
   ns.ImportService.prototype.createPiskelFromImages_ = function (images,
@@ -102,10 +113,7 @@
     var frames = this.createFramesFromImages_(images, frameSizeX, frameSizeY, smoothing);
     var layer = pskl.model.Layer.fromFrames('Layer 1', frames);
     var descriptor = new pskl.model.piskel.Descriptor('Imported piskel', '');
-    var piskel = pskl.model.Piskel.fromLayers([layer], descriptor);
-
-    this.piskelController_.setPiskel(piskel);
-    this.previewController_.setFPS(Constants.DEFAULT.FPS);
+    return pskl.model.Piskel.fromLayers([layer], descriptor);
   };
 
   /**

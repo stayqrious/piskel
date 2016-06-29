@@ -11,28 +11,53 @@ var PiskelApi = (function (module) {
    *
    * @example
    *   var PiskelApi = require('piskel');
-   *   var piskelApi = new PiskelApi(document.querySelector('iframe'));
+   *   var piskelApi = new PiskelApi();
+   *   piskelApi.attachToPiskel(document.querySelector('iframe'));
    *   piskelApi.loadSpritesheet(myImage, 256, 128);
-   *
-   * @param {iframe} iframe hosting an embedded Piskel editor
    * @constructor
    */
-  function PiskelApi(iframe) {
+  function PiskelApi() {
     /** @private {iframe} */
-    this.iframe_ = iframe;
+    this.iframe_ = null;
 
     /** @private {Object.<string, function[]>} */
     this.callbacks_ = {};
 
-    // Subscribe to messages from Piskel.
-    window.addEventListener('message', this.receiveMessage_.bind(this));
+    /** @private {function} Bound so we can subscribe/unsubscribe it later. */
+    this.boundReceiveMessage_ = this.receiveMessage_.bind(this);
   }
+
+  /**
+   * Connect to Piskel in an iframe and start listening for messages from it.
+   * @param {iframe} iframe hosting an embedded Piskel editor
+   * @constructor
+   */
+  PiskelApi.prototype.attachToPiskel = function (iframe) {
+    this.iframe_ = iframe;
+    window.addEventListener('message', this.boundReceiveMessage_);
+  };
+
+  /**
+   * Stop listening for messages and remove our reference to the Piskel frame.
+   */
+  PiskelApi.prototype.detachFromPiskel = function () {
+    window.removeEventListener('message', this.boundReceiveMessage_);
+    this.iframe_ = null;
+  };
 
   /** @enum {string} Message type constants for Piskel internal use. */
   PiskelApi.MessageType = {
+    // Piskel is initialized and ready for API commmands.
+    // Arguments: none
+    PISKEL_API_READY: 'PISKEL_API_READY',
+
     // Load a spritesheet for editing
     // Arguments: uri, frameSizeX, frameSizeY
     LOAD_SPRITESHEET: 'LOAD_SPRITESHEET',
+
+    // Requested spritesheet load has completed
+    // Arguments: none
+    SPRITESHEET_LOADED: 'SPRITESHEET_LOADED',
 
     // The animation changed, and Piskel has internally saved its state.
     // Arguments: ???
@@ -50,22 +75,43 @@ var PiskelApi = (function (module) {
    *        pixels.
    * @param {number} frameSizeY - Height of a frame within the spritesheet, in
    *        pixels.
+   * @param {number} [frameRate] - Animation rate in frames per second.
+   * @param {function} [onComplete] - Called when the spritesheet is loaded.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs
    */
-  PiskelApi.prototype.loadSpritesheet = function (uri, frameSizeX, frameSizeY) {
-    // TODO: Do we need to store the key here too, or can something else manage that?
+  PiskelApi.prototype.loadSpritesheet = function (uri, frameSizeX, frameSizeY, frameRate, onComplete) {
+    onComplete = typeof onComplete === 'function' ? onComplete : Constants.EMPTY_FUNCTION;
+
+    // Hook up the one-time onComplete callback.
+    var callback = function () {
+      this.removeCallback_(PiskelApi.MessageType.SPRITESHEET_LOADED, callback);
+      onComplete();
+    }.bind(this);
+    this.addCallback_(PiskelApi.MessageType.SPRITESHEET_LOADED, callback);
+
+    // Send the load message to Piskel.
     this.sendMessage_({
       type: PiskelApi.MessageType.LOAD_SPRITESHEET,
       uri: uri,
       frameSizeX: frameSizeX,
-      frameSizeY: frameSizeY
+      frameSizeY: frameSizeY,
+      frameRate: frameRate
     });
+  };
+
+  /**
+   * Register a callback that will be called when Piskel is initialized and ready
+   * for API messages.
+   * @param {function} callback
+   */
+  PiskelApi.prototype.onPiskelReady = function (callback) {
+    this.addCallback_(PiskelApi.MessageType.PISKEL_API_READY, callback);
   };
 
   /**
    * Register a callback that will be called whenever Piskel issues a
    * save event.
-   * @param callback
+   * @param {function} callback
    */
   PiskelApi.prototype.onStateSaved = function (callback) {
     this.addCallback_(PiskelApi.MessageType.STATE_SAVED, callback);
@@ -77,6 +123,9 @@ var PiskelApi = (function (module) {
    * @private
    */
   PiskelApi.prototype.sendMessage_ = function (message) {
+    if (!this.iframe_) {
+      throw new Error('Unable to communicate with Piskel; call attachToPiskel first.');
+    }
     this.iframe_.contentWindow.postMessage(message, window.location.origin);
   };
 
@@ -109,6 +158,21 @@ var PiskelApi = (function (module) {
    */
   PiskelApi.prototype.addCallback_ = function (type, callback) {
     this.getCallbacksForType_(type).push(callback);
+  };
+
+  /**
+   * Remove one registered instance of the exact given callback for the given
+   * type.  Silent no-op if callback is not found.
+   * @param {string} type
+   * @param {function} callback
+   * @private
+   */
+  PiskelApi.prototype.removeCallback_ = function (type, callback) {
+    var callbacks = this.getCallbacksForType_(type);
+    var index = callbacks.indexOf(callback);
+    if (index >= 0) {
+      callbacks.splice(index, 1);
+    }
   };
 
   /**

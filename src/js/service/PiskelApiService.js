@@ -57,6 +57,10 @@
     // For implementing auto-save: On a save state event, we should notify
     // the parent app that the animation has changed.
     $.subscribe(Events.PISKEL_SAVE_STATE, this.onSaveStateEvent.bind(this));
+    $.subscribe(Events.FPS_CHANGED, this.onSaveStateEvent.bind(this));
+
+    // Notify any attached API that piskel is ready to use.
+    this.sendMessage_({type: MessageType.PISKEL_API_READY});
 
     this.log('Initialized.');
   };
@@ -99,25 +103,35 @@
 
     // Delegate according to message type
     if (message.type === MessageType.LOAD_SPRITESHEET) {
-      this.loadSpritesheet(message.uri, message.frameSizeX, message.frameSizeY);
+      this.loadSpritesheet(message.uri, message.frameSizeX, message.frameSizeY,
+          message.frameRate);
     }
   };
 
-  ns.PiskelApiService.prototype.loadSpritesheet = function (uri, frameSizeX, frameSizeY) {
+  /**
+   * @param {!string} uri
+   * @param {!number} frameSizeX
+   * @param {!number} frameSizeY
+   * @param {number} [frameRate]
+   */
+  ns.PiskelApiService.prototype.loadSpritesheet = function (uri, frameSizeX,
+      frameSizeY, frameRate) {
     var image = new Image();
     image.onload = function () {
       // Avoid retriggering image onload (something about JsGif?)
-      image.onload = function () {};
+      image.onload = Constants.EMPTY_FUNCTION;
       this.importService_.newPiskelFromImage(image, {
         importType: 'spritesheet',
         frameSizeX: frameSizeX,
         frameSizeY: frameSizeY,
         frameOffsetX: 0,
         frameOffsetY: 0,
-        smoothing: false
+        smoothing: false,
+        frameRate: frameRate
       }, function () {
         this.log('Image loaded.');
-        // TODO: Report load complete out to parent app?
+        // Report async load completed.
+        this.sendMessage_({type: MessageType.SPRITESHEET_LOADED});
       }.bind(this));
     }.bind(this);
     image.src = uri;
@@ -138,7 +152,8 @@
         sourceSizeY: outputCanvas.height,
         frameSizeX: this.piskelController_.getWidth(),
         frameSizeY: this.piskelController_.getHeight(),
-        frameCount: this.piskelController_.getFrameCount()
+        frameCount: this.piskelController_.getFrameCount(),
+        frameRate: this.piskelController_.getFPS()
       });
     }.bind(this));
   };
