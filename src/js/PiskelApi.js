@@ -16,7 +16,7 @@ var PiskelApi = (function (module) {
    *   piskelApi.loadSpritesheet(myImage, 256, 128);
    * @constructor
    */
-  function PiskelApi(iframe) {
+  function PiskelApi() {
     /** @private {iframe} */
     this.iframe_ = null;
 
@@ -47,6 +47,10 @@ var PiskelApi = (function (module) {
 
   /** @enum {string} Message type constants for Piskel internal use. */
   PiskelApi.MessageType = {
+    // Piskel is initialized and ready for API commmands.
+    // Arguments: none
+    PISKEL_API_READY: 'PISKEL_API_READY',
+
     // Load a spritesheet for editing
     // Arguments: uri, frameSizeX, frameSizeY
     LOAD_SPRITESHEET: 'LOAD_SPRITESHEET',
@@ -96,9 +100,18 @@ var PiskelApi = (function (module) {
   };
 
   /**
+   * Register a callback that will be called when Piskel is initialized and ready
+   * for API messages.
+   * @param {function} callback
+   */
+  PiskelApi.prototype.onPiskelReady = function (callback) {
+    this.addCallback_(PiskelApi.MessageType.PISKEL_API_READY, callback);
+  };
+
+  /**
    * Register a callback that will be called whenever Piskel issues a
    * save event.
-   * @param callback
+   * @param {function} callback
    */
   PiskelApi.prototype.onStateSaved = function (callback) {
     this.addCallback_(PiskelApi.MessageType.STATE_SAVED, callback);
