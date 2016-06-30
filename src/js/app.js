@@ -155,7 +155,7 @@
       // Service that can interact with a parent application via the PiskelApi
       // class. See PiskelApi.js for more information.
       this.piskelApiService = new pskl.service.PiskelApiService(
-          this.piskelController, this.importService);
+          this.piskelController, this.previewController, this.importService);
       this.piskelApiService.init(window);
 
       var drawingLoop = new pskl.rendering.DrawingLoop();
