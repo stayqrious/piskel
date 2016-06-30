@@ -118,6 +118,11 @@
     }
   };
 
+  /**
+   * @param {!number} frameSizeX
+   * @param {!number} frameSizeY
+   * @param {number} frameRate
+   */
   ns.PiskelApiService.prototype.createNewPiskel = function (frameSizeX,
       frameSizeY, frameRate) {
     frameRate = typeof frameRate !== 'undefined' ? frameRate : Constants.DEFAULT.FPS;
