@@ -51,17 +51,46 @@ var PiskelApi = (function (module) {
     // Arguments: none
     PISKEL_API_READY: 'PISKEL_API_READY',
 
+    // Create a new animation and ready it for editing
+    // Arguments: frameSizeX, frameSizeY, frameRate
+    NEW_PISKEL: 'NEW_PISKEL',
+
     // Load a spritesheet for editing
-    // Arguments: uri, frameSizeX, frameSizeY
+    // Arguments: uri, frameSizeX, frameSizeY, frameRate
     LOAD_SPRITESHEET: 'LOAD_SPRITESHEET',
 
     // Requested spritesheet load has completed
     // Arguments: none
-    SPRITESHEET_LOADED: 'SPRITESHEET_LOADED',
+    ANIMATION_LOADED: 'ANIMATION_LOADED',
 
     // The animation changed, and Piskel has internally saved its state.
     // Arguments: ???
     STATE_SAVED: 'STATE_SAVED'
+  };
+
+  /**
+   * Tell Piskel to create a new, single-frame, single-layer animation with the
+   * given dimensions and framerate, and open it for editing.
+   * @param {number} frameSizeX - Width of new animation, in pixels.
+   * @param {number} frameSizeY - Height of new animation, in pixels.
+   * @param {number} [frameRate] - Animation rate in frames per second.
+   * @param {function} [onComplete] - Called when new animation is ready for editing.
+   */
+  PiskelApi.prototype.createNewPiskel = function (frameSizeX, frameSizeY, frameRate, onComplete) {
+    onComplete = typeof onComplete === 'function' ? onComplete : Constants.EMPTY_FUNCTION;
+
+    // Hook up the one-time onComplete callback.
+    var callback = function () {
+      this.removeCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
+      onComplete();
+    }.bind(this);
+    this.addCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
+    this.sendMessage_({
+      type: PiskelApi.MessageType.NEW_PISKEL,
+      frameSizeX: frameSizeX,
+      frameSizeY: frameSizeY,
+      frameRate: frameRate
+    });
   };
 
   /**
@@ -84,10 +113,10 @@ var PiskelApi = (function (module) {
 
     // Hook up the one-time onComplete callback.
     var callback = function () {
-      this.removeCallback_(PiskelApi.MessageType.SPRITESHEET_LOADED, callback);
+      this.removeCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
       onComplete();
     }.bind(this);
-    this.addCallback_(PiskelApi.MessageType.SPRITESHEET_LOADED, callback);
+    this.addCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
 
     // Send the load message to Piskel.
     this.sendMessage_({

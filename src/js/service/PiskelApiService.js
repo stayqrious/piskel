@@ -10,16 +10,24 @@
    * class; see PiskelApi.js for more information.
    *
    * @param {!PiskelController} piskelController
+   * @param {!PreviewController} previewController
    * @param {!ImportService} importService
    * @constructor
    */
   ns.PiskelApiService = function (
-      piskelController, importService) {
+      piskelController, previewController, importService) {
     /**
-     * The import service
+     * The main animation document controller.
      * @private {!PiskelController}
      */
     this.piskelController_ = piskelController;
+
+    /**
+     * The animation preview controller, used to get/set the current FPS for
+     * the animation.
+     * @private {!PreviewController}
+     */
+    this.previewController_ = previewController;
 
     /**
      * The import service we'll rely on to load animations when they are
@@ -102,10 +110,35 @@
     this.log('Received message:', message);
 
     // Delegate according to message type
-    if (message.type === MessageType.LOAD_SPRITESHEET) {
+    if (message.type === MessageType.NEW_PISKEL) {
+      this.createNewPiskel(message.frameSizeX, message.frameSizeY, message.frameRate);
+    } else if (message.type === MessageType.LOAD_SPRITESHEET) {
       this.loadSpritesheet(message.uri, message.frameSizeX, message.frameSizeY,
           message.frameRate);
     }
+  };
+
+  /**
+   * @param {!number} frameSizeX
+   * @param {!number} frameSizeY
+   * @param {number} frameRate
+   */
+  ns.PiskelApiService.prototype.createNewPiskel = function (frameSizeX,
+      frameSizeY, frameRate) {
+    frameRate = typeof frameRate !== 'undefined' ? frameRate : Constants.DEFAULT.FPS;
+
+    // Generate a new blank Piskel (document)
+    var descriptor = new pskl.model.piskel.Descriptor('New Piskel', '');
+    var newPiskel = new pskl.model.Piskel(frameSizeX, frameSizeY, descriptor);
+    var layer = new pskl.model.Layer('Layer 1');
+    var frame = new pskl.model.Frame(frameSizeX, frameSizeY);
+    layer.addFrame(frame);
+    newPiskel.addLayer(layer);
+
+    // Load the new blank document
+    this.piskelController_.setPiskel(newPiskel);
+    this.previewController_.setFPS(frameRate);
+    this.sendMessage_({type: MessageType.ANIMATION_LOADED});
   };
 
   /**
@@ -131,7 +164,7 @@
       }, function () {
         this.log('Image loaded.');
         // Report async load completed.
-        this.sendMessage_({type: MessageType.SPRITESHEET_LOADED});
+        this.sendMessage_({type: MessageType.ANIMATION_LOADED});
       }.bind(this));
     }.bind(this);
     image.src = uri;
