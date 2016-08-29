@@ -5,7 +5,8 @@
   "author": "Julian Descottes <julian.descottes@gmail.com>",
   "contributors": [
     "Vincent Renaudin",
-    "Brad Buchanan <brad@code.org>"
+    "Brad Buchanan <brad@code.org>",
+    "Caley Brock <caley@code.org>"
   ],
   "license": "Apache-2.0",
   "homepage": "http://github.com/code-dot-org/piskel",
