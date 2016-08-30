@@ -1,0 +1,22 @@
+.layers-list-container,
+.icon-settings-export-white,
+.palettes-list-container,
+.cheatsheet-link,
+.canvas-container-wrapper,
+.display-fps,
+.range-fps,
+.icon-tool-clone,
+.icon-settings-open-folder-white,
+.fake-piskelapp-header,
+.icon-settings-save-white,
+.icon-settings-gear-white {
+  visibility: hidden;
+  min-height: 0px;
+  height: 0px;
+  width: 0px;
+  margin: 0px;
+}
+
+body {
+  background-color: #7665a0;
+}
