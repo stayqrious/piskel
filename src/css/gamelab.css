@@ -1,3 +1,4 @@
+/* Features to hide on GameLab Animation tab */
 .layers-list-container,
 .icon-settings-export-white,
 .palettes-list-container,
@@ -9,7 +10,9 @@
 .icon-settings-open-folder-white,
 .fake-piskelapp-header,
 .icon-settings-save-white,
-.icon-settings-gear-white {
+.icon-settings-gear-white,
+.settings-default-size,
+.default-size-title {
   visibility: hidden;
   min-height: 0px;
   height: 0px;
@@ -18,5 +21,247 @@
 }
 
 body {
+  background-color: #cfc9de;
+}
+
+#main-wrapper{
+  top: 0;
+  bottom: 0;
+}
+
+#application-action-section {
+  /*background-color: #a69bc1;*/
+}
+
+/* Frame column */
+.left-column {
+  padding: 10px;
+  background-color: #a69bc1;
+  margin-right: 0px;
+  max-width: 120px;
+}
+
+.add-frame-action {
+  background-color: #a69bc1;
+  color: #7665a0;
+  border-color: #7665a0;
+}
+
+.column-wrapper {
+  left: 120px;
+}
+
+/* Onion */
+#animated-preview-container {
+  background-color: #cfc9de;
+  border: 3px solid #7665a0;
+}
+
+/* Drawing tools */
+.left-sticky-section.sticky-section {
+  max-width: 120px;
+}
+
+.tool-icon {
+  background-color: #cfc9de;
+  border: 3px solid #7665a0;
+}
+
+.tool-icon.selected {
   background-color: #7665a0;
+}
+
+.tool-icon:hover {
+  background-color: #a69bc1;
+}
+
+#tool-section {
+  padding-top: 10px;
+}
+
+.sp-replacer {
+  background-color: #cfc9de;
+}
+
+/* Transform tools */
+.toolbox-title {
+  color: #7665a0;
+  background-color: #cfc9de;
+}
+
+.toolbox-container {
+  border-color: #7665a0;
+}
+
+.tool-icon.icon-tool-clone {
+  border: none;
+}
+
+.tools-wrapper {
+  padding: 5px;
+}
+
+/* Orignal Piskel highlight color is white.
+   Here's all the places we should set it to our color. */
+
+.local-piskel-list-head {
+  color: white;
+}
+
+.create-palette-color:hover {
+  border:1px solid white;
+}
+
+.colors-list-drop-proxy {
+}
+
+.create-palette-new-color {
+  border:2px dotted white;
+  color: white;
+}
+
+.create-palette-color.selected {
+  border:2px solid white;
+}
+
+.import-image-file-name {
+  color: white;
+}
+
+#dialog-container {
+  border : 3px solid white;
+}
+
+.dialog-head {
+  background: white;
+}
+
+.button:hover {
+  color: white;
+}
+
+.button-primary {
+  background-color: rgb(255, 153, 0); /* white */
+  color-border: rgb(255, 153, 0);
+}
+
+.button-primary:hover {
+  background-color: rgb(255, 153, 20);
+}
+
+.add-frame-action:hover {
+  border-color: white;
+}
+
+.preview-tile.selected {
+  border-color: white;
+}
+
+.preview-tile.selected:after {
+  border-left-color: white;
+}
+
+.preview-tile-drop-proxy {
+  border: 3px dashed white;
+}
+
+.progress-bar-container {
+  border: white 2px solid;
+}
+
+.progress-bar {
+  background : linear-gradient(to left, white, white) no-repeat -300px 0;
+}
+
+.pen-size-option.selected:before {
+  background-color: white;
+}
+
+.pen-size-option.selected {
+  border-color: white;
+}
+
+a, a:visited {
+  color:white;
+}
+
+.background-picker.selected {
+  border-color: white;
+}
+
+.resize-origin-option.selected {
+  border : 3px solid white;
+}
+
+.resize-origin-option.selected:before {
+  background: white;
+}
+
+.resize-origin-option[data-neighbor="bottom"]:before {
+  border-top-color: white;
+}
+
+.resize-origin-option[data-neighbor="left"]:before {
+  border-right-color: white;
+}
+
+.resize-origin-option[data-neighbor="top"]:before {
+  border-bottom-color: white;
+}
+
+.resize-origin-option[data-neighbor="right"]:before {
+  border-left-color: white;
+}
+
+.right-sticky-section .tool-icon.has-expanded-drawer {
+  border-left : 3px solid white;
+}
+
+.settings-title {
+  color: white;
+}
+
+.sp-palette .sp-thumb-el.sp-thumb-active {
+  border-color: white;
+  box-shadow: 0 0 0px 1px white;
+}
+
+.image-link {
+  color : white;
+}
+
+.tooltip-shortcut {
+  color:white;
+}
+
+.preview-toggle-onion-skin-enabled,
+.preview-toggle-onion-skin-enabled:hover {
+  color : white;
+}
+
+.original-size-button-enabled {
+  color: white;
+  border-color: white;
+}
+
+.open-popup-preview-button:hover {
+  border-color: white;
+}
+
+.layers-toggle-preview-enabled,
+.layers-toggle-preview-enabled:hover {
+  color : white;
+}
+
+.current-layer-item,
+.current-layer-item:hover {
+  color: white;
+}
+
+.palettes-list-color:nth-child(-n+10):after {
+  color: white;
+}
+
+.tool-icon.selected:before {
+  border: 3px solid white;
 }
