@@ -9,8 +9,6 @@ module.exports = function(grunt) {
     TEST : 9991
   };
 
-  var DEV_MODE = '?debug';
-
   // create a version based on the build timestamp
   var dateFormat = require('dateformat');
   var version = '-' + dateFormat(new Date(), "yyyy-mm-dd-hh-MM");
@@ -34,26 +32,8 @@ module.exports = function(grunt) {
   var stylePaths = require('./src/piskel-style-list.js').styles;
   var piskelStyles = prefixPaths(stylePaths, "src/");
 
-  var getCasperConfig = function (suiteName, delay, host) {
-    var testPaths = require('./test/casperjs/' + suiteName).tests;
-    var tests = prefixPaths(testPaths, "test/casperjs/");
-
-    return {
-      filesSrc : tests,
-      options : {
-        args : {
-          baseUrl : 'http://' + host + ':' + PORT.TEST,
-          mode : DEV_MODE,
-          delay : delay
-        },
-        async : false,
-        direct : false,
-        logLevel : 'info',
-        printCommand : false,
-        printFilePaths : true
-      }
-    };
-  };
+  var casperTestPaths = require('./test/casperjs/TestSuite.js').tests;
+  var casperTests = prefixPaths(casperTestPaths, "test/casperjs/");
 
   var getConnectConfig = function (base, port, host) {
     if (typeof base === 'string') {
@@ -146,7 +126,7 @@ module.exports = function(grunt) {
         path : 'http://' + hostname + ':' + PORT.PROD + '/'
       },
       dev : {
-        path : 'http://' + hostname + ':' + PORT.DEV + '/' + DEV_MODE
+        path : 'http://' + hostname + ':' + PORT.DEV + '/?debug'
       }
     },
 
@@ -174,7 +154,9 @@ module.exports = function(grunt) {
     sprite:{
       all : {
         src: 'src/img/icons/**/*.png',
+        retinaSrcFilter: 'src/img/icons/**/*@2x.png',
         dest: 'src/img/icons.png',
+        retinaDest: 'src/img/icons@2x.png',
         destCss: 'src/css/icons.css'
       }
     },
@@ -239,6 +221,20 @@ module.exports = function(grunt) {
           // src/index.html should already have been moved by the includereplace task
           {src: ['dest/tmp/index.html'], dest: 'dest/prod/piskelapp-partials/main-partial.html'}
         ]
+      },
+      // remove the fake header from the desktop build
+      desktop: {
+        options: {
+          patterns: [{
+              match: /<!--standalone-start-->(?:.|[\r\n])*<!--standalone-end-->/,
+              replacement: "",
+              description : "Remove everything between standalone-start & standalone-end"
+            }
+          ]
+        },
+        files: [
+          {src: ['dest/prod/index.html'], dest: 'dest/prod/index.html'}
+        ]
       }
     },
 
@@ -277,9 +273,20 @@ module.exports = function(grunt) {
       }
     },
 
-    ghost : {
-      'travis' : getCasperConfig('TravisTestSuite.js', 10000, hostname),
-      'local' : getCasperConfig('LocalTestSuite.js', 50, hostname)
+    casperjs : {
+      files : {
+        src: casperTests
+      },
+      options : {
+        casperjsOptions: [
+          '--baseUrl=http://' + hostname + ':' + PORT.TEST,
+          '--mode=?debug',
+          '--verbose=false',
+          '--log-level=info',
+          '--print-command=false',
+          '--print-file-paths=true',
+        ]
+      },
     },
 
     /**
@@ -289,7 +296,7 @@ module.exports = function(grunt) {
     nwjs: {
       windows : {
         options: {
-          version : "0.12.3",
+          version : "0.15.4",
           build_dir: './dest/desktop/', // destination folder of releases.
           win: true,
           linux32: true,
@@ -300,7 +307,7 @@ module.exports = function(grunt) {
       macos : {
         options: {
           osx64: true,
-          version : "0.12.3",
+          version : "0.15.4",
           build_dir: './dest/desktop/'
         },
         src: ['./dest/prod/**/*', "./package.json", "!./dest/desktop/"]
@@ -308,38 +315,39 @@ module.exports = function(grunt) {
     }
   });
 
-  // Validate
+  // TEST TASKS
+  // Run linting
   grunt.registerTask('lint', ['jscs:js', 'leadingIndent:css', 'jshint']);
-
-  // karma/unit-tests task
+  // Run unit-tests
   grunt.registerTask('unit-test', ['karma']);
+  // Run linting, unit tests and drawing tests
+  grunt.registerTask('test', ['lint', 'unit-test', 'build-dev', 'connect:test', 'casperjs']);
 
-  // Validate & Test
-  grunt.registerTask('test-travis', ['lint', 'unit-test', 'build-dev', 'connect:test', 'ghost:travis']);
-  // Validate & Test (faster version) will NOT work on travis !!
-  grunt.registerTask('test-local', ['lint', 'unit-test', 'build-dev', 'connect:test', 'ghost:local']);
-  grunt.registerTask('test-local-nolint', ['unit-test', 'build-dev', 'connect:test', 'ghost:local']);
+  // Run the tests, even if the linting fails
+  grunt.registerTask('test-nolint', ['unit-test', 'build-dev', 'connect:test', 'casperjs']);
+  // Used by optional precommit hook
+  grunt.registerTask('precommit', ['test']);
 
-  grunt.registerTask('test', ['test-travis']);
-  grunt.registerTask('precommit', ['test-local']);
-
+  // BUILD TASKS
   grunt.registerTask('build-index.html', ['includereplace']);
   grunt.registerTask('merge-statics', ['concat:js', 'concat:css', 'uglify']);
-  grunt.registerTask('build',  ['clean:prod', 'sprite', 'merge-statics', 'build-index.html', 'replace', 'copy:prod']);
+  grunt.registerTask('build',  ['clean:prod', 'sprite', 'merge-statics', 'build-index.html', 'replace:mainPartial', 'copy:prod']);
   grunt.registerTask('build-dev',  ['clean:dev', 'sprite', 'build-index.html', 'copy:dev']);
+  grunt.registerTask('desktop', ['clean:desktop', 'default', 'replace:desktop', 'nwjs:windows']);
+  grunt.registerTask('desktop-mac', ['clean:desktop', 'default', 'replace:desktop', 'nwjs:macos']);
 
-  // Validate & Build
-  grunt.registerTask('default', ['lint', 'build']);
-
-  // Build stand alone app with nodewebkit
-  grunt.registerTask('desktop', ['clean:desktop', 'default', 'nwjs:windows']);
-  grunt.registerTask('desktop-mac', ['clean:desktop', 'default', 'nwjs:macos']);
-
+  // SERVER TASKS
   // Start webserver and watch for changes
   grunt.registerTask('serve', ['build', 'connect:prod', 'open:prod', 'watch:prod']);
   // Start webserver on src folder, in debug mode
-  grunt.registerTask('serve-dev', ['build-dev', 'connect:dev', 'open:dev', 'watch:dev']);
+  grunt.registerTask('play', ['build-dev', 'connect:dev', 'open:dev', 'watch:dev']);
 
-  grunt.registerTask('serve-debug', ['serve-dev']);
-  grunt.registerTask('play', ['serve-dev']);
+  // ALIASES, kept for backward compatibility
+  grunt.registerTask('serve-debug', ['play']);
+  grunt.registerTask('serve-dev', ['play']);
+  grunt.registerTask('test-travis', ['test']);
+  grunt.registerTask('test-local', ['test']);
+
+  // Default task
+  grunt.registerTask('default', ['lint', 'build']);
 };
