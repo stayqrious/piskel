@@ -64,8 +64,8 @@
 
     var shortcuts = pskl.service.keyboard.Shortcuts;
     pskl.app.shortcutService.registerShortcut(shortcuts.MISC.RESET_ZOOM, this.resetZoom_.bind(this));
-    pskl.app.shortcutService.registerShortcut(shortcuts.MISC.INCREASE_ZOOM, this.increaseZoom_.bind(this, 1));
-    pskl.app.shortcutService.registerShortcut(shortcuts.MISC.DECREASE_ZOOM, this.decreaseZoom_.bind(this, 1));
+    pskl.app.shortcutService.registerShortcut(shortcuts.MISC.INCREASE_ZOOM, this.updateZoom_.bind(this, 1));
+    pskl.app.shortcutService.registerShortcut(shortcuts.MISC.DECREASE_ZOOM, this.updateZoom_.bind(this, -1));
 
     window.setTimeout(function () {
       this.afterWindowResize_();
@@ -86,9 +86,10 @@
     window.addEventListener('mouseup', this.onMouseup_.bind(this));
     window.addEventListener('mousemove', this.onMousemove_.bind(this));
     window.addEventListener('keyup', this.onKeyup_.bind(this));
-    window.addEventListener('touchstart', this.onMousedown_.bind(this));
-    window.addEventListener('touchmove' , this.onMousemove_.bind(this));
-    window.addEventListener('touchend', this.onMouseup_.bind(this));
+    window.addEventListener('touchstart', this.onTouchstart_.bind(this));
+    window.addEventListener('touchmove' , this.onTouchmove_.bind(this));
+    window.addEventListener('touchend', this.onTouchend_.bind(this));
+
     // Deactivate right click:
     body.contextmenu(this.onCanvasContextMenu_);
 
@@ -134,6 +135,19 @@
     this.compositeRenderer.setZoom(this.calculateZoom_());
     this.compositeRenderer.setOffset(0, 0);
     $.publish(Events.ZOOM_CHANGED);
+  };
+
+  ns.DrawingController.prototype.onTouchstart_ = function (event) {
+    this.onMousedown_(event);
+  };
+
+  ns.DrawingController.prototype.onTouchmove_ = function (event) {
+    this.onMousemove_(event);
+    event.preventDefault();
+  };
+
+  ns.DrawingController.prototype.onTouchend_ = function (event) {
+    this.onMouseup_(event);
   };
 
   /**
@@ -231,7 +245,7 @@
     } else if (pskl.utils.UserAgent.isFirefox) {
       delta = -40 * evt.deltaY;
     }
-    var modifier = Math.abs(delta / 120);
+    var modifier = (delta / 120);
 
     if (pskl.utils.UserAgent.isMac ? evt.metaKey : evt.ctrlKey) {
       modifier = modifier * 5;
@@ -239,21 +253,41 @@
       evt.preventDefault();
     }
 
-    if (delta > 0) {
-      this.increaseZoom_(modifier);
-    } else if (delta < 0) {
-      this.decreaseZoom_(modifier);
+    var coords = this.getSpriteCoordinates(evt.clientX, evt.clientY);
+    this.updateZoom_(modifier, coords);
+  };
+
+  /**
+   * Update the current zoom level by a given multiplier.
+   *
+   * @param {Number} zoomMultiplier: factor by which the zoom should be modified. Negative
+   *        values will decrease the zoom, positive values will increase it.
+   * @param {Object} centerCoords, optional:
+   *        - {Number} x: x coordinate of the desired center the zoomed canvas
+   *        - {Number} y: y coordinate of the desired center the zoomed canvas
+   */
+  ns.DrawingController.prototype.updateZoom_ = function (zoomMultiplier, centerCoords) {
+    if (zoomMultiplier === 0) {
+      return;
     }
-  };
 
-  ns.DrawingController.prototype.increaseZoom_ = function (zoomMultiplier) {
-    var step = (zoomMultiplier || 1) * this.getZoomStep_();
+    var off = this.getOffset();
+    var oldWidth = this.getContainerWidth_() / this.renderer.getZoom();
+    var oldHeight = this.getContainerHeight_() / this.renderer.getZoom();
+
+    var step = zoomMultiplier * this.getZoomStep_();
     this.setZoom_(this.renderer.getZoom() + step);
-  };
 
-  ns.DrawingController.prototype.decreaseZoom_ = function (zoomMultiplier) {
-    var step = (zoomMultiplier || 1) * this.getZoomStep_();
-    this.setZoom_(this.renderer.getZoom() - step);
+    if (typeof centerCoords === 'object') {
+      var xRatio = (centerCoords.x - off.x) / oldWidth;
+      var yRatio = (centerCoords.y - off.y) / oldHeight;
+      var newWidth = this.getContainerWidth_() / this.renderer.getZoom();
+      var newHeight = this.getContainerHeight_() / this.renderer.getZoom();
+      this.setOffset(
+        off.x - ((newWidth - oldWidth) * xRatio),
+        off.y - ((newHeight - oldHeight) * yRatio)
+      );
+    }
   };
 
   /**

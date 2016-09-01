@@ -1,15 +1,15 @@
-casper
-  .start(casper.cli.get('baseUrl')+"?debug")
-  .then(function () {
-    this.wait(10000);
-  })
-  .then(function () {
-    this.echo(casper.cli.get('baseUrl')+"?debug");
-    // If there was a JS error after the page load, casper won't perform asserts
-    this.test.assertExists('html', 'Casper JS cannot assert DOM elements. A JS error has probably occured.');
-
-    this.test.assertExists('#drawing-canvas-container canvas', 'Check if drawing canvas element is created');
-  })
-  .run(function () {
-    this.test.done();
-  });
+casper.test.begin('Smoke Test', 1, function(test) {
+  casper
+    .start(casper.cli.get('baseUrl')+"/?debug")
+    .then(function () {
+      this.echo(casper.cli.get('baseUrl')+"/?debug");
+      this.waitForSelector('#drawing-canvas-container canvas', function() {
+        test.assertExists('#drawing-canvas-container canvas', 'Check if drawing canvas element is created');
+      }, function () {
+        test.fail('Test timed out');
+      }, 10000);
+    })
+    .run(function () {
+      test.done();
+    });
+});
