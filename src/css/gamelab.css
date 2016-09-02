@@ -10,9 +10,7 @@
 .icon-settings-open-folder-white,
 .fake-piskelapp-header,
 .icon-settings-save-white,
-.icon-settings-gear-white,
-.settings-default-size,
-.default-size-title {
+.icon-settings-gear-white {
   visibility: hidden;
   min-height: 0px;
   height: 0px;
@@ -20,41 +18,62 @@
   margin: 0px;
 }
 
+/* General styles */
+
 body {
-  background-color: #cfc9de;
+  background-color: #f2f2f2;
 }
 
 #main-wrapper{
   top: 0;
-  bottom: 0;
+  bottom: 0px;
 }
 
-#application-action-section {
-  /*background-color: #a69bc1;*/
+.pull-bottom {
+  bottom: 20px;
+}
+
+.right-column {
+  margin-top: 10px;
 }
 
 /* Frame column */
 .left-column {
   padding: 10px;
-  background-color: #a69bc1;
   margin-right: 0px;
+  margin-left: 40px;
   max-width: 120px;
+  height: 95%;
 }
 
 .add-frame-action {
-  background-color: #a69bc1;
-  color: #7665a0;
-  border-color: #7665a0;
+  background-color: #f2f2f2;
+  color: #a5a5a6;
+  border: 2px dashed #a5a5a6;
 }
 
 .column-wrapper {
   left: 120px;
 }
 
+/*Resize */
+
+.right-sticky-section .tool-icon.has-expanded-drawer {
+  border: none;
+  background-color: #444;
+}
+
 /* Onion */
 #animated-preview-container {
-  background-color: #cfc9de;
-  border: 3px solid #7665a0;
+  width: 35px;
+  height: 35px;
+  background-color: #b7b7b7;
+  border: 3px solid #a5a5a6;
+}
+
+.preview-toggle-onion-skin {
+  color: #fff;
+  line-height: 35px;
 }
 
 /* Drawing tools */
@@ -63,34 +82,60 @@ body {
 }
 
 .tool-icon {
-  background-color: #cfc9de;
-  border: 3px solid #7665a0;
+  background-color: #b7b7b7;
+  border: 2px solid #a5a5a6;
 }
 
 .tool-icon.selected {
   background-color: #7665a0;
+  border: 2px solid #7665a0;
 }
 
 .tool-icon:hover {
-  background-color: #a69bc1;
+  background-color: #7665a0;
+}
+
+.tool-color-picker {
+  border: none;
 }
 
 #tool-section {
-  padding-top: 10px;
+  padding-top: 5px;
+  background-color: #DDDDDD;
 }
 
+/* Color picker */
 .sp-replacer {
-  background-color: #cfc9de;
+  background-color: #a5a5a6;
+}
+
+.sp-replacer:hover {
+  background-color: #7665a0;
+  color: #7665a0;
+}
+
+.sp-replacer.sp-active {
+  background-color: #7665a0;
+  color: #7665a0;
+}
+
+.swap-colors-button {
+  opacity : 1;
 }
 
 /* Transform tools */
+.transforms-container {
+  background-color: #ddd;
+}
+
 .toolbox-title {
-  color: #7665a0;
-  background-color: #cfc9de;
+  color: #a5a5a6;
+  background-color: #ddd;
 }
 
 .toolbox-container {
-  border-color: #7665a0;
+  background-color: #ddd;
+  border-color: #a5a5a6;
 }
 
 .tool-icon.icon-tool-clone {
@@ -101,167 +146,184 @@ body {
   padding: 5px;
 }
 
-/* Orignal Piskel highlight color is white.
+/* Orignal Piskel highlight color is gold.
    Here's all the places we should set it to our color. */
 
 .local-piskel-list-head {
-  color: white;
+  color: #7665a0;
 }
 
 .create-palette-color:hover {
-  border:1px solid white;
+  border:1px solid #7665a0;
 }
 
 .colors-list-drop-proxy {
 }
 
 .create-palette-new-color {
-  border:2px dotted white;
-  color: white;
+  border:2px dotted #7665a0;
+  color: #7665a0;
 }
 
 .create-palette-color.selected {
-  border:2px solid white;
+  border:2px solid #7665a0;
 }
 
 .import-image-file-name {
-  color: white;
+  color: #7665a0;
 }
 
 #dialog-container {
-  border : 3px solid white;
+  border : 3px solid #7665a0;
 }
 
 .dialog-head {
-  background: white;
+  background: #7665a0;
 }
 
 .button:hover {
-  color: white;
+  color: #fff;
 }
 
 .button-primary {
-  background-color: rgb(255, 153, 0); /* white */
+  background-color: rgb(118,101,160);
   color-border: rgb(255, 153, 0);
+  border: none;
+  color: #fff;
+  text-shadow: none;
 }
 
 .button-primary:hover {
-  background-color: rgb(255, 153, 20);
+  background-color: rgb(118,101,160);
 }
 
 .add-frame-action:hover {
-  border-color: white;
+  border-color: #7665a0;
+}
+
+.preview-tile {
+  border: 1px solid #A5A5A6;
 }
 
 .preview-tile.selected {
-  border-color: white;
+  border: 3px solid #7665a0;
 }
 
 .preview-tile.selected:after {
-  border-left-color: white;
+  border-left-color: #7665a0;
 }
 
 .preview-tile-drop-proxy {
-  border: 3px dashed white;
+  border: 1px dashed #7665a0;
 }
 
 .progress-bar-container {
-  border: white 2px solid;
+  border: #7665a0 2px solid;
 }
 
 .progress-bar {
-  background : linear-gradient(to left, white, white) no-repeat -300px 0;
+  background : linear-gradient(to left, #7665a0, #7665a0) no-repeat -300px 0;
+}
+
+.pen-size-option {
+  background-color: #b7b7b7;
+  border-color: #a5a5a6;
+}
+
+.pen-size-option:hover {
+  border-color: #a5a5a6;
 }
 
 .pen-size-option.selected:before {
-  background-color: white;
+  background-color: #7665a0;
 }
 
 .pen-size-option.selected {
-  border-color: white;
+  border-color: #7665a0;
 }
 
 a, a:visited {
-  color:white;
+  color:#7665a0;
 }
 
 .background-picker.selected {
-  border-color: white;
+  border-color: #7665a0;
 }
 
 .resize-origin-option.selected {
-  border : 3px solid white;
+  border : 3px solid #7665a0;
 }
 
 .resize-origin-option.selected:before {
-  background: white;
+  background: #7665a0;
 }
 
 .resize-origin-option[data-neighbor="bottom"]:before {
-  border-top-color: white;
+  border-top-color: #7665a0;
 }
 
 .resize-origin-option[data-neighbor="left"]:before {
-  border-right-color: white;
+  border-right-color: #7665a0;
 }
 
 .resize-origin-option[data-neighbor="top"]:before {
-  border-bottom-color: white;
+  border-bottom-color: #7665a0;
 }
 
 .resize-origin-option[data-neighbor="right"]:before {
-  border-left-color: white;
+  border-left-color: #7665a0;
 }
 
 .right-sticky-section .tool-icon.has-expanded-drawer {
-  border-left : 3px solid white;
+  border-left : 3px solid #7665a0;
 }
 
 .settings-title {
-  color: white;
+  text-shadow: none;
+  color: #fff;
 }
 
 .sp-palette .sp-thumb-el.sp-thumb-active {
-  border-color: white;
-  box-shadow: 0 0 0px 1px white;
+  border-color: #7665a0;
+  box-shadow: 0 0 0px 1px #7665a0;
 }
 
 .image-link {
-  color : white;
+  color : #7665a0;
 }
 
 .tooltip-shortcut {
-  color:white;
+  color:#7665a0;
 }
 
 .preview-toggle-onion-skin-enabled,
 .preview-toggle-onion-skin-enabled:hover {
-  color : white;
+  color : #7665a0;
 }
 
 .original-size-button-enabled {
-  color: white;
-  border-color: white;
+  color: #7665a0;
+  border-color: #7665a0;
 }
 
 .open-popup-preview-button:hover {
-  border-color: white;
+  border-color: #7665a0;
 }
 
 .layers-toggle-preview-enabled,
 .layers-toggle-preview-enabled:hover {
-  color : white;
+  color : #7665a0;
 }
 
 .current-layer-item,
 .current-layer-item:hover {
-  color: white;
+  color: #7665a0;
 }
 
 .palettes-list-color:nth-child(-n+10):after {
-  color: white;
+  color: #7665a0;
 }
 
 .tool-icon.selected:before {
-  border: 3px solid white;
+  border: 3px solid #7665a0;
 }
