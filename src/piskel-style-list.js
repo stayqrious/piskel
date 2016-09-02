@@ -33,5 +33,6 @@
   "css/bootstrap/bootstrap.css",
   "css/bootstrap/bootstrap-tooltip-custom.css",
   "css/frames-list.css",
-  "css/minimap.css"
+  "css/minimap.css",
+  "css/gamelab.css"
 ];
