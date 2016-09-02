@@ -57,22 +57,22 @@
 
         if (importType === 'single' || images.length > 1) {
           // Single image import or animated gif
-          this.createPiskelFromImages_(images, frameSizeX, frameSizeY, options.smoothing);
+          setPiskelFromFrameImages(images);
         } else {
           // Spritesheet
           var frameImages = this.createImagesFromSheet_(images[0]);
-          this.createPiskelFromImages_(frameImages, frameSizeX, frameSizeY, options.smoothing);
+          setPiskelFromFrameImages(frameImages);
         }
         onComplete();
       }.bind(this),
       error: function () {
         if (importType === 'single') {
           // Single image
-          this.createPiskelFromImages_([image], frameSizeX, frameSizeY, options.smoothing);
+          setPiskelFromFrameImages([image]);
         } else {
           // Spritesheet
           var frameImages = this.createImagesFromSheet_(image, frameSizeX, frameSizeY, frameOffsetX, frameOffsetY);
-          this.createPiskelFromImages_(frameImages, frameSizeX, frameSizeY, options.smoothing);
+          setPiskelFromFrameImages(frameImages);
         }
         onComplete();
       }.bind(this)
