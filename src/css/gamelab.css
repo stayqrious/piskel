@@ -10,7 +10,11 @@
 .icon-settings-open-folder-white,
 .fake-piskelapp-header,
 .icon-settings-save-white,
-.icon-settings-gear-white {
+.icon-settings-gear-white,
+.transformations-title,
+.top-overflow,
+.bottom-overflow {
+  padding: 0px;
   visibility: hidden;
   min-height: 0px;
   height: 0px;
@@ -34,7 +38,8 @@ body {
 }
 
 .right-column {
-  margin-top: 10px;
+  margin-top: 0px;
+  margin-left: 0px;
 }
 
 /* Frame column */
@@ -63,17 +68,43 @@ body {
   background-color: #444;
 }
 
+.tool-icon.icon-settings-resize-white {
+  height: 160px;
+  background-color: #7665a0;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  background-image: url(../img/icons/settings/settings-resize-white.png);
+  background-repeat: no-repeat;
+  background-position: 0;
+  background-size: 46px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
 /* Onion */
 #animated-preview-container {
-  width: 35px;
-  height: 35px;
+  width: 46px;
+  height: 46px;
   background-color: #b7b7b7;
-  border: 3px solid #a5a5a6;
+  border: 2px solid #a5a5a6;
+  position: absolute;
+  left: 0px;
+  top: 156px;
+}
+
+.preview-container {
+  box-shadow: none;
+}
+
+.piskel-icon-onion:before {
+  padding-left: 5px;
+  padding-right: 20px;
 }
 
 .preview-toggle-onion-skin {
   color: #fff;
-  line-height: 35px;
+  line-height: 46px;
 }
 
 /* Drawing tools */
@@ -134,8 +165,14 @@ body {
 }
 
 .toolbox-container {
-  background-color: #ddd;
-  border-color: #a5a5a6;
+  background-color: transparent;
+  border: none;
+  width: 60px;
+  height: 170px;
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  margin-top: 0px;
 }
 
 .tool-icon.icon-tool-clone {
