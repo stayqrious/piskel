@@ -11,7 +11,9 @@
 .fake-piskelapp-header,
 .icon-settings-save-white,
 .icon-settings-gear-white,
-.transformations-title {
+.transformations-title,
+.top-overflow,
+.bottom-overflow {
   padding: 0px;
   visibility: hidden;
   min-height: 0px;
