@@ -66,6 +66,20 @@ body {
   background-color: #444;
 }
 
+.tool-icon.icon-settings-resize-white {
+  height: 160px;
+  background-color: #7665a0;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  background-image: url(../img/icons/settings/settings-resize-white.png);
+  background-repeat: no-repeat;
+  background-position: 0;
+  background-size: 46px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
 /* Onion */
 #animated-preview-container {
   width: 46px;
