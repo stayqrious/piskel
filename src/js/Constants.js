@@ -15,7 +15,8 @@ var Constants = {
   MAX_PALETTE_COLORS : 100,
 
   PREVIEW_FILM_SIZE : 96,
-  ANIMATED_PREVIEW_WIDTH : 200,
+  // Code.org - 100 right hand side gives workspace more room.
+  ANIMATED_PREVIEW_WIDTH : 100,
 
   DEFAULT_PEN_COLOR : '#000000',
   TRANSPARENT_COLOR : 'rgba(0, 0, 0, 0)',
@@ -52,5 +53,8 @@ var Constants = {
   // SERVICE URLS
   APPENGINE_SAVE_URL : 'save',
   IMAGE_SERVICE_UPLOAD_URL : 'http://piskel-imgstore-b.appspot.com/__/upload',
-  IMAGE_SERVICE_GET_URL : 'http://piskel-imgstore-b.appspot.com/img/'
+  IMAGE_SERVICE_GET_URL : 'http://piskel-imgstore-b.appspot.com/img/',
+
+  // Code.org - hide or show all layer controls in tooltips from the UI
+  ENABLE_MULTIPLE_LAYERS: true
 };
