@@ -55,6 +55,6 @@ var Constants = {
   IMAGE_SERVICE_UPLOAD_URL : 'http://piskel-imgstore-b.appspot.com/__/upload',
   IMAGE_SERVICE_GET_URL : 'http://piskel-imgstore-b.appspot.com/img/',
 
-  // Code.org - hide or show all layer controls in tooltips from the UI
+  // Code.org - hide or show all layer controls from the UI
   ENABLE_MULTIPLE_LAYERS: false
 };
