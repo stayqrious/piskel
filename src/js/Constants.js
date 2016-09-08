@@ -15,7 +15,7 @@ var Constants = {
   MAX_PALETTE_COLORS : 100,
 
   PREVIEW_FILM_SIZE : 96,
-  // Code.org - 100 right hand side gives workspace more room.
+  // Code.org - 60px right hand side gives workspace more room.
   ANIMATED_PREVIEW_WIDTH : 60,
 
   DEFAULT_PEN_COLOR : '#000000',
