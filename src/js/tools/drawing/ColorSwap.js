@@ -11,7 +11,7 @@
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.COLORSWAP;
 
     this.tooltipDescriptors = [
-      {key : 'ctrl', description : 'Apply to all layers'},
+      //{key : 'ctrl', description : 'Apply to all layers'},
       {key : 'shift', description : 'Apply to all frames'}
     ];
   };

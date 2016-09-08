@@ -6,7 +6,7 @@
     this.helpText = 'Flip vertically';
     this.tooltipDescriptors = [
       {key : 'alt', description : 'Flip horizontally'},
-      {key : 'ctrl', description : 'Apply to all layers'},
+      //{key : 'ctrl', description : 'Apply to all layers'},
       {key : 'shift', description : 'Apply to all frames'}
     ];
   };

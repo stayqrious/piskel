@@ -6,7 +6,7 @@
     this.helpText = 'Counter-clockwise rotation';
     this.tooltipDescriptors = [
       {key : 'alt', description : 'Clockwise rotation'},
-      {key : 'ctrl', description : 'Apply to all layers'},
+      //{key : 'ctrl', description : 'Apply to all layers'},
       {key : 'shift', description : 'Apply to all frames'}];
   };
 
