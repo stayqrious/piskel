@@ -5,6 +5,7 @@
     this.toolId = 'tool-center';
     this.helpText = 'Align image to the center';
     this.tooltipDescriptors = [
+      //Code.org - don't show layer information.
       //{key : 'ctrl', description : 'Apply to all layers'},
       {key : 'shift', description : 'Apply to all frames'}
     ];

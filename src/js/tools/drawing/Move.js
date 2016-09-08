@@ -12,6 +12,7 @@
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.MOVE;
 
     this.tooltipDescriptors = [
+      //Code.org - don't show layer information.
       //{key : 'ctrl', description : 'Apply to all layers'},
       {key : 'shift', description : 'Apply to all frames'},
       {key : 'alt', description : 'Wrap canvas borders'}
