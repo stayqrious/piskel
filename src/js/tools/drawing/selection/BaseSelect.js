@@ -21,12 +21,14 @@
     this.hasSelection = false;
 
     this.tooltipDescriptors = [
-      //Code.org - don't show layer information.
-      {description : 'Drag the selection to move it. You may switch to other frames.'},
+      {description : 'Drag the selection to move it. You may switch to other layers and frames.'},
       {key : 'ctrl+c', description : 'Copy the selected area'},
       {key : 'ctrl+v', description : 'Paste the copied area'},
       {key : 'shift', description : 'Hold to move the content'}
     ];
+    if (!Constants.ENABLE_MULTIPLE_LAYERS) {
+      this.tooltipDescriptors[0] = {description : 'Drag the selection to move it. You may switch to other frames.'};
+    }
   };
 
   pskl.utils.inherit(ns.BaseSelect, pskl.tools.drawing.BaseTool);

@@ -11,10 +11,13 @@
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.COLORSWAP;
 
     this.tooltipDescriptors = [
-      //Code.org - don't show layer information.
-      //{key : 'ctrl', description : 'Apply to all layers'},
+      {key : 'ctrl', description : 'Apply to all layers'},
       {key : 'shift', description : 'Apply to all frames'}
     ];
+
+    if (!Constants.ENABLE_MULTIPLE_LAYERS) {
+      this.tooltipDescriptors.splice(0, 1);
+    }
   };
 
   pskl.utils.inherit(ns.ColorSwap, ns.BaseTool);

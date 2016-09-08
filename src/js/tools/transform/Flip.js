@@ -6,10 +6,12 @@
     this.helpText = 'Flip vertically';
     this.tooltipDescriptors = [
       {key : 'alt', description : 'Flip horizontally'},
-      //Code.org - don't show layer information.
-      //{key : 'ctrl', description : 'Apply to all layers'},
+      {key : 'ctrl', description : 'Apply to all layers'},
       {key : 'shift', description : 'Apply to all frames'}
     ];
+    if (!Constants.ENABLE_MULTIPLE_LAYERS) {
+      this.tooltipDescriptors.splice(1, 1);
+    }
   };
 
   pskl.utils.inherit(ns.Flip, ns.AbstractTransformTool);
