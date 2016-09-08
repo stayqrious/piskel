@@ -45,8 +45,8 @@ body {
 /* Frame column */
 .left-column {
   padding: 10px;
-  margin-right: 0px;
-  margin-left: 40px;
+  margin-right: 5px;
+  margin-left: 5px;
   max-width: 120px;
   height: 95%;
 }
@@ -132,7 +132,7 @@ body {
 }
 
 #tool-section {
-  padding-top: 5px;
+  padding-left: 5px;
   background-color: #DDDDDD;
 }
 
