@@ -1,12 +1,10 @@
 /* Features to hide on GameLab Animation tab */
-.layers-list-container,
 .icon-settings-export-white,
 .palettes-list-container,
 .cheatsheet-link,
 .canvas-container-wrapper,
 .display-fps,
 .range-fps,
-.icon-tool-clone,
 .icon-settings-open-folder-white,
 .fake-piskelapp-header,
 .icon-settings-save-white,
@@ -45,8 +43,8 @@ body {
 /* Frame column */
 .left-column {
   padding: 10px;
-  margin-right: 0px;
-  margin-left: 40px;
+  margin-right: 5px;
+  margin-left: 5px;
   max-width: 120px;
   height: 95%;
 }
@@ -90,7 +88,8 @@ body {
   border: 2px solid #a5a5a6;
   position: absolute;
   left: 0px;
-  top: 156px;
+  top: 0px;
+  border-radius: 0px;
 }
 
 .preview-container {
@@ -131,7 +130,7 @@ body {
 }
 
 #tool-section {
-  padding-top: 5px;
+  padding-left: 5px;
   background-color: #DDDDDD;
 }
 
@@ -171,7 +170,7 @@ body {
   height: 170px;
   position: absolute;
   left: -6px;
-  top: -6px;
+  top: 46px;
   margin-top: 0px;
 }
 
