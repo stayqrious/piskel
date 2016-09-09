@@ -18,7 +18,7 @@
     container.addEventListener('click', this.onTransformationClick_.bind(this));
     this.createToolsDom_();
 
-    cloneEl = document.querySelector('.icon-tool-clone');
+    var cloneEl = document.querySelector('.icon-tool-clone');
     if (!Constants.ENABLE_MULTIPLE_LAYERS) {
       cloneEl.style.padding = '0px';
       cloneEl.style.visibility = 'hidden';
