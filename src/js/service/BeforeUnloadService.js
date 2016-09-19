@@ -11,12 +11,13 @@
 
   ns.BeforeUnloadService.prototype.onBeforeUnload = function (evt) {
     pskl.app.backupService.backup();
-    if (pskl.app.savedStatusService.isDirty()) {
+    // Code.org - disable alert because Gamelab saves the animations automatically.
+    /*if (pskl.app.savedStatusService.isDirty()) {
       var confirmationMessage = 'Your Piskel seems to have unsaved changes';
 
       (evt || window.event).returnValue = confirmationMessage;
       return confirmationMessage;
-    }
+    }*/
   };
 
 })();
