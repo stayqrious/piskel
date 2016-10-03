@@ -129,6 +129,20 @@ var PiskelApi = (function (module) {
   };
 
   /**
+   * Hides the frame column in Piskel UI.
+   */
+  PiskelApi.prototype.hideFrameColumn = function() {
+    document.getElementById('preview-list-wrapper').style.display = 'none';
+  };
+
+  /**
+   * Shows the frame column in Piskel UI.
+   */
+  PiskelApi.prototype.showFrameColumn = function() {
+    document.getElementById('preview-list-wrapper').style.display = 'unset';
+  };
+
+  /**
    * Register a callback that will be called when Piskel is initialized and ready
    * for API messages.
    * @param {function} callback
