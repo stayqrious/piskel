@@ -65,7 +65,11 @@ var PiskelApi = (function (module) {
 
     // The animation changed, and Piskel has internally saved its state.
     // Arguments: ???
-    STATE_SAVED: 'STATE_SAVED'
+    STATE_SAVED: 'STATE_SAVED',
+
+    // Hide or show the frame column.
+    // Arguments: hideFrameColumn
+    TOGGLE_FRAME_COLUMN: 'TOGGLE_FRAME_COLUMN',
   };
 
   /**
@@ -129,17 +133,14 @@ var PiskelApi = (function (module) {
   };
 
   /**
-   * Hides the frame column in Piskel UI.
+   * Hides and shows the frame column in Piskel UI.
+   * @param {boolean} hideFrameColumn
    */
-  PiskelApi.prototype.hideFrameColumn = function() {
-    document.getElementById('preview-list-wrapper').style.display = 'none';
-  };
-
-  /**
-   * Shows the frame column in Piskel UI.
-   */
-  PiskelApi.prototype.showFrameColumn = function() {
-    document.getElementById('preview-list-wrapper').style.display = 'unset';
+  PiskelApi.prototype.toggleFrameColumn = function(hideFrameColumn) {
+    this.sendMessage_({
+      type: PiskelApi.MessageType.TOGGLE_FRAME_COLUMN,
+      hideFrameColumn: hideFrameColumn
+    });
   };
 
   /**
