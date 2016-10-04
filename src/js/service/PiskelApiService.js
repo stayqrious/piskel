@@ -115,6 +115,8 @@
     } else if (message.type === MessageType.LOAD_SPRITESHEET) {
       this.loadSpritesheet(message.uri, message.frameSizeX, message.frameSizeY,
           message.frameRate);
+    } else if (message.type === MessageType.TOGGLE_FRAME_COLUMN) {
+      this.toggleFrameColumn(message.hideFrameColumn);
     }
   };
 
@@ -168,6 +170,17 @@
       }.bind(this));
     }.bind(this);
     image.src = uri;
+  };
+
+  /**
+   * @param {boolean} hideFrameColumn
+   */
+  ns.PiskelApiService.prototype.toggleFrameColumn = function(hideFrameColumn) {
+    if (hideFrameColumn) {
+      document.getElementById('preview-list-wrapper').style.display = 'none';
+    } else {
+      document.getElementById('preview-list-wrapper').style.display = 'unset';
+    }
   };
 
   ns.PiskelApiService.prototype.onSaveStateEvent = function (evt, action) {
