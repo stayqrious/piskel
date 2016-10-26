@@ -128,6 +128,7 @@
   ns.PiskelApiService.prototype.createNewPiskel = function (frameSizeX,
       frameSizeY, frameRate) {
     frameRate = typeof frameRate !== 'undefined' ? frameRate : Constants.DEFAULT.FPS;
+    $.publish(Events.LOAD_NEW_PISKEL);
 
     // Generate a new blank Piskel (document)
     var descriptor = new pskl.model.piskel.Descriptor('New Piskel', '');
@@ -151,6 +152,8 @@
    */
   ns.PiskelApiService.prototype.loadSpritesheet = function (uri, frameSizeX,
       frameSizeY, frameRate) {
+    $.publish(Events.LOAD_NEW_PISKEL);
+
     var image = new Image();
     image.onload = function () {
       // Avoid retriggering image onload (something about JsGif?)
