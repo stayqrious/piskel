@@ -66,6 +66,8 @@
     // the parent app that the animation has changed.
     $.subscribe(Events.PISKEL_SAVE_STATE, this.onSaveStateEvent.bind(this));
     $.subscribe(Events.FPS_CHANGED, this.onSaveStateEvent.bind(this));
+    $.subscribe(Events.HISTORY_STATE_LOADED, this.onSaveStateEvent.bind(this));
+    $.subscribe(Events.FRAME_SIZE_CHANGED, this.onSaveStateEvent.bind(this));
 
     // Notify any attached API that piskel is ready to use.
     this.sendMessage_({type: MessageType.PISKEL_API_READY});
