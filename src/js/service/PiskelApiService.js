@@ -66,6 +66,8 @@
     // the parent app that the animation has changed.
     $.subscribe(Events.PISKEL_SAVE_STATE, this.onSaveStateEvent.bind(this));
     $.subscribe(Events.FPS_CHANGED, this.onSaveStateEvent.bind(this));
+    $.subscribe(Events.HISTORY_STATE_LOADED, this.onSaveStateEvent.bind(this));
+    $.subscribe(Events.FRAME_SIZE_CHANGED, this.onSaveStateEvent.bind(this));
 
     // Notify any attached API that piskel is ready to use.
     this.sendMessage_({type: MessageType.PISKEL_API_READY});
@@ -128,6 +130,7 @@
   ns.PiskelApiService.prototype.createNewPiskel = function (frameSizeX,
       frameSizeY, frameRate) {
     frameRate = typeof frameRate !== 'undefined' ? frameRate : Constants.DEFAULT.FPS;
+    $.publish(Events.LOAD_NEW_PISKEL);
 
     // Generate a new blank Piskel (document)
     var descriptor = new pskl.model.piskel.Descriptor('New Piskel', '');
@@ -151,6 +154,8 @@
    */
   ns.PiskelApiService.prototype.loadSpritesheet = function (uri, frameSizeX,
       frameSizeY, frameRate) {
+    $.publish(Events.LOAD_NEW_PISKEL);
+
     var image = new Image();
     image.onload = function () {
       // Avoid retriggering image onload (something about JsGif?)

@@ -45,6 +45,8 @@ var Events = {
 
   PEN_SIZE_CHANGED : 'PEN_SIZE_CHANGED',
 
+  LOAD_NEW_PISKEL: 'LOAD_NEW_PISKEL',
+
   /**
    * Fired when a Piskel is successfully saved
    */
