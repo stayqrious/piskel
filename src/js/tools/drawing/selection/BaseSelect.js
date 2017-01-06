@@ -180,6 +180,11 @@
     this.lastMoveRow = row;
   };
 
+  ns.BaseSelect.prototype.reDraw = function (overlay) {
+    overlay.clear();
+    this.drawSelectionOnOverlay_(overlay);
+  };
+
   /** @private */
   ns.BaseSelect.prototype.onSelectionMoveEnd_ = function (col, row, frame, overlay) {
     this.onSelectionMove_(col, row, frame, overlay);

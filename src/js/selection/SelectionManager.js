@@ -55,6 +55,8 @@
    * @private
    */
   ns.SelectionManager.prototype.onSelectionDismissed_ = function(evt) {
+    // On deselect, paste in place.
+    this.paste(); 
     this.cleanSelection_();
   };
 
@@ -91,7 +93,9 @@
     }
   };
 
-  ns.SelectionManager.prototype.paste = function() {
+  ns.SelectionManager.prototype.paste = function(offset) {
+    offset = offset === 'V' ? 1 : 0;
+
     if (!this.currentSelection || !this.currentSelection.hasPastedContent) {
       return;
     }
@@ -100,15 +104,24 @@
     var frame = this.piskelController.getCurrentFrame();
 
     this.pastePixels_(frame, pixels);
+    this.currentSelection.move(offset, offset);
+    var tool = pskl.app.drawingController.currentToolBehavior;
+    var isSelectionTool = tool instanceof pskl.tools.drawing.selection.BaseSelect;
+    if (isSelectionTool) {
+      var overlay = pskl.app.drawingController.overlayFrame;
+      tool.reDraw(overlay);
+    }
 
-    $.publish(Events.PISKEL_SAVE_STATE, {
-      type : pskl.service.HistoryService.REPLAY,
-      scope : this,
-      replay : {
-        type : SELECTION_REPLAY.PASTE,
-        pixels : JSON.parse(JSON.stringify(pixels.slice(0)))
-      }
-    });
+    if (offset === 0) {
+      $.publish(Events.PISKEL_SAVE_STATE, {
+        type : pskl.service.HistoryService.REPLAY,
+        scope : this,
+        replay : {
+          type : SELECTION_REPLAY.PASTE,
+          pixels : JSON.parse(JSON.stringify(pixels.slice(0)))
+        }
+      });
+    }
   };
 
   /**
