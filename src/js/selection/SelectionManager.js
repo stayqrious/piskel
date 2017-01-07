@@ -93,8 +93,9 @@
     }
   };
 
-  ns.SelectionManager.prototype.paste = function(offset) {
-    offset = offset === 'V' ? 1 : 0;
+  ns.SelectionManager.prototype.paste = function(quickKey) {
+    // Amount of pixels to offset the paste by.
+    var offset = quickKey === 'V' ? 1 : 0;
 
     if (!this.currentSelection || !this.currentSelection.hasPastedContent) {
       return;
@@ -104,14 +105,27 @@
     var frame = this.piskelController.getCurrentFrame();
 
     this.pastePixels_(frame, pixels);
-    this.currentSelection.move(offset, offset);
+
+    // Offset the pasted selection from the original location.
     var tool = pskl.app.drawingController.currentToolBehavior;
     var isSelectionTool = tool instanceof pskl.tools.drawing.selection.BaseSelect;
     if (isSelectionTool) {
+      var maxHeight = frame.width - 1;
+      var maxWidth = frame.height - 1;
+      var xCoordinate = pixels[pixels.length - 1].col;
+      var yCoordinate = pixels[pixels.length - 1].row;
+      if (xCoordinate < maxWidth) {
+        this.currentSelection.move(offset, 0);
+      }
+      if (yCoordinate < maxHeight) {
+        this.currentSelection.move(0, offset);
+      }
+
       var overlay = pskl.app.drawingController.overlayFrame;
       tool.reDraw(overlay);
     }
 
+    // Save to state when selection is dropped.
     if (offset === 0) {
       $.publish(Events.PISKEL_SAVE_STATE, {
         type : pskl.service.HistoryService.REPLAY,

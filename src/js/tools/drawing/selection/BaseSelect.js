@@ -180,6 +180,7 @@
     this.lastMoveRow = row;
   };
 
+  // Redraw a given overlay.
   ns.BaseSelect.prototype.reDraw = function (overlay) {
     overlay.clear();
     this.drawSelectionOnOverlay_(overlay);
