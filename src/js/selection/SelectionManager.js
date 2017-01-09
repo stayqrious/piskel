@@ -56,7 +56,7 @@
    */
   ns.SelectionManager.prototype.onSelectionDismissed_ = function(evt) {
     // On deselect, paste in place.
-    this.paste(); 
+    this.paste();
     this.cleanSelection_();
   };
 
