@@ -124,6 +124,14 @@
     var frame = this.piskelController.getCurrentFrame();
 
     this.pastePixels_(frame, pixels);
+    $.publish(Events.PISKEL_SAVE_STATE, {
+      type : pskl.service.HistoryService.REPLAY,
+      scope : this,
+      replay : {
+        type : SELECTION_REPLAY.PASTE,
+        pixels : JSON.parse(JSON.stringify(pixels.slice(0)))
+      }
+    });
 
     // Offset the pasted selection from the original location.
     var tool = pskl.app.drawingController.currentToolBehavior;
@@ -141,18 +149,6 @@
 
       var overlay = pskl.app.drawingController.overlayFrame;
       tool.reDraw(overlay);
-    }
-
-    // Save to state when selection is dropped in place.
-    if (offset === 0) {
-      $.publish(Events.PISKEL_SAVE_STATE, {
-        type : pskl.service.HistoryService.REPLAY,
-        scope : this,
-        replay : {
-          type : SELECTION_REPLAY.PASTE,
-          pixels : JSON.parse(JSON.stringify(pixels.slice(0)))
-        }
-      });
     }
   };
 
