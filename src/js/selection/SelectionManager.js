@@ -93,6 +93,23 @@
     }
   };
 
+  ns.SelectionManager.prototype._getBoundaryEdges = function(pixels) {
+    var xCoordinate = 0;
+    var yCoordinate = 0;
+    for (var i = 0; i < pixels.length; i++) {
+      if (xCoordinate < pixels[i].col) {
+        xCoordinate = pixels[i].col;
+      }
+      if (yCoordinate < pixels[i].row) {
+        yCoordinate = pixels[i].row;
+      }
+    };
+    return {
+      x: xCoordinate,
+      y: yCoordinate
+    };
+  };
+
   ns.SelectionManager.prototype.paste = function(quickKey) {
     // Amount of pixels to offset the paste by.
     // When the paste is trigged by the quickKey Ctrl+V, offset the pasted overlay by 1.
@@ -111,14 +128,13 @@
     var tool = pskl.app.drawingController.currentToolBehavior;
     var isSelectionTool = tool instanceof pskl.tools.drawing.selection.BaseSelect;
     if (isSelectionTool) {
-      var maxHeight = frame.width - 1;
-      var maxWidth = frame.height - 1;
-      var xCoordinate = pixels[pixels.length - 1].col;
-      var yCoordinate = pixels[pixels.length - 1].row;
-      if (xCoordinate < maxWidth) {
+      var maxHeight = frame.height - 1;
+      var maxWidth = frame.width - 1;
+      var boundaryCoordinates = this._getBoundaryEdges(pixels);
+      if (boundaryCoordinates.x < maxWidth) {
         this.currentSelection.move(offset, 0);
       }
-      if (yCoordinate < maxHeight) {
+      if (boundaryCoordinates.y < maxHeight) {
         this.currentSelection.move(0, offset);
       }
 
