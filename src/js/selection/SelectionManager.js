@@ -93,6 +93,7 @@
     }
   };
 
+  // Iterate through pixels to get the largest x and y values of a selection.
   ns.SelectionManager.prototype._getBoundaryEdges = function(pixels) {
     var xCoordinate = 0;
     var yCoordinate = 0;
@@ -103,7 +104,7 @@
       if (yCoordinate < pixels[i].row) {
         yCoordinate = pixels[i].row;
       }
-    };
+    }
     return {
       x: xCoordinate,
       y: yCoordinate
