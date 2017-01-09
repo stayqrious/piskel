@@ -29,6 +29,10 @@ describe("SelectionManager suite", function() {
     }
   };
 
+  var drawingController = {
+    currentToolBehaviour: 'selection'
+  };
+
   beforeEach(function() {
     currentFrame = pskl.model.Frame.fromPixelGrid([
       [B, R, T],
@@ -42,6 +46,8 @@ describe("SelectionManager suite", function() {
     selection = new pskl.selection.BaseSelection();
 
     selection.pixels = [];
+
+    pskl.app.drawingController = drawingController;
   });
 
   /**
