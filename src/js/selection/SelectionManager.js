@@ -95,6 +95,7 @@
 
   ns.SelectionManager.prototype.paste = function(quickKey) {
     // Amount of pixels to offset the paste by.
+    // When the paste is trigged by the quickKey Ctrl+V, offset the pasted overlay by 1.
     var offset = quickKey === 'V' ? 1 : 0;
 
     if (!this.currentSelection || !this.currentSelection.hasPastedContent) {
@@ -125,7 +126,7 @@
       tool.reDraw(overlay);
     }
 
-    // Save to state when selection is dropped.
+    // Save to state when selection is dropped in place.
     if (offset === 0) {
       $.publish(Events.PISKEL_SAVE_STATE, {
         type : pskl.service.HistoryService.REPLAY,
