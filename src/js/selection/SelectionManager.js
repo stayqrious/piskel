@@ -94,20 +94,20 @@
   };
 
   // Iterate through pixels to get the largest x and y values of a selection.
-  ns.SelectionManager.prototype._getBoundaryEdges = function(pixels) {
-    var xCoordinate = 0;
-    var yCoordinate = 0;
+  ns.SelectionManager.prototype._getBottomRightCorner = function(pixels) {
+    var maxXCoordinate = -Infinity;
+    var maxYCoordinate = -Infinity;
     for (var i = 0; i < pixels.length; i++) {
-      if (xCoordinate < pixels[i].col) {
-        xCoordinate = pixels[i].col;
+      if (maxXCoordinate < pixels[i].col) {
+        maxXCoordinate = pixels[i].col;
       }
-      if (yCoordinate < pixels[i].row) {
-        yCoordinate = pixels[i].row;
+      if (maxYCoordinate < pixels[i].row) {
+        maxYCoordinate = pixels[i].row;
       }
     }
     return {
-      x: xCoordinate,
-      y: yCoordinate
+      x: maxXCoordinate,
+      y: maxYCoordinate
     };
   };
 
@@ -139,11 +139,11 @@
     if (isSelectionTool) {
       var maxHeight = frame.height - 1;
       var maxWidth = frame.width - 1;
-      var boundaryCoordinates = this._getBoundaryEdges(pixels);
-      if (boundaryCoordinates.x < maxWidth) {
+      var cornerCoordinates = this._getBottomRightCorner(pixels);
+      if (cornerCoordinates.x < maxWidth) {
         this.currentSelection.move(offset, 0);
       }
-      if (boundaryCoordinates.y < maxHeight) {
+      if (cornerCoordinates.y < maxHeight) {
         this.currentSelection.move(0, offset);
       }
 
