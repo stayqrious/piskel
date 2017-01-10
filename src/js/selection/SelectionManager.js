@@ -55,6 +55,8 @@
    * @private
    */
   ns.SelectionManager.prototype.onSelectionDismissed_ = function(evt) {
+    // On deselect, paste in place.
+    this.paste();
     this.cleanSelection_();
   };
 
@@ -91,7 +93,29 @@
     }
   };
 
-  ns.SelectionManager.prototype.paste = function() {
+  // Iterate through pixels to get the largest x and y values of a selection.
+  ns.SelectionManager.prototype._getBottomRightCorner = function(pixels) {
+    var maxXCoordinate = -Infinity;
+    var maxYCoordinate = -Infinity;
+    for (var i = 0; i < pixels.length; i++) {
+      if (maxXCoordinate < pixels[i].col) {
+        maxXCoordinate = pixels[i].col;
+      }
+      if (maxYCoordinate < pixels[i].row) {
+        maxYCoordinate = pixels[i].row;
+      }
+    }
+    return {
+      x: maxXCoordinate,
+      y: maxYCoordinate
+    };
+  };
+
+  ns.SelectionManager.prototype.paste = function(quickKey) {
+    // Amount of pixels to offset the paste by.
+    // When the paste is trigged by the quickKey Ctrl+V, offset the pasted overlay by 1.
+    var offset = quickKey === 'V' ? 1 : 0;
+
     if (!this.currentSelection || !this.currentSelection.hasPastedContent) {
       return;
     }
@@ -100,7 +124,6 @@
     var frame = this.piskelController.getCurrentFrame();
 
     this.pastePixels_(frame, pixels);
-
     $.publish(Events.PISKEL_SAVE_STATE, {
       type : pskl.service.HistoryService.REPLAY,
       scope : this,
@@ -109,6 +132,24 @@
         pixels : JSON.parse(JSON.stringify(pixels.slice(0)))
       }
     });
+
+    // Offset the pasted selection from the original location.
+    var tool = pskl.app.drawingController.currentToolBehavior;
+    var isSelectionTool = tool instanceof pskl.tools.drawing.selection.BaseSelect;
+    if (isSelectionTool) {
+      var maxHeight = frame.height - 1;
+      var maxWidth = frame.width - 1;
+      var cornerCoordinates = this._getBottomRightCorner(pixels);
+      if (cornerCoordinates.x < maxWidth) {
+        this.currentSelection.move(offset, 0);
+      }
+      if (cornerCoordinates.y < maxHeight) {
+        this.currentSelection.move(0, offset);
+      }
+
+      var overlay = pskl.app.drawingController.overlayFrame;
+      tool.reDraw(overlay);
+    }
   };
 
   /**
