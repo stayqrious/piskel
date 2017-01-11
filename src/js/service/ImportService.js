@@ -41,8 +41,7 @@
     var setPiskelFromFrameImages = function (frameImages) {
       var piskel = this.createPiskelFromImages_(frameImages, frameSizeX,
           frameSizeY, smoothing);
-      var addedPiskel = this.addTwoPiskels(this.piskelController_.getPiskel(), piskel);
-      this.piskelController_.setPiskel(addedPiskel);
+      this.piskelController_.setPiskel(piskel);
       this.previewController_.setFPS(frameRate);
     }.bind(this);
 
