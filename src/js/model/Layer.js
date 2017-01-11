@@ -63,6 +63,10 @@
     this.frames.splice(index, 0, frame);
   };
 
+  ns.Layer.prototype.replaceFrameAt = function(frame, index) {
+    this.frames[index] = frame;
+  };
+
   ns.Layer.prototype.removeFrame = function (frame) {
     var index = this.frames.indexOf(frame);
     this.removeFrameAt(index);
