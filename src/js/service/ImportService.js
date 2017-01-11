@@ -147,7 +147,7 @@
     if (additionalPiskel.width <= maxWidth && additionalPiskel.height <= maxHeight) {
       var additionalFrames = additionalPiskel.layers[0].size();
       for (var j = 0; j < additionalFrames; j++) {
-        var resizedAdditionalFrame = this.resizeFrameToWH(additionalPiskel.layers[0].getFrameAt(j), maxWidth, maxHeight)
+        var resizedAdditionalFrame = this.resizeFrameToWH(additionalPiskel.layers[0].getFrameAt(j), maxWidth, maxHeight);
         additionalPiskel.layers[0].replaceFrameAt(resizedAdditionalFrame, j);
       }
       additionalPiskel.width = maxWidth;
@@ -157,15 +157,15 @@
     if (originalPiskel.width <= maxWidth && originalPiskel.height <= maxHeight) {
       var originalFrames = originalPiskel.layers[0].size();
       for (var j = 0; j < originalFrames; j++) {
-        var resizedOriginalFrame = this.resizeFrameToWH(originalPiskel.layers[0].getFrameAt(j), maxWidth, maxHeight)
+        var resizedOriginalFrame = this.resizeFrameToWH(originalPiskel.layers[0].getFrameAt(j), maxWidth, maxHeight);
         originalPiskel.layers[0].replaceFrameAt(resizedOriginalFrame, j);
       }
-      
+
       originalPiskel.width = maxWidth;
-      originalPiskel.height = maxHeight;  
+      originalPiskel.height = maxHeight;
     }
 
-    for(var i = 0; i < additionalPiskel.layers[0].size(); i++) {
+    for (var i = 0; i < additionalPiskel.layers[0].size(); i++) {
       originalPiskel.layers[0].addFrame(additionalPiskel.layers[0].getFrameAt(i));
     }
     return originalPiskel;
