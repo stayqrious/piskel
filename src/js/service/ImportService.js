@@ -130,4 +130,65 @@
       return pskl.utils.FrameUtils.createFromImage(resizedImage);
     });
   };
+
+  /**
+   * Adds frames from an additionalPiskel to an originalPiskel, adjusting the size of
+   * both piskels to the largest dimensions of either piskel, and centering the content.
+   * This will only work when there is only one layer.
+   * Multi layer animations are disabled from the UI in code-dot-org/piskel
+   * @param {!pskl.model.Piskel} originalPiskel
+   * @param {!pskl.model.Piskel} additionalPiskel
+   * @returns {pskl.model.Piskel}
+   */
+  ns.ImportService.prototype.mergePiskels = function(originalPiskel, additionalPiskel) {
+    if (originalPiskel.layers.length != 1 || originalPiskel.layers.length != 1) {
+      throw new Error(
+        'mergePiskels was provided with piskel parameters with more than one layer');
+    }
+
+    var maxWidth = Math.max(originalPiskel.width, additionalPiskel.width);
+    var maxHeight = Math.max(originalPiskel.height, additionalPiskel.height);
+
+    this.resizePiskel(additionalPiskel, maxWidth, maxHeight);
+    this.resizePiskel(originalPiskel, maxWidth, maxHeight);
+
+    for (var i = 0; i < additionalPiskel.layers[0].size(); i++) {
+      originalPiskel.layers[0].addFrame(additionalPiskel.layers[0].getFrameAt(i));
+    }
+    return originalPiskel;
+  };
+
+  /**
+   * @param {!pskl.model.Piskel} piskel
+   * @param {!number} width
+   * @param {!number} height
+   */
+  ns.ImportService.prototype.resizePiskel = function(piskel, width, height) {
+    if (piskel.width < width || piskel.height < height) {
+      var numFrames = piskel.layers[0].size();
+      for (var j = 0; j < numFrames; j++) {
+        var resizedFrame = this.setFrameSize(piskel.layers[0].getFrameAt(j), width, height);
+        piskel.layers[0].replaceFrameAt(resizedFrame, j);
+      }
+      piskel.width = width;
+      piskel.height = height;
+    }
+  };
+
+  /**
+   * Modified from ResizeController
+   * @param {!pskl.model.Frame} frame
+   * @param {!number} width
+   * @param {!number} height
+   * @returns {pskl.model.Frame}
+   */
+  ns.ImportService.prototype.setFrameSize = function (frame, width, height) {
+    var resizedFrame = new pskl.model.Frame(width, height);
+    var xOffset = Math.round((width - frame.width) / 2);
+    var yOffset = Math.round((height - frame.height) / 2);
+    frame.forEachPixel(function (color, x, y) {
+      resizedFrame.setPixel(x + xOffset, y + yOffset, color);
+    });
+    return resizedFrame;
+  };
 })();
