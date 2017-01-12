@@ -22,8 +22,7 @@
 
     this.tooltipDescriptors = [
       {description : 'Drag the selection to move it. You may switch to other layers and frames.'},
-      {key : 'ctrl+c', description : 'Copy the selected area'},
-      {key : 'ctrl+v', description : 'Paste the copied area'},
+      {key : 'ctrl+c', description : 'Duplicate the selected area'},
       {key : 'shift', description : 'Hold to move the content'}
     ];
     if (!Constants.ENABLE_MULTIPLE_LAYERS) {
