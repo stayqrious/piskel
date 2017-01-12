@@ -121,7 +121,7 @@
 
     // Amount of pixels to offset the paste by.
     // When the paste is trigged by the quickKey Ctrl+V, offset the pasted overlay by a scaled value.
-    var offset = quickKey === 'V' ? Math.ceil(Math.max(frame.width, frame.height)/50) : 0;
+    var offset = quickKey === 'V' ? Math.ceil(Math.max(frame.width, frame.height) / 50) : 0;
 
     this.pastePixels_(frame, pixels);
     $.publish(Events.PISKEL_SAVE_STATE, {
