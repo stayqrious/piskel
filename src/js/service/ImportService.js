@@ -132,14 +132,14 @@
   };
 
   /**
+   * Adds frames from an additionalPiskel to an originalPiskel, adjusting the size of
+   * both piskels to the largest dimensions of either piskel, and centering the content.
+   * This will only work when there is only one layer.
+   * Multi layer animations are disabled from the UI in code-dot-org/piskel
    * @param {!pskl.model.Piskel} originalPiskel
    * @param {!pskl.model.Piskel} additionalPiskel
    * @returns {pskl.model.Piskel}
    */
-  // Adds frames from an additionalPiskel to an originalPiskel, adjusting the size of
-  // both piskels to the largest dimensions of either piskel, and centering the content.
-  // This will only work when there is only one layer.
-  // Multi layer animations are disabled from the UI in code-dot-org/piskel
   ns.ImportService.prototype.mergePiskels = function(originalPiskel, additionalPiskel) {
     if (originalPiskel.layers.length != 1 || originalPiskel.layers.length != 1) {
       throw new Error(
@@ -149,13 +149,8 @@
     var maxWidth = Math.max(originalPiskel.width, additionalPiskel.width);
     var maxHeight = Math.max(originalPiskel.height, additionalPiskel.height);
 
-    if (additionalPiskel.width < maxWidth || additionalPiskel.height < maxHeight) {
-      this.resizePiskel(additionalPiskel, maxWidth, maxHeight);
-    }
-
-    if (originalPiskel.width < maxWidth || originalPiskel.height < maxHeight) {
-      this.resizePiskel(originalPiskel, maxWidth, maxHeight);
-    }
+    this.resizePiskel(additionalPiskel, maxWidth, maxHeight);
+    this.resizePiskel(originalPiskel, maxWidth, maxHeight);
 
     for (var i = 0; i < additionalPiskel.layers[0].size(); i++) {
       originalPiskel.layers[0].addFrame(additionalPiskel.layers[0].getFrameAt(i));
@@ -169,17 +164,19 @@
    * @param {!number} height
    */
   ns.ImportService.prototype.resizePiskel = function(piskel, width, height) {
-    var numFrames = piskel.layers[0].size();
-    for (var j = 0; j < numFrames; j++) {
-      var resizedFrame = this.setFrameSize(piskel.layers[0].getFrameAt(j), width, height);
-      piskel.layers[0].replaceFrameAt(resizedFrame, j);
+    if (piskel.width < width || piskel.height < height) {
+      var numFrames = piskel.layers[0].size();
+      for (var j = 0; j < numFrames; j++) {
+        var resizedFrame = this.setFrameSize(piskel.layers[0].getFrameAt(j), width, height);
+        piskel.layers[0].replaceFrameAt(resizedFrame, j);
+      }
+      piskel.width = width;
+      piskel.height = height;
     }
-    piskel.width = width;
-    piskel.height = height;
   };
 
-  // Modified from ResizeController
   /**
+   * Modified from ResizeController
    * @param {!pskl.model.Frame} frame
    * @param {!number} width
    * @param {!number} height
