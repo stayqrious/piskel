@@ -132,8 +132,8 @@
   };
 
   /**
-   * @param {pskl.model.Piskel} originalPiskel
-   * @param {pskl.model.Piskel} additionalPiskel
+   * @param {!pskl.model.Piskel} originalPiskel
+   * @param {!pskl.model.Piskel} additionalPiskel
    * @returns {pskl.model.Piskel}
    */
   // Adds frames from an additionalPiskel to an originalPiskel, adjusting the size of
