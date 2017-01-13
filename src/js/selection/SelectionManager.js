@@ -20,6 +20,7 @@
     $.subscribe(Events.SELECTION_COPY, this.copy.bind(this));
     $.subscribe(Events.SELECTION_CUT, this.cut.bind(this));
     $.subscribe(Events.SELECTION_PASTE, this.paste.bind(this));
+    $.subscribe(Events.LOAD_NEW_PISKEL, $.proxy(this.onLoadNewPiskel_, this));
 
     var shortcuts = pskl.service.keyboard.Shortcuts;
     pskl.app.shortcutService.registerShortcut(shortcuts.SELECTION.PASTE, this.paste.bind(this));
@@ -38,6 +39,20 @@
     if (this.currentSelection) {
       this.currentSelection.reset();
       this.currentSelection = null;
+    }
+  };
+
+  /**
+   * Clear any copied pixels and redraw the empty selection.
+   * @private
+   */
+  ns.SelectionManager.prototype.onLoadNewPiskel_ = function() {
+    this.cleanSelection_();
+    var tool = pskl.app.drawingController.currentToolBehavior;
+    var isSelectionTool = tool instanceof pskl.tools.drawing.selection.BaseSelect;
+    if (isSelectionTool) {
+      var overlay = pskl.app.drawingController.overlayFrame;
+      tool.reDraw(overlay);
     }
   };
 
