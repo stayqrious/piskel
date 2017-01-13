@@ -181,6 +181,18 @@ describe("SelectionManager suite", function() {
     ]);
   });
 
+  it("_getBottomRightCorner finds the coordinates of the bottom right of a rectangular selection", function () {
+    var pixels = [{col: 1, row: 1}, {col: 1, row: 2}, {col: 2, row: 1}, {col: 2, row: 2}];
+    expect(selectionManager._getBottomRightCorner(pixels).x).toBe(2);
+    expect(selectionManager._getBottomRightCorner(pixels).y).toBe(2);
+  });
+
+  it("_getBottomRightCorner finds the coordinates of the bottom right of a irregular selection", function () {
+    var pixels = [{col: 1, row: 1}, {col: 1, row: 2}, {col: 2, row: 1}];
+    expect(selectionManager._getBottomRightCorner(pixels).x).toBe(2);
+    expect(selectionManager._getBottomRightCorner(pixels).y).toBe(2);
+  });
+
   // Private helpers
   var createPixel = function(row, col, color) {
     return {
