@@ -87,7 +87,11 @@
     } else if (action === ACTION.SELECT) {
       this.piskelController.setCurrentFrameIndex(index);
     } else if (action === ACTION.NEW_FRAME) {
-      this.piskelController.addFrame();
+      // Publish an event that the user selected add new frame.
+      $.publish(Events.ADD_NEW_FRAME_CLICKED);
+      // Disable adding a blank frame and idead use the PiskelApi
+      // to cause an action.
+      //this.piskelController.addFrame();
       this.updateScrollerOverflows();
     }
   };

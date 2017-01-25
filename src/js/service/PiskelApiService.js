@@ -68,6 +68,10 @@
     $.subscribe(Events.FPS_CHANGED, this.onSaveStateEvent.bind(this));
     $.subscribe(Events.HISTORY_STATE_LOADED, this.onSaveStateEvent.bind(this));
     $.subscribe(Events.FRAME_SIZE_CHANGED, this.onSaveStateEvent.bind(this));
+    // An attempt to save the piskel once the frames are added.
+    $.subscribe(Events.FRAME_COUNT_CHANGED, this.onSaveStateEvent.bind(this));
+    // When user clicks add new frame, execute onAddNewFrameEvent.
+    $.subscribe(Events.ADD_NEW_FRAME_CLICKED, this.onAddNewFrameEvent.bind(this));
 
     // Notify any attached API that piskel is ready to use.
     this.sendMessage_({type: MessageType.PISKEL_API_READY});
@@ -119,6 +123,9 @@
           message.frameRate);
     } else if (message.type === MessageType.TOGGLE_FRAME_COLUMN) {
       this.toggleFrameColumn(message.hideFrameColumn);
+    } else if (message.type === MessageType.ADD_ADDITIONAL_FRAMES) {
+      this.loadAdditionalFrames(message.uri, message.frameSizeX, message.frameSizeY,
+          message.frameRate);
     }
   };
 
@@ -177,6 +184,32 @@
     image.src = uri;
   };
 
+   /**
+   * @param {!string} uri
+   * @param {!number} frameSizeX
+   * @param {!number} frameSizeY
+   * @param {number} [frameRate]
+   */
+  ns.PiskelApiService.prototype.loadAdditionalFrames = function (uri, frameSizeX,
+      frameSizeY, frameRate) {
+    var image = new Image();
+    image.onload = function () {
+      image.onload = Constants.EMPTY_FUNCTION;
+      this.importService_.importFramesFromImage(image, {
+        importType: 'spritesheet',
+        frameSizeX: frameSizeX,
+        frameSizeY: frameSizeY,
+        frameOffsetX: 0,
+        frameOffsetY: 0,
+        smoothing: false,
+        frameRate: frameRate
+      }, function () {
+        this.log('Image loaded.');
+      }.bind(this));
+    }.bind(this);
+    image.src = uri;
+  };
+
   /**
    * @param {boolean} hideFrameColumn
    */
@@ -219,5 +252,9 @@
     var bestFit = Math.round(Math.sqrt(frameCount / ratio));
 
     return Math.max(1, Math.min(bestFit, frameCount));
+  };
+
+  ns.PiskelApiService.prototype.onAddNewFrameEvent = function () {
+    this.sendMessage_({type: MessageType.ADD_NEW_FRAME_CLICKED});
   };
 })();

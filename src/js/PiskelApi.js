@@ -70,6 +70,14 @@ var PiskelApi = (function (module) {
     // Hide or show the frame column.
     // Arguments: hideFrameColumn
     TOGGLE_FRAME_COLUMN: 'TOGGLE_FRAME_COLUMN',
+
+    // User selected add new frame
+    // Arguments: none
+    ADD_NEW_FRAME_CLICKED: 'ADD_NEW_FRAME_CLICKED',
+
+    // Add a set of new frames to the current piskel
+    // Arguments: uri, frameSizeX, frameSizeY, frameRate
+    ADD_ADDITIONAL_FRAMES: 'ADD_ADDITIONAL_FRAMES',
   };
 
   /**
@@ -133,6 +141,41 @@ var PiskelApi = (function (module) {
   };
 
   /**
+   * Tell Piskel to load an spritesheet for editing, merging with whatever document
+   * is currently open in the editor.  Assumes that frames in the spritesheet
+   * will have a uniform size, and be arranged in a grid read left-to-right,
+   * then top-to-bottom. Will update the final size to be the max of the current or new spritesheet.
+   * @param {!string} uri - An image url, or a data URI corresponding to a
+   *        spritesheet image that Piskel can load.
+   * @param {number} frameSizeX - Width of a frame within the spritesheet, in
+   *        pixels.
+   * @param {number} frameSizeY - Height of a frame within the spritesheet, in
+   *        pixels.
+   * @param {number} [frameRate] - Animation rate in frames per second.
+   * @param {function} [onComplete] - Called when the spritesheet is loaded.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs
+   */
+  PiskelApi.prototype.loadAdditionalFrames = function (uri, frameSizeX, frameSizeY, frameRate, onComplete) {
+    onComplete = typeof onComplete === 'function' ? onComplete : Constants.EMPTY_FUNCTION;
+
+    // Hook up the one-time onComplete callback.
+    var callback = function () {
+      this.removeCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
+      onComplete();
+    }.bind(this);
+    this.addCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
+
+    // Send the load message to Piskel.
+    this.sendMessage_({
+      type: PiskelApi.MessageType.ADD_ADDITIONAL_FRAMES,
+      uri: uri,
+      frameSizeX: frameSizeX,
+      frameSizeY: frameSizeY,
+      frameRate: frameRate
+    });
+  };
+
+  /**
    * Hides and shows the frame column in Piskel UI.
    * @param {boolean} hideFrameColumn
    */
@@ -159,6 +202,15 @@ var PiskelApi = (function (module) {
    */
   PiskelApi.prototype.onStateSaved = function (callback) {
     this.addCallback_(PiskelApi.MessageType.STATE_SAVED, callback);
+  };
+
+  /**
+   * Register a callback that will be called whenever a user clicks
+   * add new frame.
+   * @param {function} callback
+   */
+  PiskelApi.prototype.onAddFrame = function (callback) {
+    this.addCallback_(PiskelApi.MessageType.ADD_NEW_FRAME_CLICKED, callback);
   };
 
   /**

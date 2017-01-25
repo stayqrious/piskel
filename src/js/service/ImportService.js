@@ -80,6 +80,74 @@
   };
 
   /**
+   * Given an image object and some options, merge the frames with the currently open
+   * Piskel and open it for editing.
+   * @param {!Image} image
+   * @param {!Object} options
+   * @param {!string} options.importType - 'single' if not spritesheet
+   * @param {!number} options.frameSizeX
+   * @param {!number} options.frameSizeY
+   * @param {number} [options.frameOffsetX] only used in spritesheet imports.
+   * @param {number} [options.frameOffsetY] only used in spritesheet imports.
+   * @param {!boolean} options.smoothing
+   * @param {number} [options.frameRate] in frames per second
+   * @param {function} [onComplete]
+   */
+  ns.ImportService.prototype.importFramesFromImage = function (image, options, onComplete) {
+    onComplete = onComplete || Constants.EMPTY_FUNCTION;
+    var importType = options.importType;
+    var frameSizeX = options.frameSizeX;
+    var frameSizeY = options.frameSizeY;
+    var frameOffsetX = options.frameOffsetX;
+    var frameOffsetY = options.frameOffsetY;
+    var smoothing = options.smoothing;
+    var frameRate = typeof options.frameRate !== 'undefined' ?
+        options.frameRate : Constants.DEFAULT.FPS;
+
+    var setPiskelFromFrameImages = function (frameImages) {
+      var piskel = this.createPiskelFromImages_(frameImages, frameSizeX,
+          frameSizeY, smoothing);
+      var mergedPiskel = this.mergePiskels(this.piskelController_.getPiskel(), piskel);
+      this.piskelController_.setPiskel(mergedPiskels);
+      this.previewController_.setFPS(frameRate);
+      $.publish(Events.FRAME_COUNT_CHANGED);
+    }.bind(this);
+
+    var gifLoader = new window.SuperGif({
+      gif: image
+    });
+
+    gifLoader.load({
+      success: function () {
+        var images = gifLoader.getFrames().map(function (frame) {
+          return pskl.utils.CanvasUtils.createFromImageData(frame.data);
+        });
+
+        if (importType === 'single' || images.length > 1) {
+          // Single image import or animated gif
+          setPiskelFromFrameImages(images);
+        } else {
+          // Spritesheet
+          var frameImages = this.createImagesFromSheet_(images[0]);
+          setPiskelFromFrameImages(frameImages);
+        }
+        onComplete();
+      }.bind(this),
+      error: function () {
+        if (importType === 'single') {
+          // Single image
+          setPiskelFromFrameImages([image]);
+        } else {
+          // Spritesheet
+          var frameImages = this.createImagesFromSheet_(image, frameSizeX, frameSizeY, frameOffsetX, frameOffsetY);
+          setPiskelFromFrameImages(frameImages);
+        }
+        onComplete();
+      }.bind(this)
+    });
+  };
+
+  /**
    * @param {!Image} image
    * @param {!number} frameSizeX
    * @param {!number} frameSizeY
