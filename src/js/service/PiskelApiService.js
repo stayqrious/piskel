@@ -126,6 +126,8 @@
     } else if (message.type === MessageType.ADD_ADDITIONAL_FRAMES) {
       this.loadAdditionalFrames(message.uri, message.frameSizeX, message.frameSizeY,
           message.frameRate);
+    } else if (message.type === MessageType.ADD_BLANK_FRAME) {
+      this.addBlankFrame();
     }
   };
 
@@ -208,6 +210,13 @@
       }.bind(this));
     }.bind(this);
     image.src = uri;
+  };
+
+  /**
+   * Add a blank frame to the end of the current piskel.
+   */
+  ns.PiskelApiService.prototype.addBlankFrame = function () {
+    this.piskelController_.addFrame();
   };
 
   /**

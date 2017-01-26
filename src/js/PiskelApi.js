@@ -176,6 +176,15 @@ var PiskelApi = (function (module) {
   };
 
   /**
+   * Tell Piskel to add a blank frame to the current piskel.
+   */
+  PiskelApi.prototype.addBlankFrame = function () {
+    this.sendMessage_({
+      type: PiskelApi.MessageType.ADD_BLANK_FRAME
+    });
+  };
+
+  /**
    * Hides and shows the frame column in Piskel UI.
    * @param {boolean} hideFrameColumn
    */
