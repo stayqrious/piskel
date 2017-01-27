@@ -68,8 +68,6 @@
     $.subscribe(Events.FPS_CHANGED, this.onSaveStateEvent.bind(this));
     $.subscribe(Events.HISTORY_STATE_LOADED, this.onSaveStateEvent.bind(this));
     $.subscribe(Events.FRAME_SIZE_CHANGED, this.onSaveStateEvent.bind(this));
-    // An attempt to save the piskel once the frames are added.
-    $.subscribe(Events.FRAME_COUNT_CHANGED, this.onSaveStateEvent.bind(this));
     // When user clicks add new frame, execute onAddNewFrameEvent.
     $.subscribe(Events.ADD_NEW_FRAME_CLICKED, this.onAddNewFrameEvent.bind(this));
 
@@ -186,7 +184,7 @@
     image.src = uri;
   };
 
-   /**
+  /**
    * @param {!string} uri
    * @param {!number} frameSizeX
    * @param {!number} frameSizeY
@@ -207,6 +205,8 @@
         frameRate: frameRate
       }, function () {
         this.log('Image loaded.');
+        this.sendMessage_({type: MessageType.FRAMES_LOADED});
+        this.onSaveStateEvent();
       }.bind(this));
     }.bind(this);
     image.src = uri;

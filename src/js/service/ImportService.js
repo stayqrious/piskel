@@ -108,9 +108,8 @@
       var piskel = this.createPiskelFromImages_(frameImages, frameSizeX,
           frameSizeY, smoothing);
       var mergedPiskel = this.mergePiskels(this.piskelController_.getPiskel(), piskel);
-      this.piskelController_.setPiskel(mergedPiskels);
+      this.piskelController_.setPiskel(mergedPiskel);
       this.previewController_.setFPS(frameRate);
-      $.publish(Events.FRAME_COUNT_CHANGED);
     }.bind(this);
 
     var gifLoader = new window.SuperGif({

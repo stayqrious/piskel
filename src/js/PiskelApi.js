@@ -78,6 +78,10 @@ var PiskelApi = (function (module) {
     // Add a set of new frames to the current piskel
     // Arguments: uri, frameSizeX, frameSizeY, frameRate
     ADD_ADDITIONAL_FRAMES: 'ADD_ADDITIONAL_FRAMES',
+
+    // Requested spritesheet merge and load has completed
+    // Arguments: none
+    FRAMES_LOADED: 'FRAMES_LOADED',
   };
 
   /**
@@ -160,10 +164,10 @@ var PiskelApi = (function (module) {
 
     // Hook up the one-time onComplete callback.
     var callback = function () {
-      this.removeCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
+      this.removeCallback_(PiskelApi.MessageType.FRAMES_LOADED, callback);
       onComplete();
     }.bind(this);
-    this.addCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
+    this.addCallback_(PiskelApi.MessageType.FRAMES_LOADED, callback);
 
     // Send the load message to Piskel.
     this.sendMessage_({
