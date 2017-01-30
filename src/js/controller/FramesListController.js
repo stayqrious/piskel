@@ -89,7 +89,7 @@
     } else if (action === ACTION.NEW_FRAME) {
       // Publish an event that the user selected add new frame.
       $.publish(Events.ADD_NEW_FRAME_CLICKED);
-      // Disable adding a blank frame and idead use the PiskelApi
+      // Disable adding a blank frame and instead use the PiskelApi
       // to cause an action.
       //this.piskelController.addFrame();
       this.updateScrollerOverflows();

@@ -121,11 +121,10 @@
           message.frameRate);
     } else if (message.type === MessageType.TOGGLE_FRAME_COLUMN) {
       this.toggleFrameColumn(message.hideFrameColumn);
-    } else if (message.type === MessageType.ADD_ADDITIONAL_FRAMES) {
-      this.loadAdditionalFrames(message.uri, message.frameSizeX, message.frameSizeY,
-          message.frameRate);
+    } else if (message.type === MessageType.APPEND_FRAMES) {
+      this.appendFrames(message.uri, message.frameSizeX, message.frameSizeY);
     } else if (message.type === MessageType.ADD_BLANK_FRAME) {
-      this.addBlankFrame();
+      this.piskelController_.addFrame();
     }
   };
 
@@ -185,13 +184,14 @@
   };
 
   /**
+   * Download frames and append the to current piskel project.
    * @param {!string} uri
    * @param {!number} frameSizeX
    * @param {!number} frameSizeY
    * @param {number} [frameRate]
    */
-  ns.PiskelApiService.prototype.loadAdditionalFrames = function (uri, frameSizeX,
-      frameSizeY, frameRate) {
+  ns.PiskelApiService.prototype.appendFrames = function (uri, frameSizeX,
+      frameSizeY) {
     var image = new Image();
     image.onload = function () {
       image.onload = Constants.EMPTY_FUNCTION;
@@ -201,8 +201,7 @@
         frameSizeY: frameSizeY,
         frameOffsetX: 0,
         frameOffsetY: 0,
-        smoothing: false,
-        frameRate: frameRate
+        smoothing: false
       }, function () {
         this.log('Image loaded.');
         this.sendMessage_({type: MessageType.FRAMES_LOADED});
@@ -210,13 +209,6 @@
       }.bind(this));
     }.bind(this);
     image.src = uri;
-  };
-
-  /**
-   * Add a blank frame to the end of the current piskel.
-   */
-  ns.PiskelApiService.prototype.addBlankFrame = function () {
-    this.piskelController_.addFrame();
   };
 
   /**

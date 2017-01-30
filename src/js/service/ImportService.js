@@ -28,55 +28,16 @@
    * @param {function} [onComplete]
    */
   ns.ImportService.prototype.newPiskelFromImage = function (image, options, onComplete) {
-    onComplete = onComplete || Constants.EMPTY_FUNCTION;
-    var importType = options.importType;
-    var frameSizeX = options.frameSizeX;
-    var frameSizeY = options.frameSizeY;
-    var frameOffsetX = options.frameOffsetX;
-    var frameOffsetY = options.frameOffsetY;
-    var smoothing = options.smoothing;
-    var frameRate = typeof options.frameRate !== 'undefined' ?
-        options.frameRate : Constants.DEFAULT.FPS;
-
     var setPiskelFromFrameImages = function (frameImages) {
-      var piskel = this.createPiskelFromImages_(frameImages, frameSizeX,
-          frameSizeY, smoothing);
+      var piskel = this.createPiskelFromImages_(frameImages, options.frameSizeX,
+          options.frameSizeY, options.smoothing);
       this.piskelController_.setPiskel(piskel);
+      var frameRate = typeof options.frameRate !== 'undefined' ?
+        options.frameRate : Constants.DEFAULT.FPS;
       this.previewController_.setFPS(frameRate);
     }.bind(this);
 
-    var gifLoader = new window.SuperGif({
-      gif: image
-    });
-
-    gifLoader.load({
-      success: function () {
-        var images = gifLoader.getFrames().map(function (frame) {
-          return pskl.utils.CanvasUtils.createFromImageData(frame.data);
-        });
-
-        if (importType === 'single' || images.length > 1) {
-          // Single image import or animated gif
-          setPiskelFromFrameImages(images);
-        } else {
-          // Spritesheet
-          var frameImages = this.createImagesFromSheet_(images[0]);
-          setPiskelFromFrameImages(frameImages);
-        }
-        onComplete();
-      }.bind(this),
-      error: function () {
-        if (importType === 'single') {
-          // Single image
-          setPiskelFromFrameImages([image]);
-        } else {
-          // Spritesheet
-          var frameImages = this.createImagesFromSheet_(image, frameSizeX, frameSizeY, frameOffsetX, frameOffsetY);
-          setPiskelFromFrameImages(frameImages);
-        }
-        onComplete();
-      }.bind(this)
-    });
+    this.importFromImages(image, options, setPiskelFromFrameImages, onComplete);
   };
 
   /**
@@ -94,6 +55,17 @@
    * @param {function} [onComplete]
    */
   ns.ImportService.prototype.importFramesFromImage = function (image, options, onComplete) {
+    var setPiskelFromFrameImages = function (frameImages) {
+      var piskel = this.createPiskelFromImages_(frameImages, options.frameSizeX,
+          options.frameSizeY, options.smoothing);
+      var mergedPiskel = this.mergePiskels(this.piskelController_.getPiskel(), piskel);
+      this.piskelController_.setPiskel(mergedPiskel);
+    }.bind(this);
+
+    this.importFromImages(image, options, setPiskelFromFrameImages, onComplete);
+  };
+
+  ns.ImportService.prototype.importFromImages = function(image, options, setPiskelFromFrameImages, onComplete) {
     onComplete = onComplete || Constants.EMPTY_FUNCTION;
     var importType = options.importType;
     var frameSizeX = options.frameSizeX;
@@ -103,14 +75,6 @@
     var smoothing = options.smoothing;
     var frameRate = typeof options.frameRate !== 'undefined' ?
         options.frameRate : Constants.DEFAULT.FPS;
-
-    var setPiskelFromFrameImages = function (frameImages) {
-      var piskel = this.createPiskelFromImages_(frameImages, frameSizeX,
-          frameSizeY, smoothing);
-      var mergedPiskel = this.mergePiskels(this.piskelController_.getPiskel(), piskel);
-      this.piskelController_.setPiskel(mergedPiskel);
-      this.previewController_.setFPS(frameRate);
-    }.bind(this);
 
     var gifLoader = new window.SuperGif({
       gif: image

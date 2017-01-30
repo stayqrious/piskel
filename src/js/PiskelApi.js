@@ -76,8 +76,8 @@ var PiskelApi = (function (module) {
     ADD_NEW_FRAME_CLICKED: 'ADD_NEW_FRAME_CLICKED',
 
     // Add a set of new frames to the current piskel
-    // Arguments: uri, frameSizeX, frameSizeY, frameRate
-    ADD_ADDITIONAL_FRAMES: 'ADD_ADDITIONAL_FRAMES',
+    // Arguments: uri, frameSizeX, frameSizeY
+    APPEND_FRAMES: 'APPEND_FRAMES',
 
     // Requested spritesheet merge and load has completed
     // Arguments: none
@@ -94,13 +94,7 @@ var PiskelApi = (function (module) {
    */
   PiskelApi.prototype.createNewPiskel = function (frameSizeX, frameSizeY, frameRate, onComplete) {
     onComplete = typeof onComplete === 'function' ? onComplete : Constants.EMPTY_FUNCTION;
-
-    // Hook up the one-time onComplete callback.
-    var callback = function () {
-      this.removeCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
-      onComplete();
-    }.bind(this);
-    this.addCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
+    this.callBackOnce_(PiskelApi.MessageType.ANIMATION_LOADED, onComplete);
     this.sendMessage_({
       type: PiskelApi.MessageType.NEW_PISKEL,
       frameSizeX: frameSizeX,
@@ -126,13 +120,7 @@ var PiskelApi = (function (module) {
    */
   PiskelApi.prototype.loadSpritesheet = function (uri, frameSizeX, frameSizeY, frameRate, onComplete) {
     onComplete = typeof onComplete === 'function' ? onComplete : Constants.EMPTY_FUNCTION;
-
-    // Hook up the one-time onComplete callback.
-    var callback = function () {
-      this.removeCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
-      onComplete();
-    }.bind(this);
-    this.addCallback_(PiskelApi.MessageType.ANIMATION_LOADED, callback);
+    this.callBackOnce_(PiskelApi.MessageType.ANIMATION_LOADED, onComplete);
 
     // Send the load message to Piskel.
     this.sendMessage_({
@@ -145,7 +133,7 @@ var PiskelApi = (function (module) {
   };
 
   /**
-   * Tell Piskel to load an spritesheet for editing, merging with whatever document
+   * Tell Piskel to load an spritesheet for editing, appending to whatever document
    * is currently open in the editor.  Assumes that frames in the spritesheet
    * will have a uniform size, and be arranged in a grid read left-to-right,
    * then top-to-bottom. Will update the final size to be the max of the current or new spritesheet.
@@ -155,27 +143,19 @@ var PiskelApi = (function (module) {
    *        pixels.
    * @param {number} frameSizeY - Height of a frame within the spritesheet, in
    *        pixels.
-   * @param {number} [frameRate] - Animation rate in frames per second.
    * @param {function} [onComplete] - Called when the spritesheet is loaded.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs
    */
-  PiskelApi.prototype.loadAdditionalFrames = function (uri, frameSizeX, frameSizeY, frameRate, onComplete) {
+  PiskelApi.prototype.appendFrames = function (uri, frameSizeX, frameSizeY, onComplete) {
     onComplete = typeof onComplete === 'function' ? onComplete : Constants.EMPTY_FUNCTION;
-
-    // Hook up the one-time onComplete callback.
-    var callback = function () {
-      this.removeCallback_(PiskelApi.MessageType.FRAMES_LOADED, callback);
-      onComplete();
-    }.bind(this);
-    this.addCallback_(PiskelApi.MessageType.FRAMES_LOADED, callback);
+    this.callBackOnce_(PiskelApi.MessageType.FRAMES_LOADED, onComplete);
 
     // Send the load message to Piskel.
     this.sendMessage_({
-      type: PiskelApi.MessageType.ADD_ADDITIONAL_FRAMES,
+      type: PiskelApi.MessageType.APPEND_FRAMES,
       uri: uri,
       frameSizeX: frameSizeX,
-      frameSizeY: frameSizeY,
-      frameRate: frameRate
+      frameSizeY: frameSizeY
     });
   };
 
@@ -282,6 +262,20 @@ var PiskelApi = (function (module) {
     if (index >= 0) {
       callbacks.splice(index, 1);
     }
+  };
+
+  /**
+   * Add callback to be called once then removed.
+   * @param {string} type
+   * @param {function} callback
+   * @private
+   */
+  PiskelApi.prototype.callBackOnce_ = function (type, onComplete) {
+    var callback = function () {
+      this.removeCallback_(type, callback);
+      onComplete();
+    }.bind(this);
+    this.addCallback_(type, callback);
   };
 
   /**
