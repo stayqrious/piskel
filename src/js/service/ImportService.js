@@ -28,6 +28,44 @@
    * @param {function} [onComplete]
    */
   ns.ImportService.prototype.newPiskelFromImage = function (image, options, onComplete) {
+    var setPiskelFromFrameImages = function (frameImages) {
+      var piskel = this.createPiskelFromImages_(frameImages, options.frameSizeX,
+          options.frameSizeY, options.smoothing);
+      this.piskelController_.setPiskel(piskel);
+      var frameRate = typeof options.frameRate !== 'undefined' ?
+        options.frameRate : Constants.DEFAULT.FPS;
+      this.previewController_.setFPS(frameRate);
+    }.bind(this);
+
+    this.importFromImages(image, options, setPiskelFromFrameImages, onComplete);
+  };
+
+  /**
+   * Given an image object and some options, merge the frames with the currently open
+   * Piskel and open it for editing.
+   * @param {!Image} image
+   * @param {!Object} options
+   * @param {!string} options.importType - 'single' if not spritesheet
+   * @param {!number} options.frameSizeX
+   * @param {!number} options.frameSizeY
+   * @param {number} [options.frameOffsetX] only used in spritesheet imports.
+   * @param {number} [options.frameOffsetY] only used in spritesheet imports.
+   * @param {!boolean} options.smoothing
+   * @param {number} [options.frameRate] in frames per second
+   * @param {function} [onComplete]
+   */
+  ns.ImportService.prototype.importFramesFromImage = function (image, options, onComplete) {
+    var setPiskelFromFrameImages = function (frameImages) {
+      var piskel = this.createPiskelFromImages_(frameImages, options.frameSizeX,
+          options.frameSizeY, options.smoothing);
+      var mergedPiskel = this.mergePiskels(this.piskelController_.getPiskel(), piskel);
+      this.piskelController_.setPiskel(mergedPiskel);
+    }.bind(this);
+
+    this.importFromImages(image, options, setPiskelFromFrameImages, onComplete);
+  };
+
+  ns.ImportService.prototype.importFromImages = function(image, options, setPiskelFromFrameImages, onComplete) {
     onComplete = onComplete || Constants.EMPTY_FUNCTION;
     var importType = options.importType;
     var frameSizeX = options.frameSizeX;
@@ -37,13 +75,6 @@
     var smoothing = options.smoothing;
     var frameRate = typeof options.frameRate !== 'undefined' ?
         options.frameRate : Constants.DEFAULT.FPS;
-
-    var setPiskelFromFrameImages = function (frameImages) {
-      var piskel = this.createPiskelFromImages_(frameImages, frameSizeX,
-          frameSizeY, smoothing);
-      this.piskelController_.setPiskel(piskel);
-      this.previewController_.setFPS(frameRate);
-    }.bind(this);
 
     var gifLoader = new window.SuperGif({
       gif: image
