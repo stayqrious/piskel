@@ -109,7 +109,6 @@ module.exports = function(grunt) {
           Constants: true,
           console: true,
           PiskelApi: true,
-          console: true,
           module: true,
           require: true,
           Q: true,
