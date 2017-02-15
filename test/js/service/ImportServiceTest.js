@@ -2,7 +2,8 @@
 describe("ImportService test suite", function() {
   var createPiskel = function(width, height, numFrames) {
     var descriptor = 10;
-    var piskel = new pskl.model.Piskel(width, height, descriptor);
+    var fps = 4;
+    var piskel = new pskl.model.Piskel(width, height, fps, descriptor);
     var layer = new pskl.model.Layer("layer 1");
     for (var i = 0; i < numFrames; i++) {
       var frame = new pskl.model.Frame(width, height);
@@ -12,7 +13,8 @@ describe("ImportService test suite", function() {
     return piskel;
   };
 
-  var color = 'rgb(1, 1, 1)';
+  // equivalent to rgb(1, 1, 1)
+  var color = 4278255873;
 
   it("mergePiskels combines two same size piskels", function() {
     var service = new pskl.service.ImportService();
