@@ -34,13 +34,28 @@
       }
     };
 
+    var intHexCache = {};
+    var intToHex = function(int) {
+      if (intHexCache[int]) {
+        return intHexCache[int];
+      }
+
+      var hex = rgbToHex(int & 0xff, int >> 8 & 0xff, int >> 16 & 0xff);
+      intHexCache[int] = hex;
+      return hex;
+    };
+
     var getFrameColors = function (frame) {
       var frameColors = {};
-      for (var x = 0 ; x < frame.length ; x++) {
-        for (var y = 0 ; y < frame[x].length ; y++) {
-          var color = frame[x][y];
-          var hexColor = toHexString_(color);
-          frameColors[hexColor] = true;
+      var transparentColorInt = this.TRANSPARENT_COLOR;
+      var colors = 0;
+      for (var i = 0, length = frame.length; i < length && colors < this.MAX_WORKER_COLORS; i++) {
+        var color = frame[i];
+        if (color !== transparentColorInt) {
+          if (!frameColors[color]) {
+            frameColors[color] = true;
+            colors++;
+          }
         }
       }
       return frameColors;
@@ -48,8 +63,9 @@
 
     this.onmessage = function(event) {
       try {
-        var data = event.data;
-        var frame = JSON.parse(data.serializedFrame);
+        this.TRANSPARENT_COLOR = event.data[0];
+        this.MAX_WORKER_COLORS = event.data[1];
+        var frame = event.data[2];
         var colors = getFrameColors(frame);
         this.postMessage({
           type : 'SUCCESS',

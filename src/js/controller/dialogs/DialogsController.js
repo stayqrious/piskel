@@ -17,6 +17,14 @@
     'import-image' : {
       template : 'templates/dialogs/import-image.html',
       controller : ns.ImportImageController
+    },
+    'performance-info' : {
+      template : 'templates/dialogs/performance-info.html',
+      controller : ns.PerformanceInfoController
+    },
+    'unsupported-browser' : {
+      template : 'templates/dialogs/unsupported-browser.html',
+      controller : ns.UnsupportedBrowserController
     }
   };
 
@@ -42,6 +50,8 @@
 
     // adding the .animated class here instead of in the markup to avoid an animation during app startup
     this.dialogWrapper_.classList.add('animated');
+    pskl.utils.Event.addEventListener(this.dialogWrapper_, 'click', this.onWrapperClicked_, this);
+
   };
 
   ns.DialogsController.prototype.onCreatePaletteShortcut_ = function () {
@@ -67,6 +77,12 @@
 
   ns.DialogsController.prototype.onDialogDisplayEvent_ = function (evt, args) {
     this.showDialog(args.dialogId, args.initArgs);
+  };
+
+  ns.DialogsController.prototype.onWrapperClicked_ = function (evt) {
+    if (evt.target === this.dialogWrapper_) {
+      this.hideDialog();
+    }
   };
 
   ns.DialogsController.prototype.showDialog = function (dialogId, initArgs) {

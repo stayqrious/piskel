@@ -39,6 +39,28 @@ if (!Function.prototype.bind) {
 }
 
 /**
+ * Polyfill for typedarrays' fill method for PhantomJS
+ */
+if (!Uint32Array.prototype.fill) {
+  Uint32Array.prototype.fill = function (value, start, end) {
+    start = typeof start === 'undefined' ? 0 : start;
+    end = typeof end === 'undefined' ? this.length : end;
+
+    if (start < 0) {
+      start = this.length + start;
+    }
+
+    if (end < 0) {
+      end = this.length + end;
+    }
+
+    for (var i = start; i < end; i++) {
+      this[i] = value;
+    }
+  };
+}
+
+/**
  * @provide pskl.utils
  *
  * @require Constants
@@ -68,6 +90,17 @@ if (!Function.prototype.bind) {
     return hex.length == 1 ? '0' + hex : hex;
   };
 
+  var intHexCache = {};
+  ns.intToHex = function(int) {
+    if (intHexCache[int]) {
+      return intHexCache[int];
+    }
+
+    var hex = ns.rgbToHex(int & 0xff, int >> 8 & 0xff, int >> 16 & 0xff);
+    intHexCache[int] = hex;
+    return hex;
+  };
+
   ns.normalize = function (value, def) {
     if (typeof value === 'undefined' || value === null) {
       return def;
@@ -92,13 +125,16 @@ if (!Function.prototype.bind) {
 
   ns.hashCode = function(str) {
     var hash = 0;
-    if (str.length !== 0) {
-      for (var i = 0, l = str.length; i < l; i++) {
-        var chr = str.charCodeAt(i);
-        hash  = ((hash << 5) - hash) + chr;
-        hash |= 0; // Convert to 32bit integer
-      }
+    if (str.length === 0) {
+      return hash;
     }
+
+    for (var i = 0, len = str.length, chr; i < len; i++) {
+      chr = str.charCodeAt(i);
+      hash = hash * 31 + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+
     return hash;
   };
 
@@ -118,6 +154,63 @@ if (!Function.prototype.bind) {
     return String(string).replace(/[&<>"'\/]/g, function (s) {
       return entityMap[s];
     });
+  };
+
+  var colorCache = {};
+  var colorCacheReverse = {};
+  ns.colorToInt = function (color) {
+    if (typeof color === 'number') {
+      return color;
+    }
+
+    if (typeof colorCache[color] !== 'undefined') {
+      return colorCache[color];
+    }
+
+    var tc = window.tinycolor(color);
+    if (tc && tc.ok) {
+      var rgb = tc.toRgb();
+      var a = Math.round(rgb.a * 255);
+      var intValue = (a << 24 >>> 0) + (rgb.b << 16) + (rgb.g << 8) + rgb.r;
+      if (a === 0) {
+        // assign all 'transparent' colors to 0, theoretically mapped to rgba(0,0,0,0) only
+        intValue = 0;
+      }
+      colorCache[color] = intValue;
+      colorCacheReverse[intValue] = color;
+      return intValue;
+    } else {
+      // If tinycolor failed, determine color by using the browser
+      var d = document.createElement('div');
+      d.style.color = color;
+      document.body.appendChild(d);
+
+      // Color in RGB
+      color = window.getComputedStyle(d).color;
+      document.body.removeChild(d);
+
+      return pskl.utils.colorToInt(color);
+    }
+  };
+
+  ns.intToColor = function(intValue) {
+    if (typeof intValue === 'string') {
+      return intValue;
+    }
+
+    if (typeof colorCacheReverse[intValue] !== 'undefined') {
+      return colorCacheReverse[intValue];
+    }
+
+    var r = intValue & 0xff;
+    var g = intValue >> 8 & 0xff;
+    var b = intValue >> 16 & 0xff;
+    var a = (intValue >> 24 >>> 0 & 0xff) / 255;
+    var color = 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+
+    colorCache[color] = intValue;
+    colorCacheReverse[intValue] = color;
+    return color;
   };
 
   var reEntityMap = {};

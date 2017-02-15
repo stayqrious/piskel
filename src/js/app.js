@@ -19,8 +19,9 @@
       this.shortcutService.init();
 
       var size = pskl.UserSettings.get(pskl.UserSettings.DEFAULT_SIZE);
+      var fps = Constants.DEFAULT.FPS;
       var descriptor = new pskl.model.piskel.Descriptor('New Piskel', '');
-      var piskel = new pskl.model.Piskel(size.width, size.height, descriptor);
+      var piskel = new pskl.model.Piskel(size.width, size.height, fps, descriptor);
 
       var layer = new pskl.model.Layer('Layer 1');
       var frame = new pskl.model.Frame(size.width, size.height);
@@ -35,6 +36,8 @@
       this.piskelController.init();
 
       this.paletteImportService = new pskl.service.palette.PaletteImportService();
+      this.paletteImportService.init();
+
       this.paletteService = new pskl.service.palette.PaletteService();
       this.paletteService.addDynamicPalette(new pskl.service.palette.CurrentColorsPalette());
 
@@ -58,7 +61,6 @@
 
       this.drawingController = new pskl.controller.DrawingController(
         this.piskelController,
-        this.paletteController,
         $('#drawing-canvas-container'));
       this.drawingController.init();
 
@@ -94,7 +96,7 @@
       this.selectionManager = new pskl.selection.SelectionManager(this.piskelController);
       this.selectionManager.init();
 
-      this.historyService = new pskl.service.HistoryService(this.corePiskelController);
+      this.historyService = new pskl.service.HistoryService(this.piskelController);
       this.historyService.init();
 
       this.notificationController = new pskl.controller.NotificationController();
@@ -124,12 +126,15 @@
       this.storageService = new pskl.service.storage.StorageService(this.piskelController);
       this.storageService.init();
 
-      this.importService = new pskl.service.ImportService(this.piskelController, this.previewController);
+      this.importService = new pskl.service.ImportService(this.piskelController);
+      this.importService.init();
 
       this.imageUploadService = new pskl.service.ImageUploadService();
       this.imageUploadService.init();
 
-      this.savedStatusService = new pskl.service.SavedStatusService(this.piskelController, this.historyService);
+      this.savedStatusService = new pskl.service.SavedStatusService(
+        this.piskelController,
+        this.historyService);
       this.savedStatusService.init();
 
       this.backupService = new pskl.service.BackupService(this.piskelController);
@@ -138,7 +143,9 @@
       this.beforeUnloadService = new pskl.service.BeforeUnloadService(this.piskelController);
       this.beforeUnloadService.init();
 
-      this.headerController = new pskl.controller.HeaderController(this.piskelController, this.savedStatusService);
+      this.headerController = new pskl.controller.HeaderController(
+        this.piskelController,
+        this.savedStatusService);
       this.headerController.init();
 
       this.penSizeService = new pskl.service.pensize.PenSizeService();
@@ -147,9 +154,7 @@
       this.penSizeController = new pskl.controller.PenSizeController();
       this.penSizeController.init();
 
-      this.fileDropperService = new pskl.service.FileDropperService(
-        this.piskelController,
-        document.querySelector('#drawing-canvas-container'));
+      this.fileDropperService = new pskl.service.FileDropperService(this.piskelController);
       this.fileDropperService.init();
 
       // Service that can interact with a parent application via the PiskelApi
@@ -158,15 +163,15 @@
           this.piskelController, this.previewController, this.importService);
       this.piskelApiService.init(window);
 
-      var drawingLoop = new pskl.rendering.DrawingLoop();
-      drawingLoop.addCallback(this.render, this);
-      drawingLoop.start();
+      this.drawingLoop = new pskl.rendering.DrawingLoop();
+      this.drawingLoop.addCallback(this.render, this);
+      this.drawingLoop.start();
 
       this.initTooltips_();
 
       var piskelData = this.getPiskelInitData_();
       if (piskelData && piskelData.piskel) {
-        this.loadPiskel_(piskelData.piskel, piskelData.descriptor, piskelData.fps);
+        this.loadPiskel_(piskelData);
       }
 
       if (pskl.devtools) {
@@ -179,13 +184,23 @@
         mb.createMacBuiltin('Piskel');
         gui.Window.get().menu = mb;
       }
+
+      if (pskl.utils.UserAgent.isUnsupported()) {
+        $.publish(Events.DIALOG_DISPLAY, {
+          dialogId : 'unsupported-browser'
+        });
+      }
     },
 
-    loadPiskel_ : function (serializedPiskel, descriptor, fps) {
+    loadPiskel_ : function (piskelData) {
+      var serializedPiskel = piskelData.piskel;
       pskl.utils.serialization.Deserializer.deserialize(serializedPiskel, function (piskel) {
-        piskel.setDescriptor(descriptor);
         pskl.app.piskelController.setPiskel(piskel);
-        pskl.app.previewController.setFPS(fps);
+        $.publish(Events.PISKEL_SAVED);
+        if (piskelData.descriptor) {
+          // Backward compatibility for v2 or older
+          piskel.setDescriptor(piskelData.descriptor);
+        }
       });
     },
 

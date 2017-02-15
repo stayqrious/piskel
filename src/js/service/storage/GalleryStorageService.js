@@ -11,8 +11,10 @@
     var descriptor = piskel.getDescriptor();
     var deferred = Q.defer();
 
+    var serialized = pskl.utils.serialization.Serializer.serialize(piskel);
+
     var data = {
-      framesheet : this.piskelController.serialize(),
+      framesheet : serialized,
       fps : this.piskelController.getFPS(),
       name : descriptor.name,
       description : descriptor.description,
@@ -20,6 +22,10 @@
       first_frame_as_png : pskl.app.getFirstFrameAsPng(),
       framesheet_as_png : pskl.app.getFramesheetAsPng()
     };
+
+    if (serialized.length > Constants.APPENGINE_SAVE_LIMIT) {
+      deferred.reject('This sprite is too big to be saved on the gallery. Try saving it as a .piskel file.');
+    }
 
     if (descriptor.isPublic) {
       data.public = true;

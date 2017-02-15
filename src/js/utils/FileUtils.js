@@ -8,10 +8,18 @@
   ns.FileUtils = {
     readFile : function (file, callback) {
       var reader = new FileReader();
-      reader.onload = function (event) {
-        callback(event.target.result);
-      };
+      reader.addEventListener('loadend', function() {
+        callback(reader.result);
+      });
       reader.readAsDataURL(file);
+    },
+
+    readFileAsArrayBuffer : function (file, callback) {
+      var reader = new FileReader();
+      reader.addEventListener('loadend', function() {
+        callback(reader.result);
+      });
+      reader.readAsArrayBuffer(file);
     },
 
     readImageFile : function (file, callback) {

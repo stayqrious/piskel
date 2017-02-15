@@ -13,6 +13,9 @@ var Constants = {
   MAX_WIDTH : 1024,
 
   MAX_PALETTE_COLORS : 100,
+  // allow current colors service to get up to 256 colors.
+  // GIF generation is different if the color count goes over 256.
+  MAX_WORKER_COLORS : 256,
 
   PREVIEW_FILM_SIZE : 96,
   // Code.org - 60px right hand side gives workspace more room.
@@ -20,7 +23,7 @@ var Constants = {
 
   DEFAULT_PEN_COLOR : '#000000',
   TRANSPARENT_COLOR : 'rgba(0, 0, 0, 0)',
-  SEAMLESS_MODE_OVERLAY_COLOR : 'rgba(255, 255, 255, 0.5)',
+  SEAMLESS_MODE_OVERLAY_COLOR : 'rgba(255, 255, 255, 0)',
 
   CURRENT_COLORS_PALETTE_ID : '__current-colors',
 
@@ -49,6 +52,12 @@ var Constants = {
 
   // TESTS
   DRAWING_TEST_FOLDER : 'drawing',
+
+  // Maximum size of a sprite that can be saved on piskelapp datastore.
+  // This size will be compared to the length of the stringified serialization of the sprite.
+  // This is an approximation at best but gives correct results in most cases.
+  // The datastore limit is 1 MiB, which we roughly approximate to 1 million characters.
+  APPENGINE_SAVE_LIMIT : 1 * 1024 * 1024,
 
   // SERVICE URLS
   APPENGINE_SAVE_URL : 'save',

@@ -35,15 +35,16 @@
     return this.piskel.getWidth();
   };
 
-  /**
-   * TODO : this should be removed
-   * FPS should be stored in the Piskel model and not in the
-   * previewController
-   * Then piskelController should be able to return this information
-   * @return {Number} Frames per second for the current animation
-   */
   ns.PiskelController.prototype.getFPS = function () {
-    return pskl.app.previewController.getFPS();
+    return this.piskel.fps;
+  };
+
+  ns.PiskelController.prototype.setFPS = function (fps) {
+    if (typeof fps !== 'number') {
+      return;
+    }
+    this.piskel.fps = fps;
+    $.publish(Events.FPS_CHANGED);
   };
 
   ns.PiskelController.prototype.getLayers = function () {
@@ -269,16 +270,20 @@
   };
 
   ns.PiskelController.prototype.removeLayerAt = function (index) {
-    if (this.getLayers().length > 1) {
-      var layer = this.getLayerAt(index);
-      if (layer) {
-        this.piskel.removeLayer(layer);
-        this.setCurrentLayerIndex(0);
-      }
+    if (!this.hasLayerAt(index)) {
+      return;
+    }
+
+    var layer = this.getLayerAt(index);
+    this.piskel.removeLayer(layer);
+
+    // Update the selected layer if needed.
+    if (this.getCurrentLayerIndex() === index) {
+      this.setCurrentLayerIndex(Math.max(0, index - 1));
     }
   };
 
-  ns.PiskelController.prototype.serialize = function (expanded) {
-    return pskl.utils.Serializer.serializePiskel(this.piskel, expanded);
+  ns.PiskelController.prototype.serialize = function () {
+    return pskl.utils.serialization.Serializer.serialize(this.piskel);
   };
 })();

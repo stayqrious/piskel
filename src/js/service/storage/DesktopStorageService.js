@@ -24,7 +24,7 @@
       return Q.reject('Invalid file name');
     }
 
-    var serialized = pskl.utils.Serializer.serializePiskel(piskel, false);
+    var serialized = pskl.utils.serialization.Serializer.serialize(piskel);
     savePath = this.addExtensionIfNeeded_(savePath);
     piskel.savePath = savePath;
     piskel.setName(this.extractFilename_(savePath));
@@ -37,12 +37,10 @@
 
   ns.DesktopStorageService.prototype.load = function (savePath) {
     pskl.utils.FileUtilsDesktop.readFile(savePath).then(function (content) {
-      pskl.utils.PiskelFileUtils.decodePiskelFile(content, function (piskel, descriptor, fps) {
-        piskel.setDescriptor(descriptor);
+      pskl.utils.PiskelFileUtils.decodePiskelFile(content, function (piskel) {
         // store save path so we can re-save without opening the save dialog
         piskel.savePath = savePath;
         pskl.app.piskelController.setPiskel(piskel);
-        pskl.app.previewController.setFPS(fps);
       });
     });
   };

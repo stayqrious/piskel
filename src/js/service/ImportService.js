@@ -4,13 +4,25 @@
   /**
    * Image an animation import service supporting the import dialog.
    * @param {!PiskelController} piskelController
-   * @param {!PreviewController} previewController
    * @constructor
    */
-  ns.ImportService =
-      function (piskelController, previewController) {
+  ns.ImportService = function (piskelController) {
     this.piskelController_ = piskelController;
-    this.previewController_ = previewController;
+  };
+
+  ns.ImportService.prototype.init = function () {
+    $.subscribe(Events.PISKEL_FILE_IMPORT_FAILED, this.onPiskelFileImportFailed_);
+  };
+
+  /**
+   * Called when a piskel load failed event is published. Display an appropriate error message.
+   * TODO: for some failure reasons, we might want to display a dialog with more details.
+   */
+  ns.ImportService.prototype.onPiskelFileImportFailed_ = function (evt, reason) {
+    $.publish(Events.SHOW_NOTIFICATION, [{
+      'content': 'Piskel file import failed (' + reason + ')',
+      'hideDelay' : 10000
+    }]);
   };
 
   /**
@@ -144,7 +156,7 @@
     var frames = this.createFramesFromImages_(images, frameSizeX, frameSizeY, smoothing);
     var layer = pskl.model.Layer.fromFrames('Layer 1', frames);
     var descriptor = new pskl.model.piskel.Descriptor('Imported piskel', '');
-    return pskl.model.Piskel.fromLayers([layer], descriptor);
+    return pskl.model.Piskel.fromLayers([layer], Constants.DEFAULT.FPS, descriptor);
   };
 
   /**

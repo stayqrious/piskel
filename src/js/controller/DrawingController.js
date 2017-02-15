@@ -2,13 +2,11 @@
 
   var ns = $.namespace('pskl.controller');
 
-  ns.DrawingController = function (piskelController, paletteController, container) {
+  ns.DrawingController = function (piskelController, container) {
     /**
      * @public
      */
     this.piskelController = piskelController;
-
-    this.paletteController = paletteController;
 
     this.dragHandler = new ns.drawing.DragHandler(this);
 
@@ -238,13 +236,15 @@
     var evt = jQueryEvent.originalEvent;
     // Ratio between wheelDeltaY (mousewheel event) and deltaY (wheel event) is -40
     var delta;
-    if (pskl.utils.UserAgent.isChrome) {
-      delta = evt.wheelDeltaY;
-    } else if (pskl.utils.UserAgent.isIE11) {
+    if (pskl.utils.UserAgent.isIE11) {
       delta = evt.wheelDelta;
     } else if (pskl.utils.UserAgent.isFirefox) {
       delta = -40 * evt.deltaY;
+    } else {
+      delta = evt.wheelDeltaY;
     }
+
+    delta = delta || 0;
     var modifier = (delta / 120);
 
     if (pskl.utils.UserAgent.isMac ? evt.metaKey : evt.ctrlKey) {
@@ -311,7 +311,8 @@
         if (this.dragHandler.isDragging()) {
           this.dragHandler.stopDrag();
         } else if (frame.containsPixel(coords.x, coords.y)) {
-          $.publish(Events.SELECT_PRIMARY_COLOR, [frame.getPixel(coords.x, coords.y)]);
+          var color = pskl.utils.intToColor(frame.getPixel(coords.x, coords.y));
+          $.publish(Events.SELECT_PRIMARY_COLOR, [color]);
         }
       } else {
         this.currentToolBehavior.releaseToolAt(
