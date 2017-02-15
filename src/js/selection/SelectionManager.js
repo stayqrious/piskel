@@ -128,11 +128,7 @@
 
   ns.SelectionManager.prototype.paste = function(quickKey) {
     if (!this.currentSelection || !this.currentSelection.hasPastedContent) {
-      if (window.localStorage.getItem('piskel.clipboard')) {
-        this.currentSelection = JSON.parse(window.localStorage.getItem('piskel.clipboard'));
-      } else {
-        return;
-      }
+      return;
     }
 
     var pixels = this.currentSelection.pixels;
@@ -207,7 +203,6 @@
     if (this.currentSelection && this.piskelController.getCurrentFrame()) {
       this.currentSelection.fillSelectionFromFrame(this.piskelController.getCurrentFrame());
       this.paste('V');
-      window.localStorage.setItem('piskel.clipboard', JSON.stringify(this.currentSelection));
     }
   };
 
