@@ -44,9 +44,6 @@
       var piskel = this.createPiskelFromImages_(frameImages, options.frameSizeX,
           options.frameSizeY, options.smoothing);
       this.piskelController_.setPiskel(piskel);
-      var frameRate = typeof options.frameRate !== 'undefined' ?
-        options.frameRate : Constants.DEFAULT.FPS;
-      this.previewController_.setFPS(frameRate);
     }.bind(this);
 
     this.importFromImages(image, options, setPiskelFromFrameImages, onComplete);
