@@ -1,6 +1,10 @@
 (function () {
   var ns = $.namespace('pskl.controller');
 
+  /**
+   * The PaletteController is responsible for handling the two color picker
+   * widgets found in the left column, below the tools.
+   */
   ns.PaletteController = function () {};
 
   /**
@@ -92,7 +96,8 @@
   };
 
   ns.PaletteController.prototype.resetColors = function () {
-    pskl.app.selectedColorsService.reset();
+    this.setPrimaryColor_(Constants.DEFAULT_PEN_COLOR);
+    this.setSecondaryColor_(Constants.TRANSPARENT_COLOR);
   };
 
   /**

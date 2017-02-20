@@ -23,15 +23,23 @@ describe("History Service suite", function() {
 
   var createMockHistoryService = function () {
     var mockPiskelController = {
-      serialize : function () {
-        return SERIALIZED_PISKEL;
+      getWrappedPiskelController: function () {
+        return {
+          getPiskel : function () {},
+          getFPS : function () {
+            return 12;
+          }
+        }
       }
     };
     var mockShortcutService = {
       registerShortcuts : function () {},
       registerShortcut : function () {}
     };
-    return new pskl.service.HistoryService(mockPiskelController, mockShortcutService);
+    return new pskl.service.HistoryService(mockPiskelController, mockShortcutService,
+      { deserialize : function () {}},
+      { serialize : function () { return SERIALIZED_PISKEL }}
+    );
   };
 
   it("starts at -1", function() {

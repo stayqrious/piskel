@@ -42,6 +42,8 @@
   "js/utils/Xhr.js",
   "js/utils/serialization/Serializer.js",
   "js/utils/serialization/Deserializer.js",
+  "js/utils/serialization/arraybuffer/ArrayBufferDeserializer.js",
+  "js/utils/serialization/arraybuffer/ArrayBufferSerializer.js",
   "js/utils/serialization/backward/Deserializer_v0.js",
   "js/utils/serialization/backward/Deserializer_v1.js",
 
@@ -52,6 +54,10 @@
 
   // JSZip https://github.com/Stuk/jszip
   "js/lib/jszip/jszip.min.js",
+
+  "js/lib/scrollifneeded/scrollifneeded.js",
+  // Smoothscroll: https://github.com/iamdustan/smoothscroll
+  "js/lib/smoothscroll/smoothscroll.js",
 
   // Spectrum color-picker library
   "js/lib/spectrum/spectrum.js",
@@ -111,6 +117,7 @@
   "js/controller/NotificationController.js",
   "js/controller/TransformationsController.js",
   "js/controller/CanvasBackgroundController.js",
+  "js/controller/UserWarningController.js",
 
   // Settings sub-controllers
   "js/controller/settings/AbstractSettingController.js",
@@ -135,6 +142,8 @@
   "js/controller/dialogs/ImportImageController.js",
   "js/controller/dialogs/BrowseLocalController.js",
   "js/controller/dialogs/CheatsheetController.js",
+  "js/controller/dialogs/PerformanceInfoController.js",
+  "js/controller/dialogs/UnsupportedBrowserController.js",
 
   // Dialogs controller
   "js/controller/dialogs/DialogsController.js",
@@ -177,6 +186,8 @@
   "js/service/FileDropperService.js",
   "js/service/SelectedColorsService.js",
   "js/service/MouseStateService.js",
+  "js/service/performance/PerformanceReport.js",
+  "js/service/performance/PerformanceReportService.js",
   "js/service/storage/LocalStorageService.js",
   "js/service/storage/GalleryStorageService.js",
   "js/service/storage/DesktopStorageService.js",

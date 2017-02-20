@@ -30,20 +30,9 @@
     var key1 = frame.getHash();
     if (cache[key1]) {
       processedFrame = cache[key1];
-    } else if (frame instanceof pskl.model.frame.RenderedFrame) {
-      // Cannot use 2nd level cache with rendered frames
-      var callbackFirstLvlCacheOnly = this.onProcessorComplete_.bind(this, deferred, cache, key1, key1);
-      this.frameProcessor(frame, callbackFirstLvlCacheOnly);
     } else {
-      var framePixels = JSON.stringify(frame.getPixels());
-      var key2 = pskl.utils.hashCode(framePixels);
-      if (cache[key2]) {
-        processedFrame = this.outputCloner(cache[key2], frame);
-        cache[key1] = processedFrame;
-      } else {
-        var callback = this.onProcessorComplete_.bind(this, deferred, cache, key1, key2);
-        this.frameProcessor(frame, callback);
-      }
+      var callback = this.onProcessorComplete_.bind(this, deferred, cache, key1);
+      this.frameProcessor(frame, callback);
     }
 
     if (processedFrame) {
@@ -53,9 +42,8 @@
     return deferred.promise;
   };
 
-  ns.AsyncCachedFrameProcessor.prototype.onProcessorComplete_ = function (deferred, cache, key1, key2, result) {
+  ns.AsyncCachedFrameProcessor.prototype.onProcessorComplete_ = function (deferred, cache, key1, result) {
     cache[key1] = result;
-    cache[key2] = result;
     deferred.resolve(result);
   };
 })();

@@ -10,11 +10,16 @@
     this.cachedFrameProcessor = new pskl.model.frame.AsyncCachedFrameProcessor();
     this.cachedFrameProcessor.setFrameProcessor(this.getFrameColors_.bind(this));
 
+    this.throttledUpdateCurrentColors_ = pskl.utils.FunctionUtils.throttle(
+      this.updateCurrentColors_.bind(this),
+      1000
+    );
+
     this.paletteService = pskl.app.paletteService;
   };
 
   ns.CurrentColorsService.prototype.init = function () {
-    $.subscribe(Events.HISTORY_STATE_SAVED, this.updateCurrentColors_.bind(this));
+    $.subscribe(Events.HISTORY_STATE_SAVED, this.throttledUpdateCurrentColors_);
     $.subscribe(Events.HISTORY_STATE_LOADED, this.loadColorsFromCache_.bind(this));
   };
 
@@ -67,13 +72,18 @@
 
   ns.CurrentColorsService.prototype.updateCurrentColors_ = function () {
     var layers = this.piskelController.getLayers();
-    var frames = layers.map(function (l) {return l.getFrames();}).reduce(function (p, n) {return p.concat(n);});
 
-    var job = function (frame) {
+    // Concatenate all frames in a single array.
+    var frames = layers.map(function (l) {
+      return l.getFrames();
+    }).reduce(function (p, n) {
+      return p.concat(n);
+    });
+
+    batchAll(frames, function (frame) {
       return this.cachedFrameProcessor.get(frame);
-    }.bind(this);
-
-    batchAll(frames, job).then(function (results) {
+    }.bind(this))
+    .then(function (results) {
       var colors = {};
       results.forEach(function (result) {
         Object.keys(result).forEach(function (color) {
@@ -81,8 +91,12 @@
         });
       });
       // Remove transparent color from used colors
-      delete colors[Constants.TRANSPARENT_COLOR];
-      this.setCurrentColors(Object.keys(colors));
+      delete colors[pskl.utils.colorToInt(Constants.TRANSPARENT_COLOR)];
+
+      var hexColors = Object.keys(colors).map(function (color) {
+        return pskl.utils.intToHex(color);
+      });
+      this.setCurrentColors(hexColors);
     }.bind(this));
   };
 
@@ -103,7 +117,9 @@
 
   ns.CurrentColorsService.prototype.getFrameColors_ = function (frame, processorCallback) {
     var frameColorsWorker = new pskl.worker.framecolors.FrameColors(frame,
-      function (event) {processorCallback(event.data.colors);},
+      function (event) {
+        processorCallback(event.data.colors);
+      },
       function () {},
       function (event) {processorCallback({});}
     );

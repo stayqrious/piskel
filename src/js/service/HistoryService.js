@@ -1,10 +1,13 @@
 (function () {
   var ns = $.namespace('pskl.service');
 
-  ns.HistoryService = function (piskelController, shortcutService, deserializer) {
-    this.piskelController = piskelController || pskl.app.piskelController;
+  ns.HistoryService = function (piskelController, shortcutService, deserializer, serializer) {
+    // Use the real piskel controller that will not fire events when calling setters
+    this.piskelController = piskelController.getWrappedPiskelController();
+
     this.shortcutService = shortcutService || pskl.app.shortcutService;
-    this.deserializer = deserializer || pskl.utils.serialization.Deserializer;
+    this.deserializer = deserializer || pskl.utils.serialization.arraybuffer.ArrayBufferDeserializer;
+    this.serializer = serializer || pskl.utils.serialization.arraybuffer.ArrayBufferSerializer;
 
     this.stateQueue = [];
     this.currentIndex = -1;
@@ -22,6 +25,9 @@
 
   // Interval/buffer (in milliseconds) between two state load (ctrl+z/y spamming)
   ns.HistoryService.LOAD_STATE_INTERVAL = 50;
+
+  // Maximum number of states that can be recorded.
+  ns.HistoryService.MAX_SAVED_STATES = 500;
 
   ns.HistoryService.prototype.init = function () {
     $.subscribe(Events.PISKEL_SAVE_STATE, this.onSaveStateEvent.bind(this));
@@ -48,15 +54,24 @@
       action : action,
       frameIndex : action.state ? action.state.frameIndex : this.piskelController.currentFrameIndex,
       layerIndex : action.state ? action.state.layerIndex : this.piskelController.currentLayerIndex,
+      fps : this.piskelController.getFPS(),
       uuid: pskl.utils.Uuid.generate()
     };
 
     var isSnapshot = action.type === ns.HistoryService.SNAPSHOT;
     var isAtAutoSnapshotInterval = this.currentIndex % ns.HistoryService.SNAPSHOT_PERIOD === 0;
     if (isSnapshot || isAtAutoSnapshotInterval) {
-      state.piskel = this.piskelController.serialize(true);
+      var piskel = this.piskelController.getPiskel();
+      state.piskel = this.serializer.serialize(piskel);
     }
 
+    // If the new state pushes over MAX_SAVED_STATES, erase all states between the first and
+    // second snapshot states.
+    if (this.stateQueue.length > ns.HistoryService.MAX_SAVED_STATES) {
+      var firstSnapshotIndex = this.getNextSnapshotIndex_(1);
+      this.stateQueue.splice(0, firstSnapshotIndex);
+      this.currentIndex = this.currentIndex - firstSnapshotIndex;
+    }
     this.stateQueue.push(state);
     $.publish(Events.HISTORY_STATE_SAVED);
   };
@@ -87,6 +102,13 @@
   ns.HistoryService.prototype.getPreviousSnapshotIndex_ = function (index) {
     while (this.stateQueue[index] && !this.stateQueue[index].piskel) {
       index = index - 1;
+    }
+    return index;
+  };
+
+  ns.HistoryService.prototype.getNextSnapshotIndex_ = function (index) {
+    while (this.stateQueue[index] && !this.stateQueue[index].piskel) {
+      index = index + 1;
     }
     return index;
   };
@@ -125,13 +147,7 @@
     var state = this.stateQueue[stateIndex];
     var piskelSnapshot = state.piskel;
 
-    // If the snapshot is stringified, parse it and backup the result for faster access next time
-    // FIXME : Memory consumption might go crazy if we keep unpacking big piskels indefinitely
-    // ==> should ensure I remove some of them :)
-    if (typeof piskelSnapshot === 'string') {
-      piskelSnapshot = JSON.parse(piskelSnapshot);
-      state.piskel = piskelSnapshot;
-    }
+    state.piskel = piskelSnapshot;
 
     return piskelSnapshot;
   };
@@ -170,6 +186,7 @@
   ns.HistoryService.prototype.setupState = function (state) {
     this.piskelController.setCurrentFrameIndex(state.frameIndex);
     this.piskelController.setCurrentLayerIndex(state.layerIndex);
+    this.piskelController.setFPS(state.fps);
   };
 
   ns.HistoryService.prototype.replayState = function (state) {

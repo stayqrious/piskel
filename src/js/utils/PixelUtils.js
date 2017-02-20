@@ -16,24 +16,6 @@
       return pixels;
     },
 
-    getBoundRectanglePixels : function (x0, y0, x1, y1) {
-      var rectangle = this.getOrderedRectangleCoordinates(x0, y0, x1, y1);
-      var pixels = [];
-      // Creating horizontal sides of the rectangle:
-      for (var x = rectangle.x0; x <= rectangle.x1; x++) {
-        pixels.push({'col': x, 'row': rectangle.y0});
-        pixels.push({'col': x, 'row': rectangle.y1});
-      }
-
-      // Creating vertical sides of the rectangle:
-      for (var y = rectangle.y0; y <= rectangle.y1; y++) {
-        pixels.push({'col': rectangle.x0, 'row': y});
-        pixels.push({'col': rectangle.x1, 'row': y});
-      }
-
-      return pixels;
-    },
-
     /**
      * Return an object of ordered rectangle coordinate.
      * In returned object {x0, y0} => top left corner - {x1, y1} => bottom right corner
@@ -60,14 +42,25 @@
      * @return an array of the pixel coordinates paint with the replacement color
      */
     getSimilarConnectedPixelsFromFrame: function(frame, col, row) {
-      // To get the list of connected (eg the same color) pixels, we will use the paintbucket algorithm
-      // in a fake cloned frame. The returned pixels by the paintbucket algo are the painted pixels
-      // and are as well connected.
-      var fakeFrame = frame.clone(); // We just want to
-      var fakeFillColor = 'sdfsdfsdf'; // A fake color that will never match a real color.
-      var paintedPixels = this.paintSimilarConnectedPixelsFromFrame(fakeFrame, col, row, fakeFillColor);
+      var targetColor = frame.getPixel(col, row);
+      if (targetColor === null) {
+        return [];
+      }
 
-      return paintedPixels;
+      var startPixel = {
+        col : col,
+        row : row
+      };
+
+      var visited = {};
+      return pskl.PixelUtils.visitConnectedPixels(startPixel, frame, function (pixel) {
+        var key = pixel.col + '-' + pixel.row;
+        if (visited[key]) {
+          return false;
+        }
+        visited[key] = true;
+        return frame.getPixel(pixel.col, pixel.row) == targetColor;
+      });
     },
 
     /**
@@ -76,33 +69,19 @@
      *
      * @param  {Number} row  x-coordinate of the original pixel
      * @param  {Number} col  y-coordinate of the original pixel
-     * @param  {Number} size >= 1 && <= 4
+     * @param  {Number} size >= 1 && <= 32
      * @return {Array}  array of arrays of 2 Numbers (eg. [[0,0], [0,1], [1,0], [1,1]])
      */
     resizePixel : function (col, row, size) {
-      if (size == 1) {
-        return [[col, row]];
-      } else if (size == 2) {
-        return [
-          [col, row], [col + 1, row],
-          [col, row + 1], [col + 1, row + 1]
-        ];
-      } else if (size == 3) {
-        return [
-          [col - 1, row - 1], [col, row - 1], [col + 1, row - 1],
-          [col - 1, row + 0], [col, row + 0], [col + 1, row + 0],
-          [col - 1, row + 1], [col, row + 1], [col + 1, row + 1],
-        ];
-      } else if (size == 4) {
-        return [
-          [col - 1, row - 1], [col, row - 1], [col + 1, row - 1], [col + 2, row - 1],
-          [col - 1, row + 0], [col, row + 0], [col + 1, row + 0], [col + 2, row + 0],
-          [col - 1, row + 1], [col, row + 1], [col + 1, row + 1], [col + 2, row + 1],
-          [col - 1, row + 2], [col, row + 2], [col + 1, row + 2], [col + 2, row + 2],
-        ];
-      } else {
-        console.error('Unsupported size : ' + size);
+      var pixels = [];
+
+      for (var j = 0; j < size; j++) {
+        for (var i = 0; i < size; i++) {
+          pixels.push([col - Math.floor(size / 2) + i, row - Math.floor(size / 2) + j]);
+        }
       }
+
+      return pixels;
     },
 
     /**
@@ -146,6 +125,10 @@
        *  13. Continue looping until Q is exhausted.
        *  14. Return.
        */
+      if (typeof replacementColor == 'string') {
+        replacementColor = pskl.utils.colorToInt(replacementColor);
+      }
+
       var targetColor;
       try {
         targetColor = frame.getPixel(col, row);
@@ -153,7 +136,7 @@
         // Frame out of bound exception.
       }
 
-      if (targetColor == replacementColor) {
+      if (targetColor === null || targetColor == replacementColor) {
         return;
       }
 
@@ -162,7 +145,7 @@
         row : row
       };
       var paintedPixels = pskl.PixelUtils.visitConnectedPixels(startPixel, frame, function (pixel) {
-        if (frame.containsPixel(pixel.col, pixel.row) && frame.getPixel(pixel.col, pixel.row) == targetColor) {
+        if (frame.getPixel(pixel.col, pixel.row) == targetColor) {
           frame.setPixel(pixel.col, pixel.row, replacementColor);
           return true;
         }

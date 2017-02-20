@@ -100,8 +100,8 @@
 }
 
 .sp-palette .sp-thumb-el.sp-thumb-active {
-  border-color: gold;
-  box-shadow: 0 0 0px 1px gold;
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 0px 1px var(--highlight-color);
 }
 
 .sp-input {
@@ -110,7 +110,7 @@
   background: #111;
   border-radius: 2px;
   color: #D3D3D3;
-  font-family: Courier!important;
+  font-family: monospace!important;
 }
 
 .sp-input.sp-validation-error {

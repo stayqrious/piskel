@@ -140,7 +140,7 @@
 
     // Generate a new blank Piskel (document)
     var descriptor = new pskl.model.piskel.Descriptor('New Piskel', '');
-    var newPiskel = new pskl.model.Piskel(frameSizeX, frameSizeY, descriptor);
+    var newPiskel = new pskl.model.Piskel(frameSizeX, frameSizeY, frameRate, descriptor);
     var layer = new pskl.model.Layer('Layer 1');
     var frame = new pskl.model.Frame(frameSizeX, frameSizeY);
     layer.addFrame(frame);
@@ -148,7 +148,6 @@
 
     // Load the new blank document
     this.piskelController_.setPiskel(newPiskel);
-    this.previewController_.setFPS(frameRate);
     this.sendMessage_({type: MessageType.ANIMATION_LOADED});
   };
 
