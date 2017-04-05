@@ -6,7 +6,7 @@ describe('PiskelApi test suite', function() {
 
   afterEach(function() {
     piskelApi = null;
-  })
+  });
 
   describe('attachToPiskel', function() {
     var iframe;
@@ -14,7 +14,7 @@ describe('PiskelApi test suite', function() {
       spyOn(window, 'addEventListener');
       iframe = createFakeIframe();
       piskelApi.attachToPiskel(iframe);
-    })
+    });
 
     it('adds a listener to the window for messages', function() {
       expect(window.addEventListener.calls.count()).toBe(1);
@@ -34,7 +34,7 @@ describe('PiskelApi test suite', function() {
       iframe = createFakeIframe();
       piskelApi.attachToPiskel(iframe);
       piskelApi.detachFromPiskel();
-    })
+    });
 
     it('removes a listener to the window for messages', function() {
       expect(window.removeEventListener.calls.count()).toBe(1);
@@ -221,8 +221,8 @@ describe('PiskelApi test suite', function() {
       contentWindow: {
         postMessage: function() {}
       }
-    }
+    };
     spyOn(iframe.contentWindow, 'postMessage');
     return iframe;
   }
-})
+});

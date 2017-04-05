@@ -1,5 +1,6 @@
 describe("PiskelApiService test suite", function() {
   var piskelWindow;
+  var ONE_BLACK_PIXEL = "image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==";
 
   beforeEach(function() {
     piskelWindow = createFakePiskelWindow();
@@ -87,8 +88,6 @@ describe("PiskelApiService test suite", function() {
         this.onload = function() {};
         spyOn(imageObject, 'onload');
       });
-
-      onePixelBlackURI = "image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==";
     });
 
     afterEach(function() {
@@ -99,7 +98,7 @@ describe("PiskelApiService test suite", function() {
     });
 
     it("calls the import service once the image has loaded", function() {
-      service.loadSpritesheet(onePixelBlackURI, 100, 100, 4);
+      service.loadSpritesheet(ONE_BLACK_PIXEL, 100, 100, 4);
       expect(importService.newPiskelFromImage.calls.count()).toBe(0);
       imageObject.onload();
       expect(importService.newPiskelFromImage.calls.count()).toBe(1);
@@ -125,8 +124,6 @@ describe("PiskelApiService test suite", function() {
         this.onload = function() {};
         spyOn(imageObject, 'onload');
       });
-
-      onePixelBlackURI = "image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==";
     });
 
     afterEach(function() {
@@ -138,7 +135,7 @@ describe("PiskelApiService test suite", function() {
 
     it("calls the import service once the image has loaded", function() {
       service.createNewPiskel(100, 100, 4);
-      service.appendFrames(onePixelBlackURI, 100, 100);
+      service.appendFrames(ONE_BLACK_PIXEL, 100, 100);
       imageObject.onload();
       expect(importService.importFramesFromImage.calls.count()).toBe(1);
       expect(importService.importFramesFromImage.calls.argsFor(0)[1].importType).toBe('spritesheet');
