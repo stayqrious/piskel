@@ -9,7 +9,7 @@ casper.test.begin('PNG export test', 13, function(test) {
 
     test.assert(!isDrawerExpanded(), 'settings drawer is closed');
 
-        // Setup test Piskel
+    // Setup test Piskel
     setPiskelFromGrid('['+
       '[B, T],' +
       '[T, B],' +
@@ -101,7 +101,7 @@ casper.test.begin('PNG export test', 13, function(test) {
     .start(casper.cli.get('baseUrl')+"/?debug")
     .then(function () {
       casper.echo("URL loaded");
-      casper.waitForSelector('#drawing-canvas-container canvas', onTestStart, test.timeout, 10000);
+      casper.waitForSelector('#drawing-canvas-container canvas', onTestStart, test.timeout, 20000);
     })
     .run(function () {
       test.done();

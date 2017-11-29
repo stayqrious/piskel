@@ -12,6 +12,7 @@ module.exports = function(grunt) {
   // create a version based on the build timestamp
   var dateFormat = require('dateformat');
   var version = '-' + dateFormat(new Date(), "yyyy-mm-dd-hh-MM");
+  var releaseVersion = require('./package.json').version;
 
   /**
    * Helper to prefix all strings in provided array with the provided path
@@ -82,45 +83,12 @@ module.exports = function(grunt) {
       css : ['src/css/**/*.css']
     },
 
-    jscs : {
-      options : {
-        "config": ".jscsrc",
-        "maximumLineLength": 120,
-        "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
-        "validateQuoteMarks": { "mark": "'", "escape": true },
-        "disallowMultipleVarDecl": "exceptUndefined",
-        "disallowSpacesInAnonymousFunctionExpression": null
-      },
-      js : [ 'src/js/**/*.js' , '!src/js/**/lib/**/*.js' ]
-    },
-
-    jshint: {
-      options: {
-        undef : true,
-        latedef : true,
-        browser : true,
-        trailing : true,
-        curly : true,
-        globals: {
-          $: true,
-          jQuery: true,
-          pskl: true,
-          Events: true,
-          Constants: true,
-          console: true,
-          PiskelApi: true,
-          module: true,
-          require: true,
-          Q: true,
-          Promise: true
-        }
-      },
+    eslint: {
       files: [
         // Includes
-        'Gruntfile.js',
-        'package.json',
         'src/js/**/*.js',
-        // Excludes
+        // Exludes
+        // TODO: remove this (for now we still get warnings from the lib folder)
         '!src/js/**/lib/**/*.js'
       ]
     },
@@ -206,7 +174,8 @@ module.exports = function(grunt) {
         dest: 'dest/tmp/index.html',
         options : {
           globals : {
-            'version' : version
+            'version' : version,
+            'releaseVersion' : releaseVersion
           }
         }
       }
@@ -248,20 +217,6 @@ module.exports = function(grunt) {
           src: ['dest/tmp/css/piskel-style-packaged' + version + '.css'],
           dest: 'dest/prod/css/piskel-style-packaged' + version + '.css'
         }]
-      },
-      // remove the fake header from the desktop build
-      desktop: {
-        options: {
-          patterns: [{
-              match: /<!--standalone-start-->(?:.|[\r\n])*<!--standalone-end-->/,
-              replacement: "",
-              description : "Remove everything between standalone-start & standalone-end"
-            }
-          ]
-        },
-        files: [
-          {src: ['dest/prod/index.html'], dest: 'dest/prod/index.html'}
-        ]
       }
     },
 
@@ -331,7 +286,8 @@ module.exports = function(grunt) {
           build_dir: './dest/desktop/', // destination folder of releases.
           win: true,
           linux32: true,
-          linux64: true
+          linux64: true,
+          flavor: "normal",
         },
         src: ['./dest/prod/**/*', "./package.json", "!./dest/desktop/"]
       },
@@ -340,7 +296,18 @@ module.exports = function(grunt) {
           downloadUrl: 'https://dl.nwjs.io/',
           osx64: true,
           version : "0.19.4",
-          build_dir: './dest/desktop/'
+          build_dir: './dest/desktop/',
+          flavor: "normal",
+        },
+        src: ['./dest/prod/**/*', "./package.json", "!./dest/desktop/"]
+      },
+      macos_old : {
+        options: {
+          downloadUrl: 'https://dl.nwjs.io/',
+          osx64: true,
+          version : "0.12.3",
+          build_dir: './dest/desktop/old',
+          flavor: "normal",
         },
         src: ['./dest/prod/**/*', "./package.json", "!./dest/desktop/"]
       }
@@ -349,11 +316,13 @@ module.exports = function(grunt) {
 
   // TEST TASKS
   // Run linting
-  grunt.registerTask('lint', ['jscs:js', 'leadingIndent:css', 'jshint']);
+  grunt.registerTask('lint', ['eslint', 'leadingIndent:css']);
   // Run unit-tests
   grunt.registerTask('unit-test', ['karma']);
   // Run integration tests
   grunt.registerTask('integration-test', ['build-dev', 'connect:test', 'casperjs:integration']);
+  // Run drawing tests
+  grunt.registerTask('drawing-test', ['build-dev', 'connect:test', 'casperjs:drawing']);
   // Run linting, unit tests, drawing tests and integration tests
   grunt.registerTask('test', ['lint', 'unit-test', 'build-dev', 'connect:test', 'casperjs:drawing', 'casperjs:integration']);
 
@@ -368,8 +337,9 @@ module.exports = function(grunt) {
   grunt.registerTask('merge-statics', ['concat:js', 'concat:css', 'uglify']);
   grunt.registerTask('build',  ['clean:prod', 'sprite', 'merge-statics', 'build-index.html', 'replace:mainPartial', 'replace:css', 'copy:prod']);
   grunt.registerTask('build-dev',  ['clean:dev', 'sprite', 'build-index.html', 'copy:dev']);
-  grunt.registerTask('desktop', ['clean:desktop', 'default', 'replace:desktop', 'nwjs:windows']);
-  grunt.registerTask('desktop-mac', ['clean:desktop', 'default', 'replace:desktop', 'nwjs:macos']);
+  grunt.registerTask('desktop', ['clean:desktop', 'default', 'nwjs:windows']);
+  grunt.registerTask('desktop-mac', ['clean:desktop', 'default', 'nwjs:macos']);
+  grunt.registerTask('desktop-mac-old', ['clean:desktop', 'default', 'replace:desktop', 'nwjs:macos_old']);
 
   // SERVER TASKS
   // Start webserver and watch for changes

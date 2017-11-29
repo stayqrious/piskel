@@ -103,4 +103,8 @@
       this.shiftFrame(replayData.colDiff, replayData.rowDiff, frame, frame.clone(), event);
     }.bind(this));
   };
+
+  ns.Move.prototype.supportsAlt = function() {
+    return true;
+  };
 })();

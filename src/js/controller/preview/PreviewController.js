@@ -102,7 +102,7 @@
       this.disablePreviewSizeWidget_('No other option available');
       validSizes = ['original'];
     } else if (seamlessModeEnabled) {
-      this.disablePreviewSizeWidget_('Disabled in seamless mode');
+      this.disablePreviewSizeWidget_('Disabled in tile mode');
       validSizes = ['original'];
     } else {
       this.enablePreviewSizeWidget_();
@@ -309,7 +309,8 @@
     var isSeamless = pskl.UserSettings.get(pskl.UserSettings.SEAMLESS_MODE);
     this.renderer.setRepeated(isSeamless);
 
-    var height, width;
+    var width;
+    var height;
 
     if (isSeamless) {
       height = PREVIEW_SIZE;

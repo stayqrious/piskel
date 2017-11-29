@@ -60,7 +60,12 @@
       FULL_PREVIEW : createShortcut('full-preview', 'Select full size preview', 'alt+3'),
       ONION_SKIN : createShortcut('onion-skin', 'Toggle onion skin', 'alt+O'),
       LAYER_PREVIEW : createShortcut('layer-preview', 'Toggle layer preview', 'alt+L'),
-      CLOSE_POPUP : createShortcut('close-popup', 'Close an opened popup', 'ESC')
+      MERGE_ANIMATION : createShortcut('import-animation', 'Open merge animation popup', 'ctrl+shift+M'),
+      CLOSE_POPUP : createShortcut('close-popup', 'Close an opened popup', 'ESC'),
+      OFFSET_UP : createShortcut('move-up', 'Move viewport up', 'shift+up'),
+      OFFSET_RIGHT : createShortcut('move-right', 'Move viewport right', 'shift+right'),
+      OFFSET_DOWN : createShortcut('move-down', 'Move viewport down', 'shift+down'),
+      OFFSET_LEFT : createShortcut('move-left', 'Move viewport left', 'shift+left'),
     },
 
     STORAGE : {
@@ -77,6 +82,10 @@
       NEXT_COLOR : createShortcut('next-color', 'Select the next color in the current palette', '>'),
       SELECT_COLOR : createShortcut('select-color', 'Select a palette color in the current palette',
         '123456789'.split(''), '1 to 9')
+    },
+
+    DEBUG : {
+      RELOAD_STYLES : createShortcut('move-left', 'Move viewport left', 'ctrl+alt+R'),
     },
 
     CATEGORIES : ['TOOL', 'SELECTION', 'MISC', 'STORAGE', 'COLOR']

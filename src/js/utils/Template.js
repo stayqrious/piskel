@@ -15,24 +15,25 @@
       return templates[templateId];
     },
 
-    createFromHTML : function (html) {
-      var dummyEl = document.createElement('div');
-      dummyEl.innerHTML = html;
-      return dummyEl.children[0];
-    },
-
-    insert : function (parent, position, templateId, dict) {
-      var html = pskl.utils.Template.getAndReplace(templateId, dict);
-      parent.insertAdjacentHTML(position, html);
-    },
-
-    getAndReplace : function (templateId, dict) {
-      var result = '';
-      var tpl = pskl.utils.Template.get(templateId);
-      if (tpl) {
-        result = pskl.utils.Template.replace(tpl, dict);
+    getAsHTML : function (templateId) {
+      var template = ns.Template.get(templateId);
+      if (!template) {
+        return;
       }
-      return result;
+
+      return ns.Template.createFromHTML(template);
+    },
+
+    createFromHTML : function (html) {
+      var dummyEl = ns.Template._getDummyEl();
+      dummyEl.innerHTML = html;
+      var element = dummyEl.children[0];
+
+      if (!pskl.utils.UserAgent.isIE11) {
+        dummyEl.innerHTML = '';
+      }
+
+      return element;
     },
 
     replace : function (template, dict) {
@@ -49,10 +50,55 @@
               value = '';
             }
           }
+
+          // Sanitize all values expect if the key is surrounded by `!`
+          if (!/^!.*!$/.test(key)) {
+            value = ns.Template.sanitize(value);
+          }
+
           template = template.replace(new RegExp('\\{\\{' + key + '\\}\\}', 'g'), value);
         }
       }
       return template;
-    }
+    },
+
+    getAndReplace : function (templateId, dict) {
+      var result = '';
+      var tpl = pskl.utils.Template.get(templateId);
+      if (tpl) {
+        result = pskl.utils.Template.replace(tpl, dict);
+      }
+      return result;
+    },
+
+    /**
+     * Sanitize the provided string to make it safer for using in templates.
+     */
+    sanitize : function (string) {
+      var dummyEl = ns.Template._getDummyEl();
+
+      // Apply the unsafe string as text content and
+      dummyEl.textContent = string;
+      var sanitizedString = dummyEl.innerHTML;
+
+      if (!pskl.utils.UserAgent.isIE11) {
+        dummyEl.innerHTML = '';
+      }
+
+      return sanitizedString;
+    },
+
+    _getDummyEl : pskl.utils.UserAgent.isIE11 ?
+      // IE11 specific implementation
+      function () {
+        return document.createElement('div');
+      } :
+      // Normal, sane browsers implementation.
+      function () {
+        if (!ns.Template._dummyEl) {
+          ns.Template._dummyEl = document.createElement('div');
+        }
+        return ns.Template._dummyEl;
+      }
   };
 })();

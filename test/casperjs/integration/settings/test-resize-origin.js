@@ -46,7 +46,7 @@ casper.test.begin('Test resize feature works, and check the output', 20, functio
     test.assert(!isChecked('.resize-content-checkbox'), 'Keep content checkbox is unchecked');
 
     // Check that the default origin selected is top left.
-    var selectedOrigin = evalLine('document.querySelector(".resize-origin-option.selected").getAttribute("data-origin")');
+    var selectedOrigin = evalLine('document.querySelector(".anchor-option.selected").getAttribute("data-origin")');
     test.assertEquals(selectedOrigin, 'TOPLEFT');
 
     // Change the origin to bottom right.
@@ -78,7 +78,7 @@ casper.test.begin('Test resize feature works, and check the output', 20, functio
     .start(casper.cli.get('baseUrl')+"/?debug")
     .then(function () {
       this.echo("URL loaded");
-      this.waitForSelector('#drawing-canvas-container canvas', onTestStart, test.timeout, 10000);
+      this.waitForSelector('#drawing-canvas-container canvas', onTestStart, test.timeout, 20000);
     })
     .run(function () {
       test.done();

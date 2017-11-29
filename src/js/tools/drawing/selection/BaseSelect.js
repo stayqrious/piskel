@@ -28,6 +28,7 @@
     if (!Constants.ENABLE_MULTIPLE_LAYERS) {
       this.tooltipDescriptors[0] = {description : 'Drag the selection to move it. You may switch to other frames.'};
     }
+    $.subscribe(Events.SELECTION_DISMISSED, this.onSelectionDismissed_.bind(this));
   };
 
   pskl.utils.inherit(ns.BaseSelect, pskl.tools.drawing.BaseTool);
@@ -54,7 +55,7 @@
       this.mode = 'moveSelection';
       if (event.shiftKey && !this.isMovingContent_) {
         this.isMovingContent_ = true;
-        $.publish(Events.SELECTION_CUT);
+        $.publish(Events.CLIPBOARD_CUT);
         this.drawSelectionOnOverlay_(overlay);
       }
       this.onSelectionMoveStart_(col, row, frame, overlay);
@@ -113,16 +114,24 @@
   };
 
   /**
-   * Protected method, should be called when the selection is dismissed.
+   * Protected method, should be called when the selection is committed,
+   * typically by clicking outside of the selected area.
    */
-  ns.BaseSelect.prototype.commitSelection = function (overlay) {
+  ns.BaseSelect.prototype.commitSelection = function () {
     if (this.isMovingContent_) {
-      $.publish(Events.SELECTION_PASTE);
+      $.publish(Events.CLIPBOARD_PASTE);
       this.isMovingContent_ = false;
     }
 
     // Clean previous selection:
     $.publish(Events.SELECTION_DISMISSED);
+  };
+
+  /**
+   * Protected method, should be called when the selection is dismissed.
+   */
+  ns.BaseSelect.prototype.onSelectionDismissed_ = function () {
+    var overlay = pskl.app.drawingController.overlayFrame;
     overlay.clear();
     this.hasSelection = false;
   };

@@ -35,7 +35,9 @@
       var isPiskel = /\.piskel$/i.test(file.name);
       var isPalette = /\.(gpl|txt|pal)$/i.test(file.name);
       if (isImage) {
-        this.readImageFile_(file);
+        pskl.utils.FileUtils.readImageFile(file, function (image) {
+          this.onImageLoaded_(image, file);
+        }.bind(this));
       } else if (isPiskel) {
         pskl.utils.PiskelFileUtils.loadFromFile(file, this.onPiskelFileLoaded_, this.onPiskelFileError_);
       } else if (isPalette) {
@@ -44,17 +46,13 @@
     }
   };
 
-  ns.FileDropperService.prototype.readImageFile_ = function (imageFile) {
-    pskl.utils.FileUtils.readFile(imageFile, this.processImageSource_.bind(this));
-  };
-
   ns.FileDropperService.prototype.onPaletteLoaded_ = function (palette) {
     pskl.app.paletteService.savePalette(palette);
     pskl.UserSettings.set(pskl.UserSettings.SELECTED_PALETTE, palette.id);
   };
 
   ns.FileDropperService.prototype.onPiskelFileLoaded_ = function (piskel) {
-    if (window.confirm('This will replace your current animation')) {
+    if (window.confirm(Constants.CONFIRM_OVERWRITE)) {
       pskl.app.piskelController.setPiskel(piskel);
     }
   };
@@ -63,16 +61,23 @@
     $.publish(Events.PISKEL_FILE_IMPORT_FAILED, [reason]);
   };
 
-  ns.FileDropperService.prototype.processImageSource_ = function (imageSource) {
-    var importedImage = new Image();
-    importedImage.onload = this.onImageLoaded_.bind(this, importedImage);
-    importedImage.src = imageSource;
-  };
+  ns.FileDropperService.prototype.onImageLoaded_ = function (importedImage, file) {
+    var piskelWidth = pskl.app.piskelController.getWidth();
+    var piskelHeight = pskl.app.piskelController.getHeight();
 
-  ns.FileDropperService.prototype.onImageLoaded_ = function (importedImage) {
     if (this.isMultipleFiles_) {
       this.piskelController.addFrameAtCurrentIndex();
       this.piskelController.selectNextFrame();
+    } else if (importedImage.width > piskelWidth || importedImage.height > piskelHeight) {
+      // For single file imports, if the file is too big, trigger the import wizard.
+      $.publish(Events.DIALOG_SHOW, {
+        dialogId : 'import',
+        initArgs : {
+          rawFiles: [file]
+        }
+      });
+
+      return;
     }
 
     var currentFrame = this.piskelController.getCurrentFrame();
