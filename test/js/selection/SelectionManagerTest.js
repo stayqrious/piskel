@@ -23,6 +23,13 @@ describe("SelectionManager suite", function() {
   /**
    * @Mock
    */
+  pskl.app.drawingController = {
+    currentToolBehavior : {}
+  };
+
+  /**
+   * @Mock
+   */
   var piskelController = {
     getCurrentFrame : function () {
       return currentFrame;

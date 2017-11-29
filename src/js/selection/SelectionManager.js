@@ -158,9 +158,8 @@
     if (this.currentSelection && this.currentSelection.hasPastedContent) {
       this.pastePixelsOnCurrentFrame_(this.currentSelection.pixels, event);
     }
- };
-    
- 
+  };
+
   ns.SelectionManager.prototype.pasteImage_ = function(clipboardItem) {
     var blob = clipboardItem.getAsFile();
     pskl.utils.FileUtils.readImageFile(blob, function (image) {
