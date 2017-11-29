@@ -68,7 +68,7 @@
    */
   ns.SelectionManager.prototype.onSelectionDismissed_ = function(evt) {
     // On deselect, paste in place.
-    this.paste();
+    this.paste(evt);
     this.cleanSelection_();
   };
 
@@ -107,7 +107,7 @@
       if (event.type === Events.CLIPBOARD_CUT) {
         this.erase();
       } else {
-        this.paste(Events.CLIPBOARD_PASTE);
+        this.paste({type: Events.CLIPBOARD_PASTE});
       }
     }
   };
@@ -131,10 +131,6 @@
   };
 
   ns.SelectionManager.prototype.paste = function(event, domEvent) {
-    // Amount of pixels to offset the paste by.
-    // When the paste is trigged by the quickKey Ctrl+V, offset the pasted overlay by a scaled value.
-    var offset = event.type === Events.CLIPBOARD_PASTE ? Math.ceil(Math.max(frame.width, frame.height) / 50) : 0;
-    
     var items = domEvent ? domEvent.clipboardData.items : [];
 
     try {
@@ -148,7 +144,7 @@
         }
 
         if (/^text\/plain/i.test(item.type)) {
-          this.pasteText_(item);
+          this.pasteText_(item, event);
           event.stopPropagation();
           return;
         }
@@ -160,7 +156,7 @@
 
     // temporarily keeping this code path for tests and fallbacks.
     if (this.currentSelection && this.currentSelection.hasPastedContent) {
-      this.pastePixelsOnCurrentFrame_(this.currentSelection.pixels);
+      this.pastePixelsOnCurrentFrame_(this.currentSelection.pixels, event);
     }
  };
     
@@ -173,7 +169,7 @@
     }.bind(this));
   };
 
-  ns.SelectionManager.prototype.pasteText_ = function(clipboardItem) {
+  ns.SelectionManager.prototype.pasteText_ = function(clipboardItem, event) {
     var blob = clipboardItem.getAsString(function (selectionString) {
       var selectionData = JSON.parse(selectionString);
       var time = selectionData.time;
@@ -190,14 +186,16 @@
 
       if (pixels) {
         // If the current clipboard data is some random text, pixels will not be defined.
-        this.pastePixelsOnCurrentFrame_(pixels);
+        this.pastePixelsOnCurrentFrame_(pixels, event);
       }
     }.bind(this));
   };
 
-  ns.SelectionManager.prototype.pastePixelsOnCurrentFrame_ = function (pixels) {
+  ns.SelectionManager.prototype.pastePixelsOnCurrentFrame_ = function (pixels, event) {
     var frame = this.piskelController.getCurrentFrame();
-
+    // Amount of pixels to offset the paste by.
+    // When the paste is trigged by the quickKey Ctrl+V, offset the pasted overlay by a scaled value.
+    var offset = event.type === Events.CLIPBOARD_PASTE ? Math.ceil(Math.max(frame.width, frame.height) / 50) : 0;
     this.pastePixels_(frame, pixels);
     $.publish(Events.PISKEL_SAVE_STATE, {
       type : pskl.service.HistoryService.REPLAY,
@@ -211,7 +209,7 @@
     // Offset the pasted selection from the original location.
     var tool = pskl.app.drawingController.currentToolBehavior;
     var isSelectionTool = tool instanceof pskl.tools.drawing.selection.BaseSelect;
-    if (isSelectionTool) {
+    if (isSelectionTool && event.type === Events.CLIPBOARD_PASTE) {
       var maxHeight = frame.height - 1;
       var maxWidth = frame.width - 1;
       var cornerCoordinates = this._getBottomRightCorner(pixels);
