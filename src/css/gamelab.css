@@ -170,7 +170,7 @@ body {
   height: 170px;
   position: absolute;
   left: -6px;
-  top: 46px;
+  top: 50px;
   margin-top: 0px;
 }
 
@@ -362,4 +362,8 @@ a, a:visited {
 
 .tool-icon.selected:before {
   border: 3px solid #7665a0;
+}
+
+.cursor-coordinates {
+  color: #7665a0;
 }
