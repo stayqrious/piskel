@@ -43,7 +43,7 @@
    */
   ns.ImportService.prototype.newPiskelFromImage = function (image, options, onComplete) {
     var setPiskelFromFrameImages = function (frameImages) {
-      var piskel = this.createPiskelFromImages_(frameImages, options.frameSizeX,
+      var piskel = this.createPiskelFromImages_(frameImages, options.name, options.frameSizeX,
           options.frameSizeY, options.smoothing);
       this.piskelController_.setPiskel(piskel);
     }.bind(this);
@@ -67,7 +67,7 @@
    */
   ns.ImportService.prototype.importFramesFromImage = function (image, options, onComplete) {
     var setPiskelFromFrameImages = function (frameImages) {
-      var piskel = this.createPiskelFromImages_(frameImages, options.frameSizeX,
+      var piskel = this.createPiskelFromImages_(frameImages, options.name, options.frameSizeX,
           options.frameSizeY, options.smoothing);
       var mergedPiskel = this.mergePiskels(this.piskelController_.getPiskel(), piskel);
       this.piskelController_.setPiskel(mergedPiskel);
@@ -159,7 +159,7 @@
     name = name || 'Imported piskel';
     var frames = this.createFramesFromImages_(images, frameSizeX, frameSizeY, smoothing);
     var layer = pskl.model.Layer.fromFrames('Layer 1', frames);
-    var descriptor = new pskl.model.piskel.Descriptor(name, '');
+    var descriptor = new pskl.model.piskel.Descriptor('Imported piskel', '');
     return pskl.model.Piskel.fromLayers([layer], Constants.DEFAULT.FPS, descriptor);
   };
 

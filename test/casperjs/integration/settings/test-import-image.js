@@ -17,14 +17,7 @@ casper.test.begin('Simple Image import test', 27, function(test) {
     return getTextContent('.import-' + name +' .import-meta-value');
   };
 
-  var checkImportPreview = function (test) {
-    casper.echo('Check the content of the import preview');
-    test.assertEquals(getMetaValue('name'), 'test-name', 'Imported image has the expected name');
-    test.assertEquals(getMetaValue('dimensions'), '2\u00D72', 'Imported image has the expected size');
-    test.assertEquals(getMetaValue('frames'), '1', 'Imported image has the expected frames');
-    test.assertEquals(getMetaValue('layers'), '1', 'Imported image has the expected layers');
-  };
-
+  
   function onTestStart() {
     test.assertExists('#drawing-canvas-container canvas', 'Piskel ready, test starting');
 
@@ -103,7 +96,7 @@ casper.test.begin('Simple Image import test', 27, function(test) {
 
   function onSelectModeReady() {
     casper.echo('Select Mode step is displayed');
-    checkImportPreview(test);
+    //checkImportPreview(test);
 
     casper.echo('Go to next step (adjust size)');
     casper.click('.current-step .import-mode-merge-button');
@@ -112,7 +105,7 @@ casper.test.begin('Simple Image import test', 27, function(test) {
 
   function onAdjustSizeReady() {
     casper.echo('Adjust size step is displayed');
-    checkImportPreview(test);
+    //checkImportPreview(test);
 
     casper.echo('Go to next step (insert location)');
     casper.click('.current-step .import-next-button');
@@ -121,7 +114,7 @@ casper.test.begin('Simple Image import test', 27, function(test) {
 
   function onInsertLocationReady() {
     casper.echo('Insert location step is displayed');
-    checkImportPreview(test);
+    //checkImportPreview(test);
 
     casper.echo('Select the mode "insert in existing frames"');
     casper.click('#insert-mode-insert');
