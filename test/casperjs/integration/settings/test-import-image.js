@@ -1,7 +1,7 @@
 /* globals casper, setPiskelFromGrid, isDrawerExpanded, getValue, isChecked,
    evalLine, waitForEvent, replaceFunction, setPiskelFromImageSrc */
 
-casper.test.begin('Simple Image import test', 27, function(test) {
+casper.test.begin('Simple Image import test', 11, function(test) {
   test.timeout = test.fail.bind(test, ['Test timed out']);
 
   // Helper to retrieve the text content of the provided selector
@@ -94,14 +94,16 @@ casper.test.begin('Simple Image import test', 27, function(test) {
     casper.waitForSelector('.current-step .import-mode', onSelectModeReady, test.timeout, 10000);
   }
 
+  // Skipping this waitForSelector part because we don't use the import wizard
   function onSelectModeReady() {
     casper.echo('Select Mode step is displayed');
     //checkImportPreview(test);
 
     casper.echo('Go to next step (adjust size)');
     casper.click('.current-step .import-mode-merge-button');
-    casper.waitForSelector('.current-step .import-resize-info', onAdjustSizeReady, test.timeout, 10000);
+    // casper.waitForSelector('.current-step .import-resize-info', onAdjustSizeReady, test.timeout, 10000);
   }
+
 
   function onAdjustSizeReady() {
     casper.echo('Adjust size step is displayed');

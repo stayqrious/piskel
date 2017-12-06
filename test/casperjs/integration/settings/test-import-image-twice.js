@@ -1,7 +1,7 @@
 /* globals casper, setPiskelFromGrid, isDrawerExpanded, getValue, isChecked,
    evalLine, waitForEvent, replaceFunction, setPiskelFromImageSrc */
 
-casper.test.begin('Double Image import test', 26, function(test) {
+casper.test.begin('Double Image import test', 12, function(test) {
   test.timeout = test.fail.bind(test, ['Test timed out']);
 
   // Helper to retrieve the text content of the provided selector
@@ -109,12 +109,14 @@ casper.test.begin('Double Image import test', 26, function(test) {
     casper.waitForSelector('.current-step .import-mode', onSelectModeReady, test.timeout, 10000);
   }
 
+  // Skipping part of the test since we don't use Piskel importer
   function onSelectModeReady() {
     casper.echo('Select Mode step is displayed');
 
     casper.echo('Click on replace-button and wait for popup to close');
     casper.click('.current-step .import-mode-replace-button');
-    casper.waitForSelector('#dialog-container-wrapper:not(.show)', onPopupClosed, test.timeout, 10000);
+    // Skipping this part of the test since we don't use Piskel importer
+    //casper.waitForSelector('#dialog-container-wrapper:not(.show)', onPopupClosed, test.timeout, 10000);
   }
 
   function onPopupClosed() {
