@@ -37,7 +37,7 @@
    *        - {Number}  frameSizeY
    *        - {Number}  frameOffsetX (only used in spritesheet imports)
    *        - {Number}  frameOffsetY (only used in spritesheet imports)
-   *        - {Number}  frameRate (in frames per second)
+   *        - {Number}  frameRate - (in frames per second)
    * @param {Function} onComplete
    *        Callback called when the new piskel has been created, with the new piskel
    *        as single argument.
