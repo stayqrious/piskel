@@ -65,9 +65,9 @@ var Constants = {
   // SERVICE URLS
   APPENGINE_SAVE_URL : 'save',
 
-  // Code.org - hide or show all layer controls from the UI
-  ENABLE_MULTIPLE_LAYERS: false,
-
   IMAGE_SERVICE_UPLOAD_URL : '{{protocol}}://piskel-imgstore-b.appspot.com/__/upload',
-  IMAGE_SERVICE_GET_URL : '{{protocol}}://piskel-imgstore-b.appspot.com/img/'
+  IMAGE_SERVICE_GET_URL : '{{protocol}}://piskel-imgstore-b.appspot.com/img/',
+
+  // Code.org - hide or show all layer controls from the UI
+  ENABLE_MULTIPLE_LAYERS: false
 };

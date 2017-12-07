@@ -1,5 +1,5 @@
 /* global PiskelApi*/
-/* eslint no-undef: "error"*/
+
 /* @file Service for managing communication with an external application
  * when Piskel is embedded in an iframe. */
 (function () {

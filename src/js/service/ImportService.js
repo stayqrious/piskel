@@ -37,6 +37,7 @@
    *        - {Number}  frameSizeY
    *        - {Number}  frameOffsetX (only used in spritesheet imports)
    *        - {Number}  frameOffsetY (only used in spritesheet imports)
+   *        - {Number}  frameRate (in frames per second)
    * @param {Function} onComplete
    *        Callback called when the new piskel has been created, with the new piskel
    *        as single argument.
@@ -156,7 +157,6 @@
    */
   ns.ImportService.prototype.createPiskelFromImages_ = function (images, name,
       frameSizeX, frameSizeY, smoothing) {
-    name = name || 'Imported piskel';
     var frames = this.createFramesFromImages_(images, frameSizeX, frameSizeY, smoothing);
     var layer = pskl.model.Layer.fromFrames('Layer 1', frames);
     var descriptor = new pskl.model.piskel.Descriptor('Imported piskel', '');
