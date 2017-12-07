@@ -157,9 +157,10 @@
    */
   ns.ImportService.prototype.createPiskelFromImages_ = function (images, name,
       frameSizeX, frameSizeY, smoothing) {
+    var name = name || 'Imported piskel';
     var frames = this.createFramesFromImages_(images, frameSizeX, frameSizeY, smoothing);
     var layer = pskl.model.Layer.fromFrames('Layer 1', frames);
-    var descriptor = new pskl.model.piskel.Descriptor('Imported piskel', '');
+    var descriptor = new pskl.model.piskel.Descriptor(name, '');
     return pskl.model.Piskel.fromLayers([layer], Constants.DEFAULT.FPS, descriptor);
   };
 
