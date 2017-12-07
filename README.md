@@ -25,6 +25,9 @@ Note: To run local integration tests you should install CasperJS 1.0.2 (not incl
 
 ## Publishing a new version
 
+This repository depends on a Node version >=7. Please use Node >=7 when building and updating
+new releases of this Piskel to NPM.
+
 To publish a new version to npm switch to the master branch, use `npm login` to sign in as an account with access to the `@code-dot-org` scope, then `npm version [major|minor|patch]` for the appropriate version bump.  This will do the following:
 
 * Run linting and tests to verify your local repo.
