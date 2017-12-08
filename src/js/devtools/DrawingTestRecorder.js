@@ -15,6 +15,10 @@
     $.subscribe(Events.TRANSFORMATION_EVENT, this.onTransformationEvent_.bind(this));
     $.subscribe(Events.PRIMARY_COLOR_SELECTED, this.onColorEvent_.bind(this, true));
     $.subscribe(Events.SECONDARY_COLOR_SELECTED, this.onColorEvent_.bind(this, false));
+    $.subscribe(Events.CLIPBOARD_COPY, this.onClipboardEvent_.bind(this));
+    $.subscribe(Events.CLIPBOARD_CUT, this.onClipboardEvent_.bind(this));
+    $.subscribe(Events.CLIPBOARD_PASTE, this.onClipboardEvent_.bind(this));
+
 
     for (var key in this.piskelController) {
       if (typeof this.piskelController[key] == 'function') {
@@ -85,7 +89,7 @@
         which : domEvent.which,
         shiftKey : domEvent.shiftKey,
         altKey : domEvent.altKey,
-        ctrlKey : domEvent.ctrlKey,
+        ctrlKey : domEvent.ctrlKey || domEvent.metaKey,
         target : {
           nodeName : domEvent.target.nodeName
         }
@@ -136,12 +140,27 @@
     }
   };
 
+  ns.DrawingTestRecorder.prototype.onClipboardEvent_ = function (evt) {
+    if (this.isRecording) {
+      var recordEvent = {};
+      recordEvent.type = 'clipboard-event';
+      recordEvent.event = evt;
+      this.events.push(recordEvent);
+    }
+  };
+
   ns.DrawingTestRecorder.prototype.onInstrumentedMethod_ = function (callee, methodName, args) {
     if (this.isRecording) {
       var recordEvent = {};
       recordEvent.type = 'instrumented-event';
       recordEvent.methodName = methodName;
       recordEvent.args = Array.prototype.slice.call(args, 0);
+
+      if (methodName === 'setPiskel' && args[1].noSnapshot) {
+        // Skip recording calls to setPiskel that don't trigger a save.
+        return;
+      }
+
       this.events.push(recordEvent);
     }
   };

@@ -55,7 +55,7 @@
     this.displayCanvas = null;
     this.setDisplaySize(renderingOptions.width, renderingOptions.height);
 
-    this.setGridWidth(pskl.UserSettings.get(pskl.UserSettings.GRID_WIDTH));
+    this.setGridWidth(this.getUserGridWidth_());
 
     $.subscribe(Events.USER_SETTINGS_CHANGED, this.onUserSettingsChange_.bind(this));
   };
@@ -138,6 +138,10 @@
     this.offset.y = y;
   };
 
+  ns.FrameRenderer.prototype.getGridColor = function () {
+    return pskl.UserSettings.get(pskl.UserSettings.GRID_COLOR);
+  };
+
   ns.FrameRenderer.prototype.setGridWidth = function (value) {
     this.gridWidth_ = value;
   };
@@ -180,9 +184,16 @@
   };
 
   ns.FrameRenderer.prototype.onUserSettingsChange_ = function (evt, settingName, settingValue) {
-    if (settingName == pskl.UserSettings.GRID_WIDTH) {
-      this.setGridWidth(settingValue);
+    var settings = pskl.UserSettings;
+    if (settingName == settings.GRID_WIDTH || settingName == settings.GRID_ENABLED) {
+      this.setGridWidth(this.getUserGridWidth_());
     }
+  };
+
+  ns.FrameRenderer.prototype.getUserGridWidth_ = function () {
+    var gridEnabled = pskl.UserSettings.get(pskl.UserSettings.GRID_ENABLED);
+    var width = pskl.UserSettings.get(pskl.UserSettings.GRID_WIDTH);
+    return gridEnabled ? width : 0;
   };
 
   /**
@@ -252,14 +263,24 @@
     var displayContext = this.displayCanvas.getContext('2d');
     displayContext.save();
 
-    // Draw background
-    displayContext.fillStyle = Constants.ZOOMED_OUT_BACKGROUND_COLOR;
-    displayContext.fillRect(0, 0, this.displayCanvas.width - 1, this.displayCanvas.height - 1);
+    var translateX = this.margin.x - this.offset.x * z;
+    var translateY = this.margin.y - this.offset.y * z;
 
-    displayContext.translate(
-      this.margin.x - this.offset.x * z,
-      this.margin.y - this.offset.y * z
-    );
+    var isZoomedOut = translateX > 0 || translateY > 0;
+    // Draw the background / zoomed-out color only if needed. Otherwise the clearRect
+    // happening after that will clear "out of bounds" and seems to be doing nothing
+    // on some chromebooks (cf https://github.com/piskelapp/piskel/issues/651)
+    if (isZoomedOut) {
+      // Draw background
+      displayContext.fillStyle = Constants.ZOOMED_OUT_BACKGROUND_COLOR;
+      // The -1 on the width and height here is a workaround for a Chrome-only bug
+      // that was potentially fixed, but is very hardware dependant. Seems to be
+      // triggered when doing clear rect or fill rect using the full width & height
+      // of a canvas. (https://bugs.chromium.org/p/chromium/issues/detail?id=469906)
+      displayContext.fillRect(0, 0, this.displayCanvas.width - 1, this.displayCanvas.height - 1);
+    }
+
+    displayContext.translate(translateX, translateY);
 
     // Scale up to draw the canvas content
     displayContext.scale(z, z);
@@ -278,15 +299,25 @@
     // Draw grid.
     var gridWidth = this.computeGridWidthForDisplay_();
     if (gridWidth > 0) {
+      var gridColor = this.getGridColor();
       // Scale out before drawing the grid.
       displayContext.scale(1 / z, 1 / z);
-      // Clear vertical lines.
-      for (var i = 1 ; i < frame.getWidth() ; i++) {
-        displayContext.clearRect((i * z) - (gridWidth / 2), 0, gridWidth, h * z);
+
+      var drawOrClear;
+      if (gridColor === Constants.TRANSPARENT_COLOR) {
+        drawOrClear = displayContext.clearRect.bind(displayContext);
+      } else {
+        displayContext.fillStyle = gridColor;
+        drawOrClear = displayContext.fillRect.bind(displayContext);
       }
-      // Clear horizontal lines.
+
+      // Draw or clear vertical lines.
+      for (var i = 1 ; i < frame.getWidth() ; i++) {
+        drawOrClear((i * z) - (gridWidth / 2), 0, gridWidth, h * z);
+      }
+      // Draw or clear horizontal lines.
       for (var j = 1 ; j < frame.getHeight() ; j++) {
-        displayContext.clearRect(0, (j * z) - (gridWidth / 2), w * z, gridWidth);
+        drawOrClear(0, (j * z) - (gridWidth / 2), w * z, gridWidth);
       }
     }
 

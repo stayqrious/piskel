@@ -22,10 +22,7 @@
     color:white;">
       <span style="top:45%">Loading Piskel ...</span>
   </div>
-  <!--standalone-start-->
   <!--@@include('templates/debug-header.html', {})-->
-  <!--standalone-end-->
-
   <!-- the comment below indicates the beginning of markup reused by the editor integrated in piskelapp.com -->
   <!-- do not delete, do not move :) -->
   <!--body-main-start-->
@@ -69,6 +66,7 @@
   </div>
 
   @@include('templates/misc-templates.html', {})
+  @@include('templates/data-uri-export.html', {})
   @@include('templates/popup-preview.html', {})
 
   <span class="cheatsheet-link icon-common-keyboard-gold"
@@ -77,13 +75,19 @@
        rel="tooltip" data-placement="left" title="Performance problem detected, learn more.">&nbsp;</div>
 
   <!-- dialogs partials -->
-  @@include('templates/dialogs/create-palette.html', {})
-  @@include('templates/dialogs/import-image.html', {})
+  @@include('templates/dialogs/browse-backups.html', {})
   @@include('templates/dialogs/browse-local.html', {})
   @@include('templates/dialogs/cheatsheet.html', {})
+  @@include('templates/dialogs/create-palette.html', {})
+  @@include('templates/dialogs/import.html', {})
+  @@include('templates/dialogs/performance-info.html', {})
+  @@include('templates/dialogs/unsupported-browser.html', {})
 
   <!-- settings-panel partials -->
-  @@include('templates/settings/application.html', {})
+  @@include('templates/settings/preferences.html', {})
+  @@include('templates/settings/preferences/grid.html', {})
+  @@include('templates/settings/preferences/misc.html', {})
+  @@include('templates/settings/preferences/tile.html', {})
   @@include('templates/settings/resize.html', {})
   @@include('templates/settings/save.html', {})
   @@include('templates/settings/import.html', {})

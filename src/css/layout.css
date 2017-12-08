@@ -80,10 +80,16 @@
 }
 
 .cursor-coordinates {
-  color:#888;
-  font-size:12px;
-  font-weight:bold;
-  font-family:monospace;
+  color: var(--highlight-color);
+  font-size: 12px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.cursor-coordinates .drawing-zoom {
+  position: absolute;
+  top: -20px;
+  left: 1px;
 }
 
 /**

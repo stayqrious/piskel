@@ -28,20 +28,23 @@
   /**
    * Given an image object and some options, create a new Piskel and open it
    * for editing.
-   * @param {!Image} image
-   * @param {!Object} options
-   * @param {!string} options.importType - 'single' if not spritesheet
-   * @param {!number} options.frameSizeX
-   * @param {!number} options.frameSizeY
-   * @param {number} [options.frameOffsetX] only used in spritesheet imports.
-   * @param {number} [options.frameOffsetY] only used in spritesheet imports.
-   * @param {!boolean} options.smoothing
-   * @param {number} [options.frameRate] in frames per second
-   * @param {function} [onComplete]
+   * @param {Image} image
+   * @param {Object} options
+   *        - {String}  importType 'single' if not spritesheet
+   *        - {String}  name
+   *        - {Boolean} smoothing
+   *        - {Number}  frameSizeX
+   *        - {Number}  frameSizeY
+   *        - {Number}  frameOffsetX (only used in spritesheet imports)
+   *        - {Number}  frameOffsetY (only used in spritesheet imports)
+   *        - {Number}  frameRate - (in frames per second)
+   * @param {Function} onComplete
+   *        Callback called when the new piskel has been created, with the new piskel
+   *        as single argument.
    */
   ns.ImportService.prototype.newPiskelFromImage = function (image, options, onComplete) {
     var setPiskelFromFrameImages = function (frameImages) {
-      var piskel = this.createPiskelFromImages_(frameImages, options.frameSizeX,
+      var piskel = this.createPiskelFromImages_(frameImages, options.name, options.frameSizeX,
           options.frameSizeY, options.smoothing);
       this.piskelController_.setPiskel(piskel);
     }.bind(this);
@@ -65,7 +68,7 @@
    */
   ns.ImportService.prototype.importFramesFromImage = function (image, options, onComplete) {
     var setPiskelFromFrameImages = function (frameImages) {
-      var piskel = this.createPiskelFromImages_(frameImages, options.frameSizeX,
+      var piskel = this.createPiskelFromImages_(frameImages, options.name, options.frameSizeX,
           options.frameSizeY, options.smoothing);
       var mergedPiskel = this.mergePiskels(this.piskelController_.getPiskel(), piskel);
       this.piskelController_.setPiskel(mergedPiskel);
@@ -77,6 +80,8 @@
   ns.ImportService.prototype.importFromImages = function(image, options, setPiskelFromFrameImages, onComplete) {
     onComplete = onComplete || Constants.EMPTY_FUNCTION;
     var importType = options.importType;
+    var name = options.name;
+    var smoothing = options.smoothing;
     var frameSizeX = options.frameSizeX;
     var frameSizeY = options.frameSizeY;
     var frameOffsetX = options.frameOffsetX;
@@ -95,17 +100,19 @@
           return pskl.utils.CanvasUtils.createFromImageData(frame.data);
         });
 
+        var piskel;
         if (importType === 'single' || images.length > 1) {
           // Single image import or animated gif
           setPiskelFromFrameImages(images);
         } else {
           // Spritesheet
-          var frameImages = this.createImagesFromSheet_(images[0]);
+          var frameImages = this.createImagesFromSheet_(images[0], frameSizeX, frameSizeY, frameOffsetX, frameOffsetY);
           setPiskelFromFrameImages(frameImages);
         }
-        onComplete();
+        onComplete(piskel);
       }.bind(this),
       error: function () {
+        var piskel;
         if (importType === 'single') {
           // Single image
           setPiskelFromFrameImages([image]);
@@ -148,11 +155,12 @@
    * @return {pskl.model.Piskel}
    * @private
    */
-  ns.ImportService.prototype.createPiskelFromImages_ = function (images,
+  ns.ImportService.prototype.createPiskelFromImages_ = function (images, name,
       frameSizeX, frameSizeY, smoothing) {
+    var name = name || 'Imported piskel';
     var frames = this.createFramesFromImages_(images, frameSizeX, frameSizeY, smoothing);
     var layer = pskl.model.Layer.fromFrames('Layer 1', frames);
-    var descriptor = new pskl.model.piskel.Descriptor('Imported piskel', '');
+    var descriptor = new pskl.model.piskel.Descriptor(name, '');
     return pskl.model.Piskel.fromLayers([layer], Constants.DEFAULT.FPS, descriptor);
   };
 

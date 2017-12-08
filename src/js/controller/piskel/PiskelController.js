@@ -12,11 +12,15 @@
   /**
    * Set the current piskel. Will reset the selected frame and layer unless specified
    * @param {Object} piskel
-   * @param {Boolean} preserveState if true, keep the selected frame and layer
+   * @param {Object} options:
+   *                 preserveState {Boolean} if true, keep the selected frame and layer
+   *                 noSnapshot {Boolean} if true, do not save a snapshot in the piskel
+   *                            history for this call to setPiskel
    */
-  ns.PiskelController.prototype.setPiskel = function (piskel, preserveState) {
+  ns.PiskelController.prototype.setPiskel = function (piskel, options) {
     this.piskel = piskel;
-    if (!preserveState) {
+    options = options || {};
+    if (!options.preserveState) {
       this.currentLayerIndex = 0;
       this.currentFrameIndex = 0;
     }
@@ -155,8 +159,7 @@
   };
 
   ns.PiskelController.prototype.getFrameCount = function () {
-    var layer = this.piskel.getLayerAt(0);
-    return layer.size();
+    return this.piskel.getFrameCount();
   };
 
   ns.PiskelController.prototype.setCurrentFrameIndex = function (index) {
@@ -231,6 +234,14 @@
     return name;
   };
 
+  ns.PiskelController.prototype.duplicateCurrentLayer = function () {
+    var layer = this.getCurrentLayer();
+    var clone = pskl.utils.LayerUtils.clone(layer);
+    var currentLayerIndex = this.getCurrentLayerIndex();
+    this.piskel.addLayerAt(clone, currentLayerIndex + 1);
+    this.setCurrentLayerIndex(currentLayerIndex + 1);
+  };
+
   ns.PiskelController.prototype.createLayer = function (name) {
     if (!name) {
       name = this.generateLayerName_();
@@ -240,9 +251,9 @@
       for (var i = 0 ; i < this.getFrameCount() ; i++) {
         layer.addFrame(this.createEmptyFrame_());
       }
-      this.piskel.addLayer(layer);
-      this.setCurrentLayerIndex(this.piskel.getLayers().length - 1);
-
+      var currentLayerIndex = this.getCurrentLayerIndex();
+      this.piskel.addLayerAt(layer, currentLayerIndex + 1);
+      this.setCurrentLayerIndex(currentLayerIndex + 1);
     } else {
       throw 'Layer name should be unique';
     }
@@ -252,15 +263,15 @@
     return this.piskel.getLayersByName(name).length > 0;
   };
 
-  ns.PiskelController.prototype.moveLayerUp = function () {
+  ns.PiskelController.prototype.moveLayerUp = function (toTop) {
     var layer = this.getCurrentLayer();
-    this.piskel.moveLayerUp(layer);
+    this.piskel.moveLayerUp(layer, toTop);
     this.selectLayer(layer);
   };
 
-  ns.PiskelController.prototype.moveLayerDown = function () {
+  ns.PiskelController.prototype.moveLayerDown = function (toBottom) {
     var layer = this.getCurrentLayer();
-    this.piskel.moveLayerDown(layer);
+    this.piskel.moveLayerDown(layer, toBottom);
     this.selectLayer(layer);
   };
 
@@ -285,5 +296,13 @@
 
   ns.PiskelController.prototype.serialize = function () {
     return pskl.utils.serialization.Serializer.serialize(this.piskel);
+  };
+
+  /**
+   * Check if the current sprite is empty. Emptiness here means no pixel has been filled
+   * on any layer or frame for the current sprite.
+   */
+  ns.PiskelController.prototype.isEmpty = function () {
+    return pskl.app.currentColorsService.getCurrentColors().length === 0;
   };
 })();

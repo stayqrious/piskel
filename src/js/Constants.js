@@ -12,7 +12,7 @@ var Constants = {
   MAX_HEIGHT : 1024,
   MAX_WIDTH : 1024,
 
-  MAX_PALETTE_COLORS : 100,
+  MAX_PALETTE_COLORS : 256,
   // allow current colors service to get up to 256 colors.
   // GIF generation is different if the color count goes over 256.
   MAX_WORKER_COLORS : 256,
@@ -59,10 +59,14 @@ var Constants = {
   // The datastore limit is 1 MiB, which we roughly approximate to 1 million characters.
   APPENGINE_SAVE_LIMIT : 1 * 1024 * 1024,
 
+  // Message displayed when an action will lead to erase the current animation.
+  CONFIRM_OVERWRITE: 'This will replace your current animation, are you sure you want to continue?',
+
   // SERVICE URLS
   APPENGINE_SAVE_URL : 'save',
-  IMAGE_SERVICE_UPLOAD_URL : 'http://piskel-imgstore-b.appspot.com/__/upload',
-  IMAGE_SERVICE_GET_URL : 'http://piskel-imgstore-b.appspot.com/img/',
+
+  IMAGE_SERVICE_UPLOAD_URL : '{{protocol}}://piskel-imgstore-b.appspot.com/__/upload',
+  IMAGE_SERVICE_GET_URL : '{{protocol}}://piskel-imgstore-b.appspot.com/img/',
 
   // Code.org - hide or show all layer controls from the UI
   ENABLE_MULTIPLE_LAYERS: false

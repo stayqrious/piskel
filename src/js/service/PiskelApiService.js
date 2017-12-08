@@ -1,3 +1,5 @@
+/* global PiskelApi*/
+
 /* @file Service for managing communication with an external application
  * when Piskel is embedded in an iframe. */
 (function () {

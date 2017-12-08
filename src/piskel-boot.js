@@ -18,6 +18,7 @@
     loadingMask.style.opacity = 0;
     window.setTimeout(function () {loadingMask.parentNode.removeChild(loadingMask);}, 600);
     pskl.app.init();
+    pskl._releaseVersion = '@@releaseVersion';
     // cleanup
     delete window.pskl_exports;
     delete window.loadDebugScripts;
@@ -67,12 +68,21 @@
     };
     loadScript('piskel-script-list.js', 'loadNextScript()');
 
+    var styles;
     window.loadStyles = function () {
-      var styles = window.pskl_exports.styles;
+      styles = window.pskl_exports.styles;
       for (var i = 0 ; i < styles.length ; i++) {
         loadStyle(styles[i]);
       }
     };
+
+    window.reloadStyles = function () {
+      for (var i = 0 ; i < styles.length ; i++) {
+        document.querySelector('link[href="' + styles[i] + '"]').remove();
+        loadStyle(styles[i]);
+      }
+    };
+
     loadScript('piskel-style-list.js', 'loadStyles()');
   } else {
     var script;
