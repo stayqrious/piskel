@@ -43,7 +43,8 @@
      * @param {Number} height The height of an individual frame
      * @param {Boolean} useHorizonalStrips True if the frames should be layed out from left to
      * right, False if it should use top to bottom
-     * @param {Boolean} ignoreEmptyFrames True to ignore empty frames, false to keep them
+     * @param {Boolean} ignoreEmptyFrames True to ignore empty frames, except if
+     * there are only empty frames -> then keep one, false to keep them.
      * @returns {Array} An array of canvas elements that contain the split frames
      */
     createFramesFromImage : function (image, offsetX, offsetY, width, height, useHorizonalStrips, ignoreEmptyFrames) {
@@ -69,7 +70,16 @@
           width,
           height);
 
-        if (!ignoreEmptyFrames || canvas.toDataURL() !== blankData) {
+
+        // If last time through loop and canvasArray is empty, we're loading a blank
+        // animation and want to push a blank frame to the canvas array
+        const lastFrame = (x + (2 * width) > image.width) && (y + (2 * height) > image.height);
+        const canvasArrayIsEmpty = canvasArray.length === 0;
+        const lastChanceToPushFrame = lastFrame && canvasArrayIsEmpty;
+
+        // If we are including empty frame, the canvas is not blank, or it's the last chance
+        // to push any frame, push the frame.
+        if (!ignoreEmptyFrames || canvas.toDataURL() !== blankData || lastChanceToPushFrame) {
           canvasArray.push(canvas);
         }
 
