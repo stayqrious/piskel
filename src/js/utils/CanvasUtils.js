@@ -73,7 +73,7 @@
 
         // If last time through loop and canvasArray is empty, we're loading a blank
         // animation and want to push a blank frame to the canvas array
-        const lastFrame = (x + (2*width) > image.width) && (y + (2*height) > image.height);
+        const lastFrame = (x + (2 * width) > image.width) && (y + (2 * height) > image.height);
         const canvasArrayIsEmpty = canvasArray.length === 0;
         const lastChanceToPushFrame = lastFrame && canvasArrayIsEmpty;
 
