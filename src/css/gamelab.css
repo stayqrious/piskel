@@ -390,3 +390,7 @@ a, a:visited {
 .tab-item.selected {
   border-color: #fff;
 }
+
+span.highlight {
+  color:#7665a0;
+}
