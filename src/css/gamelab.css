@@ -1,5 +1,4 @@
 /* Features to hide on GameLab Animation tab */
-.icon-settings-export-white,
 .palettes-list-container,
 .cheatsheet-link,
 .canvas-container-wrapper,
@@ -11,7 +10,10 @@
 .icon-settings-gear-white,
 .transformations-title,
 .top-overflow,
-.bottom-overflow {
+.bottom-overflow,
+[data-tab-id=png],
+[data-tab-id=misc],
+.upload-gif-gamelab{
   padding: 0px;
   visibility: hidden;
   min-height: 0px;
@@ -59,25 +61,33 @@ body {
   left: 120px;
 }
 
-/*Resize */
+/*Resize and Export*/
 
 .right-sticky-section .tool-icon.has-expanded-drawer {
   border: none;
   background-color: #444;
 }
 
-.tool-icon.icon-settings-resize-white {
-  height: 160px;
+.tool-icon.icon-settings-resize-white,
+.tool-icon.icon-settings-export-white {
+  height: 50px;
   background-color: #7665a0;
   border-left: none;
   border-top: none;
   border-bottom: none;
-  background-image: url(../img/icons/settings/settings-resize-white.png);
   background-repeat: no-repeat;
   background-position: 0;
   background-size: 46px;
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
+}
+
+.tool-icon.icon-settings-resize-white{
+  background-image: url(../img/icons/settings/settings-resize-white.png);
+}
+
+.tool-icon.icon-settings-export-white{
+  background-image: url(../img/icons/settings/settings-export-white.png);
 }
 
 /* Onion */
@@ -366,4 +376,21 @@ a, a:visited {
 
 .cursor-coordinates {
   color: #7665a0;
+}
+
+.tab-list:after {
+  background-color: #fff;
+}
+
+.tab-item.selected,
+.tab-item:hover {
+  color: #FFF;
+}
+
+.tab-item.selected {
+  border-color: #fff;
+}
+
+span.highlight {
+  color:#7665a0;
 }
