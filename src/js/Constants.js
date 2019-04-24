@@ -73,20 +73,20 @@ var Constants = {
 
   // Code.org - List of classes to hide in "Restricted Tools" mode
   TOOLS_TO_RESTRICT: [
-    "icon-tool-vertical-mirror-pen",
-    "icon-tool-colorswap",
-    "icon-tool-move",
-    "icon-tool-shape-select",
-    "icon-tool-lasso-select",
-    "icon-tool-lighten",
-    "icon-tool-dithering",
-    "preview-toggle-onion-skin",
-    "icon-tool-flip",
-    "icon-tool-rotate",
-    "icon-tool-center",
-    "icon-settings-resize-white",
-    "icon-settings-export-white",
-    "drawer-content",
-    "preview-container"
+    'icon-tool-vertical-mirror-pen',
+    'icon-tool-colorswap',
+    'icon-tool-move',
+    'icon-tool-shape-select',
+    'icon-tool-lasso-select',
+    'icon-tool-lighten',
+    'icon-tool-dithering',
+    'preview-toggle-onion-skin',
+    'icon-tool-flip',
+    'icon-tool-rotate',
+    'icon-tool-center',
+    'icon-settings-resize-white',
+    'icon-settings-export-white',
+    'drawer-content',
+    'preview-container'
   ]
 };
