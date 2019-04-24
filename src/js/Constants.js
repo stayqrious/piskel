@@ -69,5 +69,24 @@ var Constants = {
   IMAGE_SERVICE_GET_URL : '{{protocol}}://piskel-imgstore-b.appspot.com/img/',
 
   // Code.org - hide or show all layer controls from the UI
-  ENABLE_MULTIPLE_LAYERS: false
+  ENABLE_MULTIPLE_LAYERS: false,
+
+  // Code.org - List of classes to hide in "Restricted Tools" mode
+  TOOLS_TO_RESTRICT: [
+    "icon-tool-vertical-mirror-pen",
+    "icon-tool-colorswap",
+    "icon-tool-move",
+    "icon-tool-shape-select",
+    "icon-tool-lasso-select",
+    "icon-tool-lighten",
+    "icon-tool-dithering",
+    "preview-toggle-onion-skin",
+    "icon-tool-flip",
+    "icon-tool-rotate",
+    "icon-tool-center",
+    "icon-settings-resize-white",
+    "icon-settings-export-white",
+    "drawer-content",
+    "preview-container"
+  ]
 };

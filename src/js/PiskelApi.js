@@ -82,6 +82,9 @@ var PiskelApi = (function (module) {
     // Requested spritesheet merge and load has completed
     // Arguments: none
     FRAMES_LOADED: 'FRAMES_LOADED',
+
+    // Use a restricted set of tools [Spritelab/Gamelab]
+    USE_RESTRICTED: 'USE_RESTRICTED',
   };
 
   /**
@@ -165,6 +168,15 @@ var PiskelApi = (function (module) {
   PiskelApi.prototype.addBlankFrame = function () {
     this.sendMessage_({
       type: PiskelApi.MessageType.ADD_BLANK_FRAME
+    });
+  };
+
+  /**
+   * Tell Piskel to use a restricted set of tools.
+   */
+  PiskelApi.prototype.restrictTools = function () {
+    this.sendMessage_({
+      type: PiskelApi.MessageType.USE_RESTRICTED
     });
   };
 
