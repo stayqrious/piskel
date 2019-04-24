@@ -263,8 +263,8 @@
   };
 
   ns.PiskelApiService.prototype.restrictTools = function () {
-    Constants.TOOLS_TO_RESTRICT.forEach((className) => {
-      let elements = document.getElementsByClassName(className);
+    Constants.TOOLS_TO_RESTRICT.forEach(function (className) {
+      var elements = document.getElementsByClassName(className);
       elements[0].classList.add('spritelab-hide');
     });
   };
