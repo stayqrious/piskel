@@ -127,6 +127,8 @@
       this.appendFrames(message.uri, message.frameSizeX, message.frameSizeY);
     } else if (message.type === MessageType.ADD_BLANK_FRAME) {
       this.piskelController_.addFrame();
+    } else if (message.type === MessageType.USE_RESTRICTED) {
+      this.restrictTools();
     }
   };
 
@@ -258,5 +260,14 @@
 
   ns.PiskelApiService.prototype.onAddNewFrameEvent = function () {
     this.sendMessage_({type: MessageType.ADD_NEW_FRAME_CLICKED});
+  };
+
+  ns.PiskelApiService.prototype.restrictTools = function () {
+    Constants.TOOLS_TO_RESTRICT.forEach(function (className) {
+      var elements = document.getElementsByClassName(className);
+      Array.prototype.forEach.call(elements, function(element) {
+        element.classList.add('spritelab-hide');
+      });
+    });
   };
 })();
