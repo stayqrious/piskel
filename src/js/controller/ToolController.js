@@ -11,6 +11,7 @@
       new pskl.tools.drawing.Eraser(),
       new pskl.tools.drawing.Stroke(),
       new pskl.tools.drawing.Rectangle(),
+      new pskl.tools.drawing.FilledRectangle(),
       new pskl.tools.drawing.Circle(),
       new pskl.tools.drawing.Move(),
       new pskl.tools.drawing.selection.ShapeSelect(),

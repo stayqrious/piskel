@@ -24,6 +24,7 @@
       ERASER : createShortcut('tool-eraser', 'Eraser pen tool', 'E'),
       STROKE : createShortcut('tool-stroke', 'Stroke tool', 'L'),
       RECTANGLE : createShortcut('tool-rectangle', 'Rectangle tool', 'R'),
+      FILLED_RECTANGLE : createShortcut('tool-rectangle', 'Rectangle tool', 'ctrl+R'),
       CIRCLE : createShortcut('tool-circle', 'Circle tool', 'C'),
       MOVE : createShortcut('tool-move', 'Move tool', 'M'),
       SHAPE_SELECT : createShortcut('tool-shape-select', 'Shape selection', 'Z'),

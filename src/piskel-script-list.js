@@ -227,6 +227,7 @@
   "js/tools/drawing/Stroke.js",
   "js/tools/drawing/PaintBucket.js",
   "js/tools/drawing/Rectangle.js",
+  "js/tools/drawing/FilledRectangle.js",
   "js/tools/drawing/Circle.js",
   "js/tools/drawing/Move.js",
   "js/tools/drawing/selection/BaseSelect.js",
