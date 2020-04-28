@@ -1,63 +1,48 @@
-Piskel
+Code Studio Piskel
 ======
 
-[![Travis Status](https://api.travis-ci.org/piskelapp/piskel.png?branch=master)](https://travis-ci.org/piskelapp/piskel) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](https://gruntjs.com/)
+[![Travis Status](https://api.travis-ci.org/code-dot-org/piskel.png?branch=master)](https://travis-ci.org/code-dot-org/piskel)
 
-Piskel is an easy-to-use sprite editor. It can be used to create game sprites, animations, pixel-art...
-It is the editor used in **[piskelapp.com](https://www.piskelapp.com)**.
+This is a custom version of the excellent [Piskel Editor](https://github.com/juliandescottes/piskel) by [@juliandescottes](https://github.com/juliandescottes) and [@grosbouddha](https://github.com/grosbouddha), designed for embedded use with the Code.org Code Studio learning platform.  For more information on using or developing Piskel, please see [the main repository](https://github.com/juliandescottes/piskel).
 
-<img
-  src="https://screenletstore.appspot.com/img/95aaa0f0-37a4-11e7-a652-7b8128ce3e3b.png"
-  title="Piskel editor screenshot"
-  width="500">
+This project is published on npm as [@code-dot-org/piskel](https://www.npmjs.com/package/@code-dot-org/piskel).
 
-## About Piskel
+## Using this package
 
-### Built with
+Install the package from npm:
 
-The Piskel editor is purely built in **JavaScript, HTML and CSS**.
+```
+npm install @code-dot-org/piskel
+```
 
-We also use the following **libraries** :
-* [spectrum](https://github.com/bgrins/spectrum) : awesome standalone colorpicker
-* [gifjs](https://jnordberg.github.io/gif.js/) : generate animated GIFs in javascript, using webworkers
-* [supergif](https://github.com/buzzfeed/libgif-js) : modified version of SuperGif to parse and import GIFs
-* [jszip](https://github.com/Stuk/jszip) : create, read and edit .zip files with Javascript
-* [canvas-toBlob](https://github.com/eligrey/canvas-toBlob.js/) : shim for canvas toBlob
-* [jquery](https://jquery.com/) : used sporadically in the application
-* [bootstrap-tooltip](https://getbootstrap.com/javascript/#tooltips) : nice tooltips
+This will install the release build of Piskel to `node_modules/@code-dot-org/piskel`.  The application root is at `node_modules/@code-dot-org/piskel/dest/prod`.  You can run the static version of Piskel by opening `index.html` in that folder.
 
-As well as some **icons** from the [Noun Project](https://thenounproject.com/) :
-* Folder by Simple Icons from The Noun Project
-* (and probably one or two others)
+A `piskel-root` utilty is also installed at `node_modules/.bin/piskel-root` that prints the absolute path to the application root.  It's recommended that you depend on this utility in any build scripts to be resilient against future changes to the internal layout of the Piskel package.
 
-### Browser Support
+## Local Development Setup
 
-Piskel supports the following browsers:
-* **Chrome** (latest)
-* **Firefox** (latest)
-* **Edge** (latest)
-* **Internet Explorer** 11
+Note: To run local integration tests you should install CasperJS 1.0.2 (not included as a dependency in this repo) and make sure it has access to PhantomJS 1.9.2 (downloaded to node_modules/.bin on `npm install` but not necessarily in your PATH).
 
-### Mobile/Tablets
+## Publishing a new version
 
-There is no support for mobile.
+This repository depends on a Node version >=7. Please use Node >=7 when building and updating
+new releases of this Piskel to NPM.
 
-### Offline builds
+To publish a new version to npm switch to the master branch, use `npm login` to sign in as an account with access to the `@code-dot-org` scope, then `npm version [major|minor|patch]` for the appropriate version bump.  This will do the following:
 
-Offline builds are available. More details in the [dedicated wiki page](https://github.com/piskelapp/piskel/wiki/Desktop-applications).
-
-## Contributing ?
-
-Help is always welcome !
-
-* **Issues** : Found a problem when using the application, want to request a feature, [open an issue](https://github.com/piskelapp/piskel/issues).
-* **Development** : Have a look at the [wiki](https://github.com/piskelapp/piskel/wiki) to set up the development environment
+* Run linting and tests to verify your local repo.
+* Rebuild the release package.
+* Bump the version, adding a corresponding commit and version tag.
+* Push the commit and tag to github.
+* Publish the new release package to npm.
 
 ## License
 
-Copyright 2017 Julian Descottes
+Code Studio Piskel is Copyright 2016 Code.org
 
-Licensed under the Apache License, Version 2.0 (the "License");
+Piskel is Copyright 2016 Julian Descottes
+
+Both are licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
@@ -68,4 +53,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-

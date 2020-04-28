@@ -18,9 +18,10 @@ var Constants = {
   MAX_WORKER_COLORS : 256,
 
   PREVIEW_FILM_SIZE : 96,
-  ANIMATED_PREVIEW_WIDTH : 200,
   // Keep in sync with padding-left: 10px in layout.css
   RIGHT_COLUMN_PADDING_LEFT : 10,
+  // Code.org - 60px right hand side gives workspace more room.
+  ANIMATED_PREVIEW_WIDTH : 60,
 
   DEFAULT_PEN_COLOR : '#000000',
   TRANSPARENT_COLOR : 'rgba(0, 0, 0, 0)',
@@ -65,6 +66,29 @@ var Constants = {
 
   // SERVICE URLS
   APPENGINE_SAVE_URL : 'save',
+
   IMAGE_SERVICE_UPLOAD_URL : '{{protocol}}://piskel-imgstore-b.appspot.com/__/upload',
-  IMAGE_SERVICE_GET_URL : '{{protocol}}://piskel-imgstore-b.appspot.com/img/'
+  IMAGE_SERVICE_GET_URL : '{{protocol}}://piskel-imgstore-b.appspot.com/img/',
+
+  // Code.org - hide or show all layer controls from the UI
+  ENABLE_MULTIPLE_LAYERS: false,
+
+  // Code.org - List of classes to hide in "Restricted Tools" mode
+  TOOLS_TO_RESTRICT: [
+    'icon-tool-vertical-mirror-pen',
+    'icon-tool-colorswap',
+    'icon-tool-move',
+    'icon-tool-shape-select',
+    'icon-tool-lasso-select',
+    'icon-tool-lighten',
+    'icon-tool-dithering',
+    'preview-toggle-onion-skin',
+    'icon-tool-flip',
+    'icon-tool-rotate',
+    'icon-tool-center',
+    'icon-settings-resize-white',
+    'icon-settings-export-white',
+    'drawer-content',
+    'preview-container'
+  ]
 };

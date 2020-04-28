@@ -1,650 +1,930 @@
 {
-  "events": [
-    {
-      "event": {
-        "type": "mousedown",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 0,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 0,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 1,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 3,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mouseup",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 3,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "type": "tool-event",
-      "toolId": "tool-rectangle-select"
-    },
-    {
-      "type": "keyboard-event",
-      "event": {
-        "which": 83,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false,
-        "target": {
-          "nodeName": "BODY"
-        }
-      }
-    },
-    {
-      "event": {
-        "type": "mousedown",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 1,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 1,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mouseup",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousedown",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 0,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 0,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 1,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 1,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 3,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mouseup",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 3,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "type": "keyboard-event",
-      "event": {
-        "which": 67,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": true,
-        "target": {
-          "nodeName": "BODY"
-        }
-      }
-    },
-    {
-      "type": "clipboard-event",
-      "event": {
-        "type": "CLIPBOARD_COPY"
-      }
-    },
-    {
-      "event": {
-        "type": "mousedown",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 0
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 2
-      },
-      "type": "mouse-event"
-    },
-    {
-      "type": "keyboard-event",
-      "event": {
-        "which": 86,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": true,
-        "target": {
-          "nodeName": "BODY"
-        }
-      }
-    },
-    {
-      "type": "clipboard-event",
-      "event": {
-        "type": "CLIPBOARD_PASTE"
-      }
-    },
-    {
-      "event": {
-        "type": "keyup",
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": true
-      },
-      "coords": {
-        "x": null,
-        "y": null
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "keyup",
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": null,
-        "y": null
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mouseup",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 2
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousedown",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 2
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 2
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 1,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 0,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mouseup",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": true
-      },
-      "coords": {
-        "x": 0,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "type": "keyboard-event",
-      "event": {
-        "which": 86,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": true,
-        "target": {
-          "nodeName": "BODY"
-        }
-      }
-    },
-    {
-      "type": "clipboard-event",
-      "event": {
-        "type": "CLIPBOARD_PASTE"
-      }
-    },
-    {
-      "type": "keyboard-event",
-      "event": {
-        "which": 67,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": true,
-        "target": {
-          "nodeName": "BODY"
-        }
-      }
-    },
-    {
-      "type": "clipboard-event",
-      "event": {
-        "type": "CLIPBOARD_COPY"
-      }
-    },
-    {
-      "event": {
-        "type": "mousedown",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 0,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 0,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 1,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 3,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mousemove",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "event": {
-        "type": "mouseup",
-        "button": 0,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": false
-      },
-      "coords": {
-        "x": 2,
-        "y": 1
-      },
-      "type": "mouse-event"
-    },
-    {
-      "type": "keyboard-event",
-      "event": {
-        "which": 86,
-        "shiftKey": false,
-        "altKey": false,
-        "ctrlKey": true,
-        "target": {
-          "nodeName": "BODY"
-        }
-      }
-    },
-    {
-      "type": "clipboard-event",
-      "event": {
-        "type": "CLIPBOARD_PASTE"
-      }
-    }
-  ],
-  "initialState": {
-    "size": {
-      "width": 4,
-      "height": 4
-    },
-    "primaryColor": "rgb(125, 205, 238)",
-    "secondaryColor": "rgba(0, 0, 0, 0)",
-    "selectedTool": "tool-pen"
+ "events": [
+  {
+   "type": "color-event",
+   "color": "#de0fd9",
+   "isPrimary": true
   },
-  "png": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAF0lEQVQIW2OsPfvuPwMSYCQsgKwcxAYA0kUJqtGbV5YAAAAASUVORK5CYII="
+  {
+   "type": "tool-event",
+   "toolId": "tool-pen"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 3,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 3,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 3,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 4,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 4,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "type": "color-event",
+   "color": "#0fb5de",
+   "isPrimary": true
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 3,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 3,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 4,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 4,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "type": "color-event",
+   "color": "#f9fdfe",
+   "isPrimary": true
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 3,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 3,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 4,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 4,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "type": "tool-event",
+   "toolId": "tool-rectangle-select"
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 0
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "type": "clipboard-event",
+   "event": {
+    "type": "CLIPBOARD_COPY",
+    "timeStamp": 1511995076388,
+    "jQuery18005821572034515143": true,
+    "isTrigger": true,
+    "namespace": "",
+    "namespace_re": null,
+    "target": {},
+    "delegateTarget": {},
+    "currentTarget": {},
+    "handleObj": {
+     "type": "CLIPBOARD_COPY",
+     "origType": "CLIPBOARD_COPY",
+     "guid": 130,
+     "namespace": ""
+    }
+   }
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 3
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 3,
+    "y": 3
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 3,
+    "y": 3
+   },
+   "type": "mouse-event"
+  },
+  {
+   "type": "clipboard-event",
+   "event": {
+    "type": "CLIPBOARD_PASTE",
+    "timeStamp": 1511995079788,
+    "jQuery18005821572034515143": true,
+    "isTrigger": true,
+    "namespace": "",
+    "namespace_re": null,
+    "target": {},
+    "delegateTarget": {},
+    "currentTarget": {},
+    "handleObj": {
+     "type": "CLIPBOARD_PASTE",
+     "origType": "CLIPBOARD_PASTE",
+     "guid": 132,
+     "namespace": ""
+    }
+   }
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 1
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "type": "clipboard-event",
+   "event": {
+    "type": "CLIPBOARD_CUT",
+    "timeStamp": 1511995085554,
+    "jQuery18005821572034515143": true,
+    "isTrigger": true,
+    "namespace": "",
+    "namespace_re": null,
+    "target": {},
+    "delegateTarget": {},
+    "currentTarget": {},
+    "handleObj": {
+     "type": "CLIPBOARD_CUT",
+     "origType": "CLIPBOARD_CUT",
+     "guid": 131,
+     "namespace": ""
+    }
+   }
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 2
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 3
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 1,
+    "y": 4
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 4
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 2,
+    "y": 4
+   },
+   "type": "mouse-event"
+  },
+  {
+   "type": "clipboard-event",
+   "event": {
+    "type": "CLIPBOARD_PASTE",
+    "timeStamp": 1511995089722,
+    "jQuery18005821572034515143": true,
+    "isTrigger": true,
+    "namespace": "",
+    "namespace_re": null,
+    "target": {},
+    "delegateTarget": {},
+    "currentTarget": {},
+    "handleObj": {
+     "type": "CLIPBOARD_PASTE",
+     "origType": "CLIPBOARD_PASTE",
+     "guid": 132,
+     "namespace": ""
+    }
+   }
+  },
+  {
+   "event": {
+    "type": "mousedown",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 4
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mousemove",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 4
+   },
+   "type": "mouse-event"
+  },
+  {
+   "event": {
+    "type": "mouseup",
+    "button": 0,
+    "shiftKey": false,
+    "altKey": false,
+    "ctrlKey": false
+   },
+   "coords": {
+    "x": 0,
+    "y": 4
+   },
+   "type": "mouse-event"
+  }
+ ],
+ "initialState": {
+  "size": {
+   "width": 5,
+   "height": 5
+  },
+  "primaryColor": "#f9fdfe",
+  "secondaryColor": "rgba(0, 0, 0, 0)",
+  "selectedTool": "tool-rectangle-select",
+  "penSize": 1
+ },
+ "png": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAALklEQVQYV2O8x3/zPwMaYITx+bfeg0vCBX/+/YcqiKzqfNRvBrBKZFViOx4wAAB4qRPF/e2BCAAAAABJRU5ErkJggg=="
 }

@@ -53,6 +53,36 @@ describe("History Service suite", function() {
     expect(historyService.currentIndex).toBe(0);
   });
 
+  it("is -1 after clearState", function() {
+    historyService = createMockHistoryService();
+    historyService.init();
+    sendSaveEvents(pskl.service.HistoryService.REPLAY).times(3);
+    expect(historyService.currentIndex).toBe(3);
+    historyService.clearState();
+    expect(historyService.currentIndex).toBe(-1);
+    expect(historyService.stateQueue.length).toBe(0);
+  });
+
+  var sendLoadNewPiskelEvent = function () {
+    return callFactory (function () {
+      $.publish(Events.LOAD_NEW_PISKEL, {
+        type : '',
+        scope : {},
+        replay : {}
+      });
+    });
+  };
+
+  it("clears state when loading a new piskel", function() {
+    historyService = createMockHistoryService();
+    historyService.init();
+    sendSaveEvents(pskl.service.HistoryService.REPLAY).times(3);
+    expect(historyService.currentIndex).toBe(3);
+    sendLoadNewPiskelEvent().once();
+    expect(historyService.currentIndex).toBe(-1);
+    expect(historyService.stateQueue.length).toBe(0);
+  });
+
   var sendSaveEvents = function (type) {
     return callFactory (function () {
       $.publish(Events.PISKEL_SAVE_STATE, {

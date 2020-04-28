@@ -10,6 +10,7 @@
   // Application wide configuration
   "js/Constants.js",
   "js/Events.js",
+  "js/PiskelApi.js",
 
   // Libraries
   "js/utils/core.js",
@@ -212,6 +213,7 @@
   "js/service/MouseStateService.js",
   "js/service/performance/PerformanceReport.js",
   "js/service/performance/PerformanceReportService.js",
+  "js/service/PiskelApiService.js",
 
   // Tools
   "js/tools/ToolsHelper.js",

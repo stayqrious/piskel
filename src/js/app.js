@@ -163,13 +163,11 @@
       this.fileDropperService = new pskl.service.FileDropperService(this.piskelController);
       this.fileDropperService.init();
 
-      this.userWarningController = new pskl.controller.UserWarningController(this.piskelController);
-      this.userWarningController.init();
-
-      this.performanceReportService = new pskl.service.performance.PerformanceReportService(
-        this.piskelController,
-        this.currentColorsService);
-      this.performanceReportService.init();
+      // Service that can interact with a parent application via the PiskelApi
+      // class. See PiskelApi.js for more information.
+      this.piskelApiService = new pskl.service.PiskelApiService(
+          this.piskelController, this.previewController, this.importService);
+      this.piskelApiService.init(window);
 
       this.clipboardService = new pskl.service.ClipboardService(this.piskelController);
       this.clipboardService.init();

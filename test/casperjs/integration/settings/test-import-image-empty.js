@@ -1,7 +1,7 @@
 /* globals casper, setPiskelFromGrid, isDrawerExpanded, getValue, isChecked,
    evalLine, waitForEvent, replaceFunction, setPiskelFromImageSrc */
 
-casper.test.begin('Image import test with an empty current sprite', 16, function(test) {
+casper.test.begin('Image import test with an empty current sprite', 7, function(test) {
   test.timeout = test.fail.bind(test, ['Test timed out']);
 
   // Helper to retrieve the text content of the provided selector
@@ -23,6 +23,7 @@ casper.test.begin('Image import test with an empty current sprite', 16, function
     ']');
   }
 
+  // Skipping part of test since we don't use Piskel Import
   function onPiskelReset() {
     // Check the expected piskel was correctly loaded.
     test.assertEquals(evalLine('pskl.app.currentColorsService.getCurrentColors().length'), 0, 'Has no color');
@@ -34,7 +35,8 @@ casper.test.begin('Image import test with an empty current sprite', 16, function
     test.assertDoesntExist('.settings-section-import', 'Check if import panel is closed');
     casper.click('[data-setting="import"]');
 
-    casper.waitForSelector('.settings-section-import', onImportPanelReady, test.timeout, 10000);
+    // Skipping this part of the test since we don't use Piskel Importer
+    //casper.waitForSelector('.settings-section-import', onImportPanelReady, test.timeout, 10000);
   }
 
   function onImportPanelReady() {

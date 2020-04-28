@@ -37,11 +37,47 @@
    *        - {Number}  frameSizeY
    *        - {Number}  frameOffsetX (only used in spritesheet imports)
    *        - {Number}  frameOffsetY (only used in spritesheet imports)
+   *        - {Number}  frameRate - (in frames per second)
    * @param {Function} onComplete
    *        Callback called when the new piskel has been created, with the new piskel
    *        as single argument.
    */
   ns.ImportService.prototype.newPiskelFromImage = function (image, options, onComplete) {
+    var setPiskelFromFrameImages = function (frameImages) {
+      var piskel = this.createPiskelFromImages_(frameImages, options.name, options.frameSizeX,
+          options.frameSizeY, options.smoothing);
+      this.piskelController_.setPiskel(piskel);
+    }.bind(this);
+
+    this.importFromImages(image, options, setPiskelFromFrameImages, onComplete);
+  };
+
+  /**
+   * Given an image object and some options, merge the frames with the currently open
+   * Piskel and open it for editing.
+   * @param {!Image} image
+   * @param {!Object} options
+   * @param {!string} options.importType - 'single' if not spritesheet
+   * @param {!number} options.frameSizeX
+   * @param {!number} options.frameSizeY
+   * @param {number} [options.frameOffsetX] only used in spritesheet imports.
+   * @param {number} [options.frameOffsetY] only used in spritesheet imports.
+   * @param {!boolean} options.smoothing
+   * @param {number} [options.frameRate] in frames per second
+   * @param {function} [onComplete]
+   */
+  ns.ImportService.prototype.importFramesFromImage = function (image, options, onComplete) {
+    var setPiskelFromFrameImages = function (frameImages) {
+      var piskel = this.createPiskelFromImages_(frameImages, options.name, options.frameSizeX,
+          options.frameSizeY, options.smoothing);
+      var mergedPiskel = this.mergePiskels(this.piskelController_.getPiskel(), piskel);
+      this.piskelController_.setPiskel(mergedPiskel);
+    }.bind(this);
+
+    this.importFromImages(image, options, setPiskelFromFrameImages, onComplete);
+  };
+
+  ns.ImportService.prototype.importFromImages = function(image, options, setPiskelFromFrameImages, onComplete) {
     onComplete = onComplete || Constants.EMPTY_FUNCTION;
     var importType = options.importType;
     var name = options.name;
@@ -50,6 +86,9 @@
     var frameSizeY = options.frameSizeY;
     var frameOffsetX = options.frameOffsetX;
     var frameOffsetY = options.frameOffsetY;
+    var smoothing = options.smoothing;
+    var frameRate = typeof options.frameRate !== 'undefined' ?
+        options.frameRate : Constants.DEFAULT.FPS;
 
     var gifLoader = new window.SuperGif({
       gif: image
@@ -64,11 +103,11 @@
         var piskel;
         if (importType === 'single' || images.length > 1) {
           // Single image import or animated gif
-          piskel = this.createPiskelFromImages_(images, name, frameSizeX, frameSizeY, smoothing);
+          setPiskelFromFrameImages(images);
         } else {
           // Spritesheet
           var frameImages = this.createImagesFromSheet_(images[0], frameSizeX, frameSizeY, frameOffsetX, frameOffsetY);
-          piskel = this.createPiskelFromImages_(frameImages, name, frameSizeX, frameSizeY, smoothing);
+          setPiskelFromFrameImages(frameImages);
         }
         onComplete(piskel);
       }.bind(this),
@@ -76,13 +115,13 @@
         var piskel;
         if (importType === 'single') {
           // Single image
-          piskel = this.createPiskelFromImages_([image], name, frameSizeX, frameSizeY, smoothing);
+          setPiskelFromFrameImages([image]);
         } else {
           // Spritesheet
           var frameImages = this.createImagesFromSheet_(image, frameSizeX, frameSizeY, frameOffsetX, frameOffsetY);
-          piskel = this.createPiskelFromImages_(frameImages, name, frameSizeX, frameSizeY, smoothing);
+          setPiskelFromFrameImages(frameImages);
         }
-        onComplete(piskel);
+        onComplete();
       }.bind(this)
     });
   };
@@ -113,11 +152,12 @@
    * @param {!number} frameSizeX
    * @param {!number} frameSizeY
    * @param {!boolean} smoothing
+   * @return {pskl.model.Piskel}
    * @private
    */
   ns.ImportService.prototype.createPiskelFromImages_ = function (images, name,
       frameSizeX, frameSizeY, smoothing) {
-    name = name || 'Imported piskel';
+    var name = name || 'Imported piskel';
     var frames = this.createFramesFromImages_(images, frameSizeX, frameSizeY, smoothing);
     var layer = pskl.model.Layer.fromFrames('Layer 1', frames);
     var descriptor = new pskl.model.piskel.Descriptor(name, '');
@@ -137,5 +177,66 @@
       var resizedImage = pskl.utils.ImageResizer.resize(image, frameSizeX, frameSizeY, smoothing);
       return pskl.utils.FrameUtils.createFromImage(resizedImage);
     });
+  };
+
+  /**
+   * Adds frames from an additionalPiskel to an originalPiskel, adjusting the size of
+   * both piskels to the largest dimensions of either piskel, and centering the content.
+   * This will only work when there is only one layer.
+   * Multi layer animations are disabled from the UI in code-dot-org/piskel
+   * @param {!pskl.model.Piskel} originalPiskel
+   * @param {!pskl.model.Piskel} additionalPiskel
+   * @returns {pskl.model.Piskel}
+   */
+  ns.ImportService.prototype.mergePiskels = function(originalPiskel, additionalPiskel) {
+    if (originalPiskel.layers.length != 1 || originalPiskel.layers.length != 1) {
+      throw new Error(
+        'mergePiskels was provided with piskel parameters with more than one layer');
+    }
+
+    var maxWidth = Math.max(originalPiskel.width, additionalPiskel.width);
+    var maxHeight = Math.max(originalPiskel.height, additionalPiskel.height);
+
+    this.resizePiskel(additionalPiskel, maxWidth, maxHeight);
+    this.resizePiskel(originalPiskel, maxWidth, maxHeight);
+
+    for (var i = 0; i < additionalPiskel.layers[0].size(); i++) {
+      originalPiskel.layers[0].addFrame(additionalPiskel.layers[0].getFrameAt(i));
+    }
+    return originalPiskel;
+  };
+
+  /**
+   * @param {!pskl.model.Piskel} piskel
+   * @param {!number} width
+   * @param {!number} height
+   */
+  ns.ImportService.prototype.resizePiskel = function(piskel, width, height) {
+    if (piskel.width < width || piskel.height < height) {
+      var numFrames = piskel.layers[0].size();
+      for (var j = 0; j < numFrames; j++) {
+        var resizedFrame = this.setFrameSize(piskel.layers[0].getFrameAt(j), width, height);
+        piskel.layers[0].replaceFrameAt(resizedFrame, j);
+      }
+      piskel.width = width;
+      piskel.height = height;
+    }
+  };
+
+  /**
+   * Modified from ResizeController
+   * @param {!pskl.model.Frame} frame
+   * @param {!number} width
+   * @param {!number} height
+   * @returns {pskl.model.Frame}
+   */
+  ns.ImportService.prototype.setFrameSize = function (frame, width, height) {
+    var resizedFrame = new pskl.model.Frame(width, height);
+    var xOffset = Math.round((width - frame.width) / 2);
+    var yOffset = Math.round((height - frame.height) / 2);
+    frame.forEachPixel(function (color, x, y) {
+      resizedFrame.setPixel(x + xOffset, y + yOffset, color);
+    });
+    return resizedFrame;
   };
 })();

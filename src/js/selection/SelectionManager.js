@@ -20,6 +20,7 @@
     $.subscribe(Events.CLIPBOARD_COPY, this.copy.bind(this));
     $.subscribe(Events.CLIPBOARD_CUT, this.copy.bind(this));
     $.subscribe(Events.CLIPBOARD_PASTE, this.paste.bind(this));
+    $.subscribe(Events.LOAD_NEW_PISKEL, $.proxy(this.onLoadNewPiskel_, this));
 
     var shortcuts = pskl.service.keyboard.Shortcuts;
     pskl.app.shortcutService.registerShortcut(shortcuts.SELECTION.DELETE, this.onDeleteShortcut_.bind(this));
@@ -39,6 +40,20 @@
   };
 
   /**
+   * Clear any copied pixels and redraw the empty selection.
+   * @private
+   */
+  ns.SelectionManager.prototype.onLoadNewPiskel_ = function() {
+    this.cleanSelection_();
+    var tool = pskl.app.drawingController.currentToolBehavior;
+    var isSelectionTool = tool instanceof pskl.tools.drawing.selection.BaseSelect;
+    if (isSelectionTool) {
+      var overlay = pskl.app.drawingController.overlayFrame;
+      tool.reDraw(overlay);
+    }
+  };
+
+  /**
    * @private
    */
   ns.SelectionManager.prototype.onToolSelected_ = function(evt, tool) {
@@ -52,6 +67,8 @@
    * @private
    */
   ns.SelectionManager.prototype.onSelectionDismissed_ = function(evt) {
+    // On deselect, paste in place.
+    this.paste(evt);
     this.cleanSelection_();
   };
 
@@ -89,8 +106,28 @@
       }
       if (event.type === Events.CLIPBOARD_CUT) {
         this.erase();
+      } else {
+        this.paste({type: Events.CLIPBOARD_PASTE});
       }
     }
+  };
+
+  // Iterate through pixels to get the largest x and y values of a selection.
+  ns.SelectionManager.prototype._getBottomRightCorner = function(pixels) {
+    var maxXCoordinate = -Infinity;
+    var maxYCoordinate = -Infinity;
+    for (var i = 0; i < pixels.length; i++) {
+      if (maxXCoordinate < pixels[i].col) {
+        maxXCoordinate = pixels[i].col;
+      }
+      if (maxYCoordinate < pixels[i].row) {
+        maxYCoordinate = pixels[i].row;
+      }
+    }
+    return {
+      x: maxXCoordinate,
+      y: maxYCoordinate
+    };
   };
 
   ns.SelectionManager.prototype.paste = function(event, domEvent) {
@@ -107,7 +144,7 @@
         }
 
         if (/^text\/plain/i.test(item.type)) {
-          this.pasteText_(item);
+          this.pasteText_(item, event);
           event.stopPropagation();
           return;
         }
@@ -119,7 +156,7 @@
 
     // temporarily keeping this code path for tests and fallbacks.
     if (this.currentSelection && this.currentSelection.hasPastedContent) {
-      this.pastePixelsOnCurrentFrame_(this.currentSelection.pixels);
+      this.pastePixelsOnCurrentFrame_(this.currentSelection.pixels, event);
     }
   };
 
@@ -131,7 +168,7 @@
     }.bind(this));
   };
 
-  ns.SelectionManager.prototype.pasteText_ = function(clipboardItem) {
+  ns.SelectionManager.prototype.pasteText_ = function(clipboardItem, event) {
     var blob = clipboardItem.getAsString(function (selectionString) {
       var selectionData = JSON.parse(selectionString);
       var time = selectionData.time;
@@ -148,16 +185,17 @@
 
       if (pixels) {
         // If the current clipboard data is some random text, pixels will not be defined.
-        this.pastePixelsOnCurrentFrame_(pixels);
+        this.pastePixelsOnCurrentFrame_(pixels, event);
       }
     }.bind(this));
   };
 
-  ns.SelectionManager.prototype.pastePixelsOnCurrentFrame_ = function (pixels) {
+  ns.SelectionManager.prototype.pastePixelsOnCurrentFrame_ = function (pixels, event) {
     var frame = this.piskelController.getCurrentFrame();
-
+    // Amount of pixels to offset the paste by.
+    // When the paste is trigged by the quickKey Ctrl+V, offset the pasted overlay by a scaled value.
+    var offset = event.type === Events.CLIPBOARD_PASTE ? Math.ceil(Math.max(frame.width, frame.height) / 50) : 0;
     this.pastePixels_(frame, pixels);
-
     $.publish(Events.PISKEL_SAVE_STATE, {
       type : pskl.service.HistoryService.REPLAY,
       scope : this,
@@ -166,6 +204,24 @@
         pixels : JSON.parse(JSON.stringify(pixels.slice(0)))
       }
     });
+
+    // Offset the pasted selection from the original location.
+    var tool = pskl.app.drawingController.currentToolBehavior;
+    var isSelectionTool = tool instanceof pskl.tools.drawing.selection.BaseSelect;
+    if (isSelectionTool && event.type === Events.CLIPBOARD_PASTE) {
+      var maxHeight = frame.height - 1;
+      var maxWidth = frame.width - 1;
+      var cornerCoordinates = this._getBottomRightCorner(pixels);
+      if (cornerCoordinates.x < maxWidth) {
+        this.currentSelection.move(offset, 0);
+      }
+      if (cornerCoordinates.y < maxHeight) {
+        this.currentSelection.move(0, offset);
+      }
+
+      var overlay = pskl.app.drawingController.overlayFrame;
+      tool.reDraw(overlay);
+    }
   };
 
   /**

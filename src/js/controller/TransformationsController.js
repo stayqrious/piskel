@@ -22,6 +22,16 @@
     this.showMoreLink.addEventListener('click', this.toggleShowMoreTools_.bind(this));
 
     this.createToolsDom_();
+
+    var cloneEl = document.querySelector('.icon-tool-clone');
+    if (!Constants.ENABLE_MULTIPLE_LAYERS) {
+      cloneEl.style.padding = '0px';
+      cloneEl.style.visibility = 'hidden';
+      cloneEl.style.height = '0px';
+      cloneEl.style.width = '0px';
+      cloneEl.style.margin = '0px';
+    }
+
     this.updateShowMoreLink_();
 
     $.subscribe(Events.USER_SETTINGS_CHANGED, this.onUserSettingsChange_.bind(this));

@@ -1,26 +1,28 @@
 {
-  "name": "piskel",
-  "version": "0.16.0-SNAPSHOT",
-  "description": "Pixel art editor",
+  "name": "@code-dot-org/piskel",
+  "version": "0.13.0-cdo.6",
+  "description": "Code.org fork of juliandescottes/piskel for use within the Code Studio learning environment.",
   "author": "Julian Descottes <julian.descottes@gmail.com>",
   "contributors": [
-    "Vincent Renaudin"
+    "Vincent Renaudin",
+    "Brad Buchanan <brad@code.org>"
   ],
-  "homepage": "http://github.com/piskelapp/piskel",
   "license": "Apache-2.0",
+  "homepage": "http://github.com/code-dot-org/piskel",
   "repository": {
     "type": "git",
-    "url": "http://github.com/piskelapp/piskel.git"
+    "url": "http://github.com/code-dot-org/piskel.git"
   },
   "files": [
     "dest/prod",
+    "src/js/PiskelApi.js",
     "misc/scripts/piskel-root"
   ],
   "bin": {
     "piskel-root": "./misc/scripts/piskel-root",
     "piskel-cli": "./cli/index.js"
   },
-  "main": "./dest/prod/index.html",
+  "main": "./src/js/PiskelApi.js",
   "scripts": {
     "test": "grunt test",
     "dev": "grunt play",

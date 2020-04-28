@@ -31,6 +31,7 @@
 
   ns.HistoryService.prototype.init = function () {
     $.subscribe(Events.PISKEL_SAVE_STATE, this.onSaveStateEvent.bind(this));
+    $.subscribe(Events.LOAD_NEW_PISKEL, this.clearState.bind(this));
 
     var shortcuts = pskl.service.keyboard.Shortcuts;
     this.shortcutService.registerShortcut(shortcuts.MISC.UNDO, this.undo.bind(this));
@@ -194,6 +195,12 @@
     var layer = this.piskelController.getLayerAt(state.layerIndex);
     var frame = layer.getFrameAt(state.frameIndex);
     action.scope.replay(frame, action.replay);
+  };
+
+  ns.HistoryService.prototype.clearState = function() {
+    this.stateQueue = [];
+    this.currentIndex = -1;
+    this.lastLoadState = -1;
   };
 
 })();

@@ -110,10 +110,14 @@
     } else if (action === ACTION.SELECT && !this.justDropped) {
       this.piskelController.setCurrentFrameIndex(index);
     } else if (action === ACTION.NEW_FRAME) {
-      this.piskelController.addFrame();
+      // Publish an event that the user selected add new frame.
+      $.publish(Events.ADD_NEW_FRAME_CLICKED);
+      // Disable adding a blank frame and instead use the PiskelApi
+      // to cause an action.
+      /*this.piskelController.addFrame();
       var newtile = this.createPreviewTile_(this.tiles.length);
       this.tiles.push(newtile);
-      this.previewList.insertBefore(newtile, this.addFrameTile);
+      this.previewList.insertBefore(newtile, this.addFrameTile);*/
       this.updateScrollerOverflows();
     } else if (action == ACTION.TOGGLE) {
       this.piskelController.toggleFrameVisibilityAt(index);

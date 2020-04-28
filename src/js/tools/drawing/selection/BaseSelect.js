@@ -21,11 +21,12 @@
 
     this.tooltipDescriptors = [
       {description : 'Drag the selection to move it. You may switch to other layers and frames.'},
-      {key : 'ctrl+c', description : 'Copy the selected area'},
-      {key : 'ctrl+v', description : 'Paste the copied area'},
+      {key : 'ctrl+c', description : 'Duplicate the selected area'},
       {key : 'shift', description : 'Hold to move the content'}
     ];
-
+    if (!Constants.ENABLE_MULTIPLE_LAYERS) {
+      this.tooltipDescriptors[0] = {description : 'Drag the selection to move it. You may switch to other frames.'};
+    }
     $.subscribe(Events.SELECTION_DISMISSED, this.onSelectionDismissed_.bind(this));
   };
 
@@ -184,6 +185,12 @@
 
     this.lastMoveCol = col;
     this.lastMoveRow = row;
+  };
+
+  // Redraw a given overlay.
+  ns.BaseSelect.prototype.reDraw = function (overlay) {
+    overlay.clear();
+    this.drawSelectionOnOverlay_(overlay);
   };
 
   /** @private */
