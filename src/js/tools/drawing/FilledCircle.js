@@ -45,7 +45,7 @@
     for (x = coords.x0; x <= xC; x++) {
       angle = Math.acos((x - xC) / rX);
       y = Math.round(rY * Math.sin(angle) + yC);
-      for (yCoord = 2 * yC - y - evenY; yCoord <= y; yCoord++) {
+      for (var yCoord = 2 * yC - y - evenY; yCoord <= y; yCoord++) {
         pixels.push([x - evenX, yCoord]);
         pixels.push([2 * xC - x, yCoord]);
       }
@@ -53,7 +53,7 @@
     for (y = coords.y0; y <= yC; y++) {
       angle = Math.asin((y - yC) / rY);
       x = Math.round(rX * Math.cos(angle) + xC);
-      for (xCoord = 2 * xC - x - evenX; xCoord <= x; xCoord++) {
+      for (var xCoord = 2 * xC - x - evenX; xCoord <= x; xCoord++) {
         pixels.push([xCoord, y - evenY]);
         pixels.push([xCoord, 2 * yC - y]);
       }

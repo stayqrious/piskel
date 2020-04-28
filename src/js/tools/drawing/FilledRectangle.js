@@ -24,7 +24,7 @@
 
     for (var x = rectangle.x0; x <= rectangle.x1; x++) {
       for (var y = rectangle.y0; y <= rectangle.y1; y++) {
-          targetFrame.setPixel(x, y, color);
+        targetFrame.setPixel(x, y, color);
       }
     }
   };
