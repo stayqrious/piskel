@@ -229,6 +229,7 @@
   "js/tools/drawing/Rectangle.js",
   "js/tools/drawing/FilledRectangle.js",
   "js/tools/drawing/Circle.js",
+  "js/tools/drawing/FilledCircle.js",
   "js/tools/drawing/Move.js",
   "js/tools/drawing/selection/BaseSelect.js",
   "js/tools/drawing/selection/AbstractDragSelect.js",

@@ -13,6 +13,7 @@
       new pskl.tools.drawing.Rectangle(),
       new pskl.tools.drawing.FilledRectangle(),
       new pskl.tools.drawing.Circle(),
+      new pskl.tools.drawing.FilledCircle(),
       new pskl.tools.drawing.Move(),
       new pskl.tools.drawing.selection.ShapeSelect(),
       new pskl.tools.drawing.selection.RectangleSelect(),
