@@ -25,8 +25,8 @@ casper.test.begin('Test updating default size works', 14 , function(test) {
     test.assertExists('[name="default-width"]', 'Check if width input is available');
     test.assertExists('[name="default-height"]', 'Check if height input is available');
 
-    test.assertEquals(getValue('[name="default-width"]'), "32", 'Default width is 32px');
-    test.assertEquals(getValue('[name="default-height"]'), "32", 'Default height is 32px');
+    test.assertEquals(getValue('[name="default-width"]'), "256", 'Default width is 256px');
+    test.assertEquals(getValue('[name="default-height"]'), "256", 'Default height is 256px');
 
     // Update width/height
     casper.sendKeys('[name="default-width"]', "1");
