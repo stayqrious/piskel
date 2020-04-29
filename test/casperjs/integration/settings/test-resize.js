@@ -25,8 +25,8 @@ casper.test.begin('Test resize feature works', 16 , function(test) {
     test.assertExists('[name="resize-width"]', 'Check if width input is available');
     test.assertExists('[name="resize-height"]', 'Check if height input is available');
 
-    test.assertEquals(getValue('[name="resize-width"]'), "32", 'Resize width is 32px');
-    test.assertEquals(getValue('[name="resize-height"]'), "32", 'Resize height is 32px');
+    test.assertEquals(getValue('[name="resize-width"]'), "256", 'Resize width is 256px');
+    test.assertEquals(getValue('[name="resize-height"]'), "256", 'Resize height is 256px');
 
     // Check that the resize ratio checkbox is available and checked.
     test.assertExists('.resize-ratio-checkbox', 'Check if resize ratio checkbox is available');
@@ -36,8 +36,8 @@ casper.test.begin('Test resize feature works', 16 , function(test) {
 
     // Update width/height
     casper.sendKeys('[name="resize-width"]', "0");
-    test.assertEquals(getValue('[name="resize-width"]'), "320", 'Resize width is 320px');
-    test.assertEquals(getValue('[name="resize-height"]'), "320", 'Resize height is 320px');
+    test.assertEquals(getValue('[name="resize-width"]'), "2560", 'Resize width is 2560px');
+    test.assertEquals(getValue('[name="resize-height"]'), "2560", 'Resize height is 2560px');
 
     casper.click('.resize-button');
     // Resizing the piskel should close the panel automatically
@@ -47,8 +47,8 @@ casper.test.begin('Test resize feature works', 16 , function(test) {
   function onDrawerClosed() {
     test.assert(!isDrawerExpanded(), 'settings drawer is closed');
 
-    test.assertEquals(evalLine('pskl.app.piskelController.getPiskel().getWidth()'), 320, 'Piskel width is now 320 pixels');
-    test.assertEquals(evalLine('pskl.app.piskelController.getPiskel().getHeight()'), 320, 'Piskel height is now 320 pixels');
+    test.assertEquals(evalLine('pskl.app.piskelController.getPiskel().getWidth()'), 2560, 'Piskel width is now 2560 pixels');
+    test.assertEquals(evalLine('pskl.app.piskelController.getPiskel().getHeight()'), 2560, 'Piskel height is now 2560 pixels');
   }
 
   casper
