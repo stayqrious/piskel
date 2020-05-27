@@ -25,14 +25,14 @@ casper.test.begin('Test updating default size works', 14 , function(test) {
     test.assertExists('[name="default-width"]', 'Check if width input is available');
     test.assertExists('[name="default-height"]', 'Check if height input is available');
 
-    test.assertEquals(getValue('[name="default-width"]'), "32", 'Default width is 32px');
-    test.assertEquals(getValue('[name="default-height"]'), "32", 'Default height is 32px');
+    test.assertEquals(getValue('[name="default-width"]'), "256", 'Default width is 256px');
+    test.assertEquals(getValue('[name="default-height"]'), "256", 'Default height is 256px');
 
     // Update width/height
     casper.sendKeys('[name="default-width"]', "1");
     casper.sendKeys('[name="default-height"]', "2");
-    test.assertEquals(getValue('[name="default-width"]'), "321", 'Default width is 321px');
-    test.assertEquals(getValue('[name="default-height"]'), "322", 'Default height is 322px');
+    test.assertEquals(getValue('[name="default-width"]'), "2561", 'Default width is 2561px');
+    test.assertEquals(getValue('[name="default-height"]'), "2562", 'Default height is 2562px');
 
     casper.click('.default-size-button');
     // Changing the piskel default size should close the panel automatically
@@ -43,10 +43,10 @@ casper.test.begin('Test updating default size works', 14 , function(test) {
     test.assert(!isDrawerExpanded(), 'settings drawer is closed');
 
     test.assertEquals(evalLine('pskl.UserSettings.get("DEFAULT_SIZE").width'),
-      321, 'Piskel width is now 321 pixels');
+      2561, 'Piskel width is now 2561 pixels');
 
     test.assertEquals(evalLine('pskl.UserSettings.get("DEFAULT_SIZE").height'),
-      322, 'Piskel height is now 322 pixels');
+      2562, 'Piskel height is now 2562 pixels');
   }
 
   casper

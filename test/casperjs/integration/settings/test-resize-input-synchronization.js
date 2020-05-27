@@ -25,8 +25,8 @@ casper.test.begin('Test resize panel width/height inputs are synchronized', 28 ,
     test.assertExists('[name="resize-width"]', 'Check if width input is available');
     test.assertExists('[name="resize-height"]', 'Check if height input is available');
 
-    test.assertEquals(getValue('[name="resize-width"]'), "32", 'Resize width is 32px');
-    test.assertEquals(getValue('[name="resize-height"]'), "32", 'Resize height is 32px');
+    test.assertEquals(getValue('[name="resize-width"]'), "256", 'Resize width is 256px');
+    test.assertEquals(getValue('[name="resize-height"]'), "256", 'Resize height is 256px');
 
     // Check that the resize ratio checkbox is available and checked.
     test.assertExists('.resize-ratio-checkbox', 'Check if resize ratio checkbox is available');
@@ -36,41 +36,41 @@ casper.test.begin('Test resize panel width/height inputs are synchronized', 28 ,
 
     // Check inputs are synchronized
     casper.sendKeys('[name="resize-width"]', casper.page.event.key.Backspace);
-    test.assertEquals(getValue('[name="resize-width"]'), "3", 'Resize width is 3px');
-    test.assertEquals(getValue('[name="resize-height"]'), "3", 'Resize height is 3px');
+    test.assertEquals(getValue('[name="resize-width"]'), "25", 'Resize width is 25px');
+    test.assertEquals(getValue('[name="resize-height"]'), "25", 'Resize height is 25px');
 
     casper.sendKeys('[name="resize-width"]', "0");
-    test.assertEquals(getValue('[name="resize-width"]'), "30", 'Resize width is 30px');
-    test.assertEquals(getValue('[name="resize-height"]'), "30", 'Resize height is 30px');
+    test.assertEquals(getValue('[name="resize-width"]'), "250", 'Resize width is 250px');
+    test.assertEquals(getValue('[name="resize-height"]'), "250", 'Resize height is 250px');
 
     // Check the synchronization also works when editing height field
     casper.sendKeys('[name="resize-height"]', "0");
-    test.assertEquals(getValue('[name="resize-width"]'), "300", 'Resize width is 300px');
-    test.assertEquals(getValue('[name="resize-height"]'), "300", 'Resize height is 300px');
+    test.assertEquals(getValue('[name="resize-width"]'), "2500", 'Resize width is 2500px');
+    test.assertEquals(getValue('[name="resize-height"]'), "2500", 'Resize height is 2500px');
 
     casper.sendKeys('[name="resize-height"]', casper.page.event.key.Backspace);
-    test.assertEquals(getValue('[name="resize-width"]'), "30", 'Resize width is 30px');
-    test.assertEquals(getValue('[name="resize-height"]'), "30", 'Resize height is 30px');
+    test.assertEquals(getValue('[name="resize-width"]'), "250", 'Resize width is 250px');
+    test.assertEquals(getValue('[name="resize-height"]'), "250", 'Resize height is 250px');
 
     // Uncheck the resize ratio checkbox.
     casper.click('.resize-ratio-checkbox');
 
     // Check inputs are no longer synchronized
     casper.sendKeys('[name="resize-width"]', casper.page.event.key.Backspace);
-    test.assertEquals(getValue('[name="resize-width"]'), "3", 'Resize width is 3px');
-    test.assertEquals(getValue('[name="resize-height"]'), "30", 'Resize height is 30px');
+    test.assertEquals(getValue('[name="resize-width"]'), "25", 'Resize width is 25px');
+    test.assertEquals(getValue('[name="resize-height"]'), "250", 'Resize height is 250px');
 
     casper.sendKeys('[name="resize-width"]', "2");
-    test.assertEquals(getValue('[name="resize-width"]'), "32", 'Resize width is 32px');
-    test.assertEquals(getValue('[name="resize-height"]'), "30", 'Resize height is 30px');
+    test.assertEquals(getValue('[name="resize-width"]'), "252", 'Resize width is 252px');
+    test.assertEquals(getValue('[name="resize-height"]'), "250", 'Resize height is 250px');
 
     casper.sendKeys('[name="resize-height"]', casper.page.event.key.Backspace);
-    test.assertEquals(getValue('[name="resize-width"]'), "32", 'Resize width is 32px');
-    test.assertEquals(getValue('[name="resize-height"]'), "3", 'Resize height is 3px');
+    test.assertEquals(getValue('[name="resize-width"]'), "252", 'Resize width is 252px');
+    test.assertEquals(getValue('[name="resize-height"]'), "25", 'Resize height is 25px');
 
     casper.sendKeys('[name="resize-height"]', "2");
-    test.assertEquals(getValue('[name="resize-width"]'), "32", 'Resize width is 32px');
-    test.assertEquals(getValue('[name="resize-height"]'), "32", 'Resize height is 32px');
+    test.assertEquals(getValue('[name="resize-width"]'), "252", 'Resize width is 252px');
+    test.assertEquals(getValue('[name="resize-height"]'), "252", 'Resize height is 252px');
 
     // Check the resize ratio checkbox again
     casper.click('.resize-ratio-checkbox');
