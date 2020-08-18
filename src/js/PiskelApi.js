@@ -227,7 +227,7 @@ var PiskelApi = (function (module) {
     if (!this.iframe_) {
       throw new Error('Unable to communicate with Piskel; call attachToPiskel first.');
     }
-    this.iframe_.contentWindow.postMessage(message, window.location.origin);
+    this.iframe_.contentWindow.postMessage(message, "*");
   };
 
   /**
@@ -236,11 +236,11 @@ var PiskelApi = (function (module) {
    * @private
    */
   PiskelApi.prototype.receiveMessage_ = function (event) {
-    // Ignore messages not sent from the allowed origin
-    var origin = event.origin || event.originalEvent.origin;
-    if (origin !== window.location.origin) {
-      return;
-    }
+//     // Ignore messages not sent from the allowed origin
+//     var origin = event.origin || event.originalEvent.origin;
+//     if (origin !== window.location.origin) {
+//       return;
+//     }
 
     var message = event.data;
     if (typeof message.type === 'undefined') {
