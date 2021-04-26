@@ -63,6 +63,8 @@ module.exports = function(grunt) {
 
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
+  // load our custom tasks
+  grunt.loadTasks('tasks');
 
   grunt.initConfig({
     clean: {
@@ -143,12 +145,25 @@ module.exports = function(grunt) {
       }
     },
 
+    'build-i18n' : {
+      js: {
+        files: [
+          {
+            expand: true,
+            ext: '.js',
+            src: ['i18n/locales/*.json'],
+            dest: 'dest/tmp/'
+          }
+        ]
+      }
+    },
+
     concat : {
       js : {
         options : {
           separator : ';'
         },
-        src : piskelScripts,
+        src : [piskelScripts, 'dest/tmp/i18n/locales/*.js'],
         dest : 'dest/prod/js/piskel-packaged' + version + '.js'
       },
       css : {
@@ -334,7 +349,7 @@ module.exports = function(grunt) {
 
   // BUILD TASKS
   grunt.registerTask('build-index.html', ['includereplace']);
-  grunt.registerTask('merge-statics', ['concat:js', 'concat:css', 'uglify']);
+  grunt.registerTask('merge-statics', ['build-i18n:js', 'concat:js', 'concat:css', 'uglify']);
   grunt.registerTask('build',  ['clean:prod', 'sprite', 'merge-statics', 'build-index.html', 'replace:mainPartial', 'replace:css', 'copy:prod']);
   grunt.registerTask('build-dev',  ['clean:dev', 'sprite', 'build-index.html', 'copy:dev']);
   grunt.registerTask('desktop', ['clean:desktop', 'default', 'nwjs:windows']);

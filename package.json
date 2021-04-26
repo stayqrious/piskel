@@ -67,5 +67,8 @@
     "toolbar": false,
     "width": 1000,
     "height": 700
+  },
+  "dependencies": {
+    "messageformat": "^2.3.0"
   }
 }
