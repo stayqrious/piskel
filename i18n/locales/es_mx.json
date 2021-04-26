@@ -1,0 +1,28 @@
+{
+  "penTool": "ES MEX JSON",
+  "paintBucketTool": "ES MEX JSON",
+  "eraserTool": "ES MEX JSON",
+  "strokeTool": "ES MEX JSON",
+  "rectangleTool": "ES MEX JSON",
+  "filledRectangleTool": "ES MEX JSON",
+  "circleTool": "ES MEX JSON",
+  "filledCircleTool": "Filled Circle tool (ctrl+shift+C)",
+  "rectangleSelection": "Rectangle Selection (S)",
+  "colorPicker": "Color picker (O)",
+  "primaryLeftMouseButton": "Primary - left mouse button",
+  "secondaryRightMouseButton": "Secondary - right mouse button",
+  "penSize": "Pen size at 1, 4, 8, or 16 pixels",
+  "cropTheSprite": "Crop the sprite",
+  "primaryValue": "Value",
+  "secondaryValue": "Value",
+  "swapColors": "Swap colors (X)",
+
+  "strokeToolInstructions": "Hold shift to draw straight lines",
+  "rectangleToolInstructions": "SHIFT Keep 1 to 1 ratio",
+  "filledRectangleToolInstructions": "SHIFT Keep 1 to 1 ratio",
+  "circleToolInstructions": "SHIFT Keep 1 to 1 ratio",
+  "filledCircleToolInstructions": "SHIFT Keep 1 to 1 ratio",
+  "cropTheSpriteInstructions": "Crop to fit the content or the selection. Applies to all frames and layers!",
+
+  "loadingPiskelMessage": "Loading Piskel..."
+}
