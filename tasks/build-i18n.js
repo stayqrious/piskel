@@ -6,6 +6,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('build-i18n', 'Compile i18n strings!', function() {
     this.files.forEach(function(file) {
       file.src.forEach(function(src) {
+       // the locale is in the file name, i.e. i18n/locales/en_us.json. This returns the string "en_us".
         var locale = path.basename(src, '.json').toLowerCase();
         var englishData = grunt.file.readJSON(src.replace(locale, 'en_us'));
         var localeData = grunt.file.readJSON(src);
