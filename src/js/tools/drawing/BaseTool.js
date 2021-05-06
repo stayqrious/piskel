@@ -6,7 +6,7 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.BaseTool = function() {
+  ns.BaseTool = function () {
     pskl.tool.Tool.call(this);
     this.toolId = 'tool-base';
   };

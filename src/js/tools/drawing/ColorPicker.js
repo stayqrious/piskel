@@ -6,9 +6,9 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.ColorPicker = function() {
+  ns.ColorPicker = function(i18n) {
     this.toolId = 'tool-colorpicker';
-    this.helpText = 'Color picker';
+    this.helpText = i18n.colorPicker();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.COLORPICKER;
   };
 

@@ -7,11 +7,14 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.Eraser = function() {
+  ns.Eraser = function(i18n) {
+    console.log('Inside Eraser()');
+    console.log('Eraser:: ', i18n);
+    // this.superclass.constructor.call(this, i18n);
     this.superclass.constructor.call(this);
 
     this.toolId = 'tool-eraser';
-    this.helpText = 'Eraser tool';
+    this.helpText = i18n.eraserTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.ERASER;
   };
 

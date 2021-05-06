@@ -9,7 +9,27 @@
    */
   ns.app = {
 
-    init : function () {
+    init: function () {
+      console.log('Inside App.js ()');
+
+      var localeCode = window.locale;
+      var i18n = window.locales[localeCode];
+
+      console.log('BEFORE');
+      console.log('APP.js:: ', localeCode);
+      console.log('APP.js:: ', i18n);
+      console.log('-------------------');
+
+      if (window.localeCode === undefined) {
+        localeCode = 'es_mx';
+        i18n = window.locales[localeCode];
+      }
+
+      console.log('AFTER');
+      console.log('APP.js:: ', localeCode);
+      console.log('APP.js:: ', i18n);
+      console.log('-------------------');
+
       // Run preferences migration scripts for version v0.12.0
       pskl.UserSettings.migrate_to_v0_12();
 
@@ -96,7 +116,7 @@
       this.dialogsController = new pskl.controller.dialogs.DialogsController(this.piskelController);
       this.dialogsController.init();
 
-      this.toolController = new pskl.controller.ToolController();
+      this.toolController = new pskl.controller.ToolController(i18n);
       this.toolController.init();
 
       this.selectionManager = new pskl.selection.SelectionManager(this.piskelController);
@@ -108,7 +128,7 @@
       this.notificationController = new pskl.controller.NotificationController();
       this.notificationController.init();
 
-      this.transformationsController = new pskl.controller.TransformationsController();
+      this.transformationsController = new pskl.controller.TransformationsController(i18n);
       this.transformationsController.init();
 
       this.progressBarController = new pskl.controller.ProgressBarController();

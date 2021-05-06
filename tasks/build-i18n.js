@@ -16,10 +16,7 @@ module.exports = function(grunt) {
             delete localeData[key];
           }
         });
-        // Fill in missing strings with the English strings
-        console.log(englishData)
-        console.log('----------------------------------------------------------')
-        console.log(localeData)
+
         var finalData = Object.assign(englishData, localeData);
         try {
           // Compile the MessageFormat JSON into usable Javascript
@@ -53,19 +50,6 @@ module.exports = function(grunt) {
         throw e;
       }
     }
-
-    console.log('MY EXAMPLE')
-    const mf1 = new MessageFormat('en')
-    const msg = mf1.compile({ test: 'A {TYPE} example.' })
-
-    // msg({ TYPE: 'simple' })  // 'A simple example.'
-    console.log('WHAT IS MSD')
-    console.log(msg)
-    console.log('---------------------------------------------------------')
-    console.log(mf.compile(json))
-    console.log(msg.test({ TYPE: 'HOLA' }))
-    console.log('--------------------------------------------------------------------------')
-    console.log(mf.compile(json).toString('(window.locales = window.locales || {}).' + locale) + ';')
 
     return (
       mf
