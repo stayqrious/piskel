@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             delete localeData[key];
           }
         });
-
+        // Fill in missing strings with the English strings
         var finalData = Object.assign(englishData, localeData);
         try {
           // Compile the MessageFormat JSON into usable Javascript
