@@ -44,7 +44,7 @@
     this.popupPreviewController = new ns.PopupPreviewController(piskelController);
   };
 
-  ns.PreviewController.prototype.init = function () {
+  ns.PreviewController.prototype.init = function (i18n) {
     this.fpsRangeInput.addEventListener('change', this.onFpsRangeInputUpdate_.bind(this));
     this.fpsRangeInput.addEventListener('input', this.onFpsRangeInputUpdate_.bind(this));
 
@@ -57,7 +57,7 @@
     var registerShortcut = pskl.app.shortcutService.registerShortcut.bind(pskl.app.shortcutService);
     registerShortcut(this.onionSkinShortcut, this.toggleOnionSkin_.bind(this));
 
-    var onionSkinTooltip = pskl.utils.TooltipFormatter.format('Toggle onion skin', this.onionSkinShortcut);
+    var onionSkinTooltip = pskl.utils.TooltipFormatter.format(i18n.toggleOnionSkin(), this.onionSkinShortcut);
     this.toggleOnionSkinButton.setAttribute('title', onionSkinTooltip);
 
     for (var size in this.previewSizes) {

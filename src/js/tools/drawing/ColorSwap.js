@@ -5,16 +5,16 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.ColorSwap = function() {
+  ns.ColorSwap = function(i18n) {
     this.toolId = 'tool-colorswap';
-    this.helpText = 'Paint all pixels of the same color';
+    this.helpText = i18n.paintAllPixelsSameColor();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.COLORSWAP;
 
     this.tooltipDescriptors = [];
     if (Constants.ENABLE_MULTIPLE_LAYERS) {
-      this.tooltipDescriptors.push({key : 'ctrl', description : 'Apply to all layers'});
+      this.tooltipDescriptors.push({key : 'ctrl', description : i18n.applyToAllLayersDescriptor()});
     }
-    this.tooltipDescriptors.push({key : 'shift', description : 'Apply to all frames'});
+    this.tooltipDescriptors.push({key : 'shift', description : i18n.applyToAllFramesDescriptor()});
   };
 
   pskl.utils.inherit(ns.ColorSwap, ns.BaseTool);

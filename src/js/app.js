@@ -10,25 +10,13 @@
   ns.app = {
 
     init: function () {
-      console.log('Inside App.js ()');
-
       var localeCode = window.locale;
       var i18n = window.locales[localeCode];
 
-      console.log('BEFORE');
-      console.log('APP.js:: ', localeCode);
-      console.log('APP.js:: ', i18n);
-      console.log('-------------------');
-
       if (window.localeCode === undefined) {
-        localeCode = 'es_mx';
+        localeCode = 'en_us';
         i18n = window.locales[localeCode];
       }
-
-      console.log('AFTER');
-      console.log('APP.js:: ', localeCode);
-      console.log('APP.js:: ', i18n);
-      console.log('-------------------');
 
       // Run preferences migration scripts for version v0.12.0
       pskl.UserSettings.migrate_to_v0_12();
@@ -93,7 +81,7 @@
       this.previewController = new pskl.controller.preview.PreviewController(
         this.piskelController,
         $('#animated-preview-canvas-container'));
-      this.previewController.init();
+      this.previewController.init(i18n);
 
       this.minimapController = new pskl.controller.MinimapController(
         this.piskelController,
@@ -104,7 +92,7 @@
 
       this.framesListController = new pskl.controller.FramesListController(
         this.piskelController,
-        $('#preview-list-wrapper').get(0));
+        $('#preview-list-wrapper').get(0), i18n);
       this.framesListController.init();
 
       this.layersListController = new pskl.controller.LayersListController(this.piskelController);

@@ -7,17 +7,8 @@
   var ns = $.namespace('pskl.tools.drawing');
 
   ns.SimplePen = function (i18n) {
-    console.log('In SimplePen');
-    var result = 'Pen tool';
-    // var result = i18n.penTool();
-    console.log(i18n);
-    if (i18n) {
-      result = i18n.penTool();
-      console.log(i18n.penTool());
-    }
-
     this.toolId = 'tool-pen';
-    this.helpText = result;
+    this.helpText = i18n.penTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.PEN;
 
     this.previousCol = null;

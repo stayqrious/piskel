@@ -7,7 +7,7 @@
   var ns = $.namespace('pskl.tools.drawing.selection');
 
   ns.RectangleSelect = function(i18n) {
-    ns.AbstractDragSelect.call(this);
+    ns.AbstractDragSelect.call(this, i18n);
 
     this.toolId = 'tool-rectangle-select';
     this.helpText = i18n.rectangleSelection();

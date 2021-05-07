@@ -6,7 +6,7 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing.selection');
 
-  ns.BaseSelect = function() {
+  ns.BaseSelect = function(i18n) {
     this.secondaryToolId = pskl.tools.drawing.Move.TOOL_ID;
     this.bodyRoot = $('body');
 
@@ -21,12 +21,12 @@
     this.hasSelection = false;
 
     this.tooltipDescriptors = [
-      {description : 'Drag the selection to move it. You may switch to other layers and frames.'},
-      {key : 'ctrl+c', description : 'Duplicate the selected area'},
-      {key : 'shift', description : 'Hold to move the content'}
+      {description : i18n.dragTheSelectionDescriptor()},
+      {key : 'ctrl+c', description : i18n.duplicateTheSelecteAreaDescriptor()},
+      {key : 'shift', description : i18n.holdToMoveTheContentDescriptor()}
     ];
     if (!Constants.ENABLE_MULTIPLE_LAYERS) {
-      this.tooltipDescriptors[0] = {description : 'Drag the selection to move it. You may switch to other frames.'};
+      this.tooltipDescriptors[0] = {description : i18n.dragTheSelectionMaySwitchToOtherFramesDescriptor()};
     }
     $.subscribe(Events.SELECTION_DISMISSED, this.onSelectionDismissed_.bind(this));
   };

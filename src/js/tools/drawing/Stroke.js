@@ -11,7 +11,7 @@
     this.helpText = i18n.strokeTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.STROKE;
     this.tooltipDescriptors = [
-      {key : 'shift', description : i18n.strokeToolInstructionsDescription()}
+      {key : 'shift', description : i18n.strokeToolDescriptor()}
     ];
 
     // Stroke's first point coordinates (set in applyToolAt)

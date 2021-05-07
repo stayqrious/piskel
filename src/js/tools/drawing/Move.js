@@ -6,17 +6,17 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.Move = function() {
+  ns.Move = function(i18n) {
     this.toolId = ns.Move.TOOL_ID;
-    this.helpText = 'Move tool';
+    this.helpText = i18n.moveTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.MOVE;
 
     this.tooltipDescriptors = [];
     if (Constants.ENABLE_MULTIPLE_LAYERS) {
-      this.tooltipDescriptors.push({key : 'ctrl', description : 'Apply to all layers'});
+      this.tooltipDescriptors.push({key : 'ctrl', description : i18n.applyToAllLayersDescriptor()});
     }
-    this.tooltipDescriptors.push({key : 'shift', description : 'Apply to all frames'});
-    this.tooltipDescriptors.push({key : 'alt', description : 'Wrap canvas borders'});
+    this.tooltipDescriptors.push({key : 'shift', description : i18n.applyToAllFramesDescriptor()});
+    this.tooltipDescriptors.push({key : 'alt', description : i18n.moveToolDescriptorWrapCanvas()});
 
     // Stroke's first point coordinates (set in applyToolAt)
     this.startCol = null;

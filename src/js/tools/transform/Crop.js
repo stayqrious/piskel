@@ -6,8 +6,8 @@
     this.helpText = i18n.cropTheSprite();
     this.tooltipDescriptors = [
       {
-        description : i18n.cropTheSpriteInstructionsFirst() +
-                      i18n.cropTheSpriteInstructionsSecond()
+        description : i18n.cropTheSpriteDescriptorFirst() +
+                      i18n.cropTheSpriteDescriptorSecond()
       }
     ];
   };

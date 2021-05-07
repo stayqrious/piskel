@@ -9,18 +9,15 @@
   var DEFAULT_STEP = 3;
 
   ns.Lighten = function (i18n) {
-    console.log('Inside Lighten()');
-    console.log('Lighten:: ', i18n);
-    // this.superclass.constructor.call(this, i18n);
-    this.superclass.constructor.call(this);
+    this.superclass.constructor.call(this, i18n);
 
     this.toolId = 'tool-lighten';
-    this.helpText = 'Lighten';
+    this.helpText = i18n.lighten();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.LIGHTEN;
 
     this.tooltipDescriptors = [
-      {key : 'ctrl', description : 'Darken'},
-      {key : 'shift', description : 'Apply only once per pixel'}
+      {key : 'ctrl', description : i18n.lightenDescriptorFirst()},
+      {key : 'shift', description : i18n.lightenDescriptorSecond()}
     ];
   };
 

@@ -8,7 +8,11 @@
     NEW_FRAME : 'newframe'
   };
 
-  ns.FramesListController = function (piskelController, container) {
+  var i18n = '';
+
+  ns.FramesListController = function (piskelController, container, passedI18n) {
+    i18n = passedI18n;
+
     this.piskelController = piskelController;
     this.container = container;
     this.previewList = container.querySelector('#preview-list');
@@ -55,7 +59,7 @@
       if (this.regenerateDomFlag) {
         this.tiles = [];
         this.addFrameTile = null;
-        this.createPreviews_();
+        this.createPreviews_(i18n);
 
         this.regenerateDomFlag = false;
       }
@@ -97,7 +101,7 @@
 
     if (action === ACTION.CLONE) {
       this.piskelController.duplicateFrameAt(index);
-      var clonedTile = this.createPreviewTile_(index + 1);
+      var clonedTile = this.createPreviewTile_(index + 1, i18n);
       this.previewList.insertBefore(clonedTile, this.tiles[index].nextSibling);
       this.tiles.splice(index, 0, clonedTile);
       this.updateScrollerOverflows();
@@ -171,7 +175,7 @@
     var frameCount = this.piskelController.getFrameCount();
 
     for (var i = 0 ; i < frameCount ; i++) {
-      var tile = this.createPreviewTile_(i);
+      var tile = this.createPreviewTile_(i, i18n);
       this.previewList.appendChild(tile);
       this.tiles[i] = tile;
     }
@@ -270,7 +274,7 @@
     cloneFrameButton.setAttribute('data-placement', 'right');
     cloneFrameButton.setAttribute('data-tile-number', tileNumber);
     cloneFrameButton.setAttribute('data-tile-action', ACTION.CLONE);
-    cloneFrameButton.setAttribute('title', 'Duplicate this frame');
+    cloneFrameButton.setAttribute('title', i18n.duplicateThisFrame());
     cloneFrameButton.className = 'tile-overlay duplicate-frame-action icon-frame-duplicate-white';
     previewTileRoot.appendChild(cloneFrameButton);
 
@@ -278,7 +282,7 @@
     var deleteButton = document.createElement('button');
     deleteButton.setAttribute('rel', 'tooltip');
     deleteButton.setAttribute('data-placement', 'right');
-    deleteButton.setAttribute('title', 'Delete this frame');
+    deleteButton.setAttribute('title', i18n.deleteThisFrame());
     deleteButton.setAttribute('data-tile-number', tileNumber);
     deleteButton.setAttribute('data-tile-action', ACTION.DELETE);
     deleteButton.className = 'tile-overlay delete-frame-action icon-frame-recyclebin-white';
