@@ -3,6 +3,12 @@
   var templates = {};
 
   ns.Template = {
+    fillInTemplate : function (templateId, templateInfo) {
+      var tpl = ns.Template.get(templateId);
+      var templateWithValues = ns.Template.replace(tpl, templateInfo);
+      return templateWithValues;
+    },
+
     get : function (templateId) {
       if (!templates[templateId]) {
         var template = document.getElementById(templateId);

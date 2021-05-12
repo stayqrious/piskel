@@ -9,7 +9,15 @@
    */
   ns.app = {
 
-    init : function () {
+    init: function () {
+      var localeCode = window.locale;
+      var i18n = window.locales[localeCode];
+
+      if (window.localeCode === undefined) {
+        localeCode = 'en_us';
+        i18n = window.locales[localeCode];
+      }
+
       // Run preferences migration scripts for version v0.12.0
       pskl.UserSettings.migrate_to_v0_12();
 
@@ -90,7 +98,7 @@
       this.layersListController = new pskl.controller.LayersListController(this.piskelController);
       this.layersListController.init();
 
-      this.settingsController = new pskl.controller.settings.SettingsController(this.piskelController);
+      this.settingsController = new pskl.controller.settings.SettingsController(this.piskelController, i18n);
       this.settingsController.init();
 
       this.dialogsController = new pskl.controller.dialogs.DialogsController(this.piskelController);
