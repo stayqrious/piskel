@@ -73,16 +73,16 @@
   <!-- Export Tool -->
   <!-- Template for Export Settings Title -->
   <script type="text/template" id="export-settings-template">
-    {{keyTitle}}
+    {{text}}
   </script>
 
   <!-- Template for Scale Changing -->
   <script type="text/template" id="export-scale-template">
-    <div class="settings-item export-scale" title="{{keyCss}}"
+    <div class="settings-item export-scale" title="{{inputText}}"
         rel="tooltip"
         data-placement="top"
         id="export-scale">
-      <label for="scale-input">{{keyTitle}}</label>
+      <label for="scale-input">{{text}}</label>
       <input type="range" class="scale-input" name="scale-input" min="1"  max="32" step="1"/>
       <span class="scale-text"></span>
     </div>
@@ -91,10 +91,10 @@
   <!-- Template for Resolution Changing -->
   <script type="text/template" id="export-resolution-template">
     <div class="settings-item export-resize" id="export-resize">
-      <span class="resize-label">{{keyTitle}}</span>
-      <input type="text" class="textfield  resize-field  resize-width" autocomplete="off" name="{{keyCss}}"/>
+      <span class="resize-label">{{text}}</span>
+      <input type="text" class="textfield  resize-field  resize-width" autocomplete="off" name="{{inputText}}"/>
       <div class="resize-label">x</div>
-      <input type="text" class="textfield  resize-field  resize-height" autocomplete="off" name="{{keyCss}}"/>
+      <input type="text" class="textfield  resize-field  resize-height" autocomplete="off" name="{{inputText}}"/>
     </div>
   </script>
 
@@ -104,7 +104,7 @@
       <div class="export-tab tab-item" data-tab-id="gif">GIF</div>
       <div class="export-tab tab-item" data-tab-id="png">PNG</div>
       <div class="export-tab tab-item" data-tab-id="zip">Zip</div>
-      <div class="export-tab tab-item" data-tab-id="misc">{{keyTitle}}</div>
+      <div class="export-tab tab-item" data-tab-id="misc">{{text}}</div>
     </div>
   </script>
 </div>
