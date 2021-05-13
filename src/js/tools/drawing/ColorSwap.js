@@ -7,14 +7,14 @@
 
   ns.ColorSwap = function(i18n) {
     this.toolId = 'tool-colorswap';
-    this.helpText = i18n.paintAllPixelsSameColor();
+    this.helpText = i18n.colorSwapDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.COLORSWAP;
 
     this.tooltipDescriptors = [];
     if (Constants.ENABLE_MULTIPLE_LAYERS) {
-      this.tooltipDescriptors.push({key : 'ctrl', description : i18n.applyToAllLayersDescriptor()});
+      this.tooltipDescriptors.push({key : 'ctrl', description : i18n.colorSwapDrawingToolDescriptorApplyToAllLayers()});
     }
-    this.tooltipDescriptors.push({key : 'shift', description : i18n.applyToAllFramesDescriptor()});
+    this.tooltipDescriptors.push({key : 'shift', description : i18n.colorSwapDrawingToolDescriptorApplyToAllFrames()});
   };
 
   pskl.utils.inherit(ns.ColorSwap, ns.BaseTool);

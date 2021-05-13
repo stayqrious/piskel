@@ -10,12 +10,10 @@
   ns.app = {
 
     init: function () {
-      var localeCode = window.locale;
-      var i18n = window.locales[localeCode];
+      var i18n = window.locales[window.locale];
 
-      if (window.localeCode === undefined) {
-        localeCode = 'en_us';
-        i18n = window.locales[localeCode];
+      if (window.locale === undefined) {
+        i18n = window.locales['en_us'];
       }
 
       // Run preferences migration scripts for version v0.12.0

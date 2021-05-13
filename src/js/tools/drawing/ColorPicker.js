@@ -8,7 +8,7 @@
 
   ns.ColorPicker = function(i18n) {
     this.toolId = 'tool-colorpicker';
-    this.helpText = i18n.colorPicker();
+    this.helpText = i18n.colorPickerDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.COLORPICKER;
   };
 

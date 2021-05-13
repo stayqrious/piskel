@@ -3,13 +3,13 @@
 
   ns.Rotate = function (i18n) {
     this.toolId = 'tool-rotate';
-    this.helpText = i18n.counterClockwiseRotation();
+    this.helpText = i18n.rotateTransformTool();
 
-    this.tooltipDescriptors = [{key : 'alt', description : i18n.counterClockwiseRotationDescriptorRotation()}];
+    this.tooltipDescriptors = [{key : 'alt', description : i18n.rotateTransformToolDescriptorClockwiseRotation()}];
     if (Constants.ENABLE_MULTIPLE_LAYERS) {
-      this.tooltipDescriptors.push({key : 'ctrl', description : i18n.applyToAllLayersDescriptor()});
+      this.tooltipDescriptors.push({key : 'ctrl', description : i18n.rotateTransformToolDescriptorApplyToAllLayers()});
     }
-    this.tooltipDescriptors.push({key : 'shift', description : i18n.applyToAllFramesDescriptor()});
+    this.tooltipDescriptors.push({key : 'shift', description : i18n.rotateTransformToolDescriptorApplyToAllFrames()});
   };
 
   pskl.utils.inherit(ns.Rotate, ns.AbstractTransformTool);

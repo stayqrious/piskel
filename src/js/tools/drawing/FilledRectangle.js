@@ -10,7 +10,7 @@
     ns.ShapeTool.call(this, i18n);
 
     this.toolId = 'tool-filled-rectangle';
-    this.helpText = i18n.filledRectangleTool();
+    this.helpText = i18n.filledRectangleDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.FILLED_RECTANGLE;
   };
 

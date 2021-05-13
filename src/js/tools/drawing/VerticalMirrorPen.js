@@ -5,12 +5,12 @@
     this.superclass.constructor.call(this, i18n);
 
     this.toolId = 'tool-vertical-mirror-pen';
-    this.helpText = i18n.verticalMirrorPen();
+    this.helpText = i18n.verticalMirrorPenDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.MIRROR_PEN;
 
     this.tooltipDescriptors = [
-      {key : 'ctrl', description : i18n.verticalMirrorPenDescriptorFirst()},
-      {key : 'shift', description : i18n.verticalMirrorPenDescriptorSecond()}
+      {key : 'ctrl', description : i18n.verticalMirrorPenDrawingToolDescriptorHorizAxis()},
+      {key : 'shift', description : i18n.verticalMirrorPenDrawingToolDescriptorHorizAndVert()}
     ];
   };
 

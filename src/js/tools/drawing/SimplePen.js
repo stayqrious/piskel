@@ -8,7 +8,7 @@
 
   ns.SimplePen = function (i18n) {
     this.toolId = 'tool-pen';
-    this.helpText = i18n.penTool();
+    this.helpText = i18n.simplePenDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.PEN;
 
     this.previousCol = null;

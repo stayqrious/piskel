@@ -3,13 +3,13 @@
 
   ns.Flip = function (i18n) {
     this.toolId = 'tool-flip';
-    this.helpText = i18n.flip();
+    this.helpText = i18n.flipTransformTool();
 
-    this.tooltipDescriptors = [{key : 'alt', description : i18n.flipDescriptorHorizontal()}];
+    this.tooltipDescriptors = [{key : 'alt', description : i18n.flipTransformToolDescriptorHoriz()}];
     if (Constants.ENABLE_MULTIPLE_LAYERS) {
-      this.tooltipDescriptors.push({key : 'ctrl', description : i18n.applyToAllLayersDescriptor()});
+      this.tooltipDescriptors.push({key : 'ctrl', description : i18n.flipTransformToolDescriptorApplyToAllLayers()});
     }
-    this.tooltipDescriptors.push({key : 'shift', description : i18n.applyToAllFramesDescriptor()});
+    this.tooltipDescriptors.push({key : 'shift', description : i18n.flipTransformToolDescriptorApplyToAllFrames()});
   };
 
   pskl.utils.inherit(ns.Flip, ns.AbstractTransformTool);

@@ -10,7 +10,7 @@
     ns.ShapeTool.call(this, i18n);
 
     this.toolId = 'tool-filled-circle';
-    this.helpText = i18n.filledCircleTool();
+    this.helpText = i18n.filledCircleDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.FILLED_CIRCLE;
   };
 

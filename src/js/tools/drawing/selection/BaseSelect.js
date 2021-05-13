@@ -21,12 +21,12 @@
     this.hasSelection = false;
 
     this.tooltipDescriptors = [
-      {description : i18n.dragTheSelectionDescriptor()},
-      {key : 'ctrl+c', description : i18n.duplicateTheSelecteAreaDescriptor()},
-      {key : 'shift', description : i18n.holdToMoveTheContentDescriptor()}
+      {description : i18n.baseSelectDrawingSelectionToolDescriptorDragTheSelection()},
+      {key : 'ctrl+c', description : i18n.baseSelectDrawingSelectionToolDescriptorDuplicateTheSelectedArea()},
+      {key : 'shift', description : i18n.baseSelectDrawingSelectionToolDescriptorHoldToMoveTheContent()}
     ];
     if (!Constants.ENABLE_MULTIPLE_LAYERS) {
-      this.tooltipDescriptors[0] = {description : i18n.dragTheSelectionMaySwitchToOtherFramesDescriptor()};
+      this.tooltipDescriptors[0] = {description : i18n.baseSelectDrawingSelectionToolDescriptorDragTheSelectionMaySwitchToOtherFrames()};
     }
     $.subscribe(Events.SELECTION_DISMISSED, this.onSelectionDismissed_.bind(this));
   };

@@ -10,7 +10,7 @@
     ns.ShapeTool.call(this, i18n);
 
     this.toolId = 'tool-circle';
-    this.helpText = i18n.circleTool();
+    this.helpText = i18n.circleDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.CIRCLE;
   };
 

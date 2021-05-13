@@ -3,11 +3,11 @@
 
   ns.Crop = function (i18n) {
     this.toolId = 'tool-crop';
-    this.helpText = i18n.cropTheSprite();
+    this.helpText = i18n.cropTransformTool();
     this.tooltipDescriptors = [
       {
-        description : i18n.cropTheSpriteDescriptorFirst() +
-                      i18n.cropTheSpriteDescriptorSecond()
+        description : i18n.cropTransformToolDescriptorCropToFit() +
+                      i18n.cropTransformToolDescriptorAppliesToAllFramesLayers()
       }
     ];
   };

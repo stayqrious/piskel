@@ -10,7 +10,7 @@
     ns.ShapeTool.call(this, i18n);
 
     this.toolId = 'tool-rectangle';
-    this.helpText = i18n.rectangleTool();
+    this.helpText = i18n.rectangleDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.RECTANGLE;
   };
 

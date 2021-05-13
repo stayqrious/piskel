@@ -10,7 +10,7 @@
     this.startRow = null;
 
     this.tooltipDescriptors = [
-      {key : 'shift', description : i18n.shapeToolDescriptor()}
+      {key : 'shift', description : i18n.shapeToolDrawingDescriptorKeep1To1Ratio()}
     ];
   };
 

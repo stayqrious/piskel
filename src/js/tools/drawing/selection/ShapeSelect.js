@@ -10,7 +10,7 @@
     ns.BaseSelect.call(this, i18n);
 
     this.toolId = 'tool-shape-select';
-    this.helpText = i18n.shapeSelection();
+    this.helpText = i18n.shapeSelectDrawingSelectionTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.SHAPE_SELECT;
   };
 

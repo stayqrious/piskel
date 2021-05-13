@@ -8,10 +8,10 @@
 
   ns.Stroke = function (i18n) {
     this.toolId = 'tool-stroke';
-    this.helpText = i18n.strokeTool();
+    this.helpText = i18n.strokeDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.STROKE;
     this.tooltipDescriptors = [
-      {key : 'shift', description : i18n.strokeToolDescriptor()}
+      {key : 'shift', description : i18n.strokeDrawingToolDescriptorHoldShift()}
     ];
 
     // Stroke's first point coordinates (set in applyToolAt)

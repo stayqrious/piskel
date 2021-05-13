@@ -10,7 +10,7 @@
     ns.SimplePen.call(this, i18n);
 
     this.toolId = 'tool-dithering';
-    this.helpText = i18n.ditheringTool();
+    this.helpText = i18n.ditheringDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.DITHERING;
   };
 

@@ -3,12 +3,12 @@
 
   ns.Center = function (i18n) {
     this.toolId = 'tool-center';
-    this.helpText = i18n.alignImageToTheCenter();
+    this.helpText = i18n.centerTransformTool();
     this.tooltipDescriptors = [];
     if (Constants.ENABLE_MULTIPLE_LAYERS) {
-      this.tooltipDescriptors.push({key : 'ctrl', description : i18n.applyToAllLayersDescriptor()});
+      this.tooltipDescriptors.push({key : 'ctrl', description : i18n.centerTransformToolDescriptorApplyToAllLayers()});
     }
-    this.tooltipDescriptors.push({key : 'shift', description : i18n.applyToAllFramesDescriptor()});
+    this.tooltipDescriptors.push({key : 'shift', description : i18n.centerTransformToolDescriptorApplyToAllFrames()});
   };
 
   pskl.utils.inherit(ns.Center, ns.AbstractTransformTool);

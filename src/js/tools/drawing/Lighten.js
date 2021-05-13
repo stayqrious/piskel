@@ -12,12 +12,12 @@
     this.superclass.constructor.call(this, i18n);
 
     this.toolId = 'tool-lighten';
-    this.helpText = i18n.lighten();
+    this.helpText = i18n.lightenDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.LIGHTEN;
 
     this.tooltipDescriptors = [
-      {key : 'ctrl', description : i18n.lightenDescriptorFirst()},
-      {key : 'shift', description : i18n.lightenDescriptorSecond()}
+      {key : 'ctrl', description : i18n.lightenDrawingToolDescriptorDarken()},
+      {key : 'shift', description : i18n.lightenDrawingToolDescriptorApplyOncePerPixel()}
     ];
   };
 

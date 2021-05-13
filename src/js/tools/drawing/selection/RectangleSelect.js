@@ -10,7 +10,7 @@
     ns.AbstractDragSelect.call(this, i18n);
 
     this.toolId = 'tool-rectangle-select';
-    this.helpText = i18n.rectangleSelection();
+    this.helpText = i18n.rectangleSelectDrawingSelectionTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.RECTANGLE_SELECT;
 
   };

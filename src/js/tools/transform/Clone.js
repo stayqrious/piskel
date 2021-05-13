@@ -3,7 +3,7 @@
 
   ns.Clone = function (i18n) {
     this.toolId = 'tool-clone';
-    this.helpText = i18n.cloneCurrentLayerToAllFrames();
+    this.helpText = i18n.cloneTransformTool();
     this.tooltipDescriptors = [];
   };
 
