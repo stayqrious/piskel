@@ -34,14 +34,14 @@
   <!-- Resize Tool -->
   <!-- Template for Resize Settings Title -->
   <script type="text/template" id="resize-settings-template">
-    {{keyTitle}}
+    {{text}}
   </script>
 
   <!-- Template for Width and Height -->
   <script type="text/template" id="resize-tool-template">
     <div class="resize-section">
-      <span  class="resize-section-title">{{keyTitle}}</span>
-      <input type="text" class="textfield resize-size-field" autocomplete="off" name="{{keyCss}}"/>
+      <span  class="resize-section-title">{{text}}</span>
+      <input type="text" class="textfield resize-size-field" autocomplete="off" name="{{inputText}}"/>
       <span>px</span>
     </div>
   </script>
@@ -50,8 +50,8 @@
   <script type="text/template" id="ratio-canvas-template">
     <div class="resize-section">
       <label class="checkbox-container">
-        <input type="checkbox" class="{{keyCss}} checkbox-fix" value="true"/>
-        <span>{{keyTitle}}</span>
+        <input type="checkbox" class="{{inputText}} checkbox-fix" value="true"/>
+        <span>{{text}}</span>
       </label>
     </div>
   </script>
@@ -59,14 +59,14 @@
   <!-- Template for Anchor -->
   <script type="text/template" id="resize-anchor-template">
     <div class="resize-section">
-      <span  class="resize-section-title">{{keyTitle}}</span>
+      <span class="resize-section-title">{{text}}</span>
       <div class="resize-anchor-container"></div>
     </div>
   </script>
 
   <!-- Template for Resize Submit Button -->
   <script type="text/template" id="resize-button-template">
-    <input type="submit" class="button button-primary resize-button" value="{{keyTitle}}" />
+    <input type="submit" class="button button-primary resize-button" value="{{text}}" />
   </script>
 
   <!-- ----------------------------------------------------------- -->

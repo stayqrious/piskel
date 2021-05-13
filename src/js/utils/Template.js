@@ -3,9 +3,15 @@
   var templates = {};
 
   ns.Template = {
-    fillInTemplate : function (templateId, templateInfo) {
+    /**
+     * Takes in a templateId and values to replace the keys found in the template
+     * Requires Node-Webkit environment for file system access
+     * @param {string} templateId - ID used to retrieve the correct template from misc-templates.html
+     * @param {string} templateValues - The values to fill in the template with.
+     */
+    fillInTemplate : function (templateId, templateValues) {
       var tpl = ns.Template.get(templateId);
-      var templateWithValues = ns.Template.replace(tpl, templateInfo);
+      var templateWithValues = ns.Template.replace(tpl, templateValues);
       return templateWithValues;
     },
 
