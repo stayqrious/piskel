@@ -127,35 +127,35 @@
 
   ns.ResizeController.prototype.createResizeTitleDefault = function (i18n) {
     var templateDataArray = [
-      ['resize-settings-template', i18n.resizeTitleDefault()]
+      ['resize-settings-template', i18n.resizeSettingSectionDefaultTitle()]
     ];
     return this.populateResizeSectionTemplate(templateDataArray);
   };
 
   ns.ResizeController.prototype.createResizeTitle = function (i18n) {
     var templateDataArray = [
-      ['resize-settings-template', i18n.resizeTitle()]
+      ['resize-settings-template', i18n.resizeSettingSectionTitle()]
     ];
     return this.populateResizeSectionTemplate(templateDataArray);
   };
 
   ns.ResizeController.prototype.createResizeCanvasForm = function (i18n) {
     var templateDataArray = [
-      ['resize-tool-template', i18n.widthTitle(), 'resize-width'],
-      ['resize-tool-template', i18n.heightTitle(), 'resize-height'],
-      ['ratio-canvas-template', i18n.maintainAspectRatio(), 'resize-content-checkbox'],
-      ['ratio-canvas-template', i18n.resizeCanvasContent(), 'resize-ratio-checkbox'],
-      ['resize-anchor-template', i18n.anchor()],
-      ['resize-button-template', i18n.resizeSubmitButton()],
+      ['resize-tool-template', i18n.resizeSettingSectionWidth(), 'resize-width'],
+      ['resize-tool-template', i18n.resizeSettingSectionHeight(), 'resize-height'],
+      ['ratio-canvas-template', i18n.resizeSettingSectionMaintainAspectRatio(), 'resize-content-checkbox'],
+      ['ratio-canvas-template', i18n.resizeSettingSectionResizeCanvasContent(), 'resize-ratio-checkbox'],
+      ['resize-anchor-template', i18n.resizeSettingSectionAnchor()],
+      ['resize-button-template', i18n.resizeSettingSectionDefaultSubmitButton()],
     ];
     return this.populateResizeSectionTemplate(templateDataArray);
   };
 
   ns.ResizeController.prototype.createResizeCanvasDefaultForm = function (i18n) {
     var templateDataArray = [
-      ['resize-tool-template', i18n.widthTitle(), 'default-width'],
-      ['resize-tool-template', i18n.heightTitle(), 'default-height'],
-      ['resize-button-template', i18n.resizeSubmitButtonDefault()],
+      ['resize-tool-template', i18n.resizeSettingSectionDefaultWidth(), 'default-width'],
+      ['resize-tool-template', i18n.resizeSettingSectionDefaultHeight(), 'default-height'],
+      ['resize-button-template', i18n.resizeSettingSectionDefaultSubmitButton()],
     ];
 
     return this.populateResizeSectionTemplate(templateDataArray);
