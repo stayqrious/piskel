@@ -104,22 +104,22 @@
   };
 
   ns.ResizeController.prototype.populateResizeSectionTemplate = function (templateDataArray) {
-    var obj = { 'keyTitle': '', 'keyCss': '' };
+    var obj = { 'text': '', 'inputText': '' };
     var resultHtml = '';
 
     for (var i = 0; i < templateDataArray.length; i++) {
       var templateToUse = templateDataArray[i];
       var templateId = templateToUse[0];
-      var keyTitle = templateToUse[1];
-      var keyCss = templateToUse[2];
+      var text = templateToUse[1];
+      var inputText = templateToUse[2];
 
-      obj.keyTitle = keyTitle;
-      obj.keyCss = keyCss;
+      obj.text = text;
+      obj.inputText = inputText;
 
       var templateWithValues = pskl.utils.Template.fillInTemplate(templateId, obj);
       resultHtml += templateWithValues;
 
-      obj = { 'keyTitle': '', 'keyCss': '' };
+      obj = { 'text': '', 'inputText': '' };
     }
 
     return resultHtml;
@@ -157,6 +157,7 @@
       ['resize-tool-template', i18n.heightTitle(), 'default-height'],
       ['resize-button-template', i18n.resizeSubmitButtonDefault()],
     ];
+
     return this.populateResizeSectionTemplate(templateDataArray);
   };
 
