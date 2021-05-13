@@ -68,4 +68,43 @@
   <script type="text/template" id="resize-button-template">
     <input type="submit" class="button button-primary resize-button" value="{{keyTitle}}" />
   </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Export Tool -->
+  <!-- Template for Export Settings Title -->
+  <script type="text/template" id="export-settings-template">
+    {{keyTitle}}
+  </script>
+
+  <!-- Template for Scale Changing -->
+  <script type="text/template" id="export-scale-template">
+    <div class="settings-item export-scale" title="{{keyCss}}"
+        rel="tooltip"
+        data-placement="top"
+        id="export-scale">
+      <label for="scale-input">{{keyTitle}}</label>
+      <input type="range" class="scale-input" name="scale-input" min="1"  max="32" step="1"/>
+      <span class="scale-text"></span>
+    </div>
+  </script>
+
+  <!-- Template for Resolution Changing -->
+  <script type="text/template" id="export-resolution-template">
+    <div class="settings-item export-resize" id="export-resize">
+      <span class="resize-label">{{keyTitle}}</span>
+      <input type="text" class="textfield  resize-field  resize-width" autocomplete="off" name="{{keyCss}}"/>
+      <div class="resize-label">x</div>
+      <input type="text" class="textfield  resize-field  resize-height" autocomplete="off" name="{{keyCss}}"/>
+    </div>
+  </script>
+
+  <!-- Template for Export Tabs -->
+  <script type="text/template" id="export-tabs-template">
+    <div class="export-tabs tab-list" id="tab-list">
+      <div class="export-tab tab-item" data-tab-id="gif">GIF</div>
+      <div class="export-tab tab-item" data-tab-id="png">PNG</div>
+      <div class="export-tab tab-item" data-tab-id="zip">Zip</div>
+      <div class="export-tab tab-item" data-tab-id="misc">{{keyTitle}}</div>
+    </div>
+  </script>
 </div>
