@@ -6,7 +6,7 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.Rectangle = function (i18n) {
+  ns.Rectangle = function(i18n) {
     ns.ShapeTool.call(this, i18n);
 
     this.toolId = 'tool-rectangle';
