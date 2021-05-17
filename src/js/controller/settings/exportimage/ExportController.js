@@ -20,9 +20,11 @@
     }
   };
 
-  ns.ExportController = function (piskelController) {
+  ns.ExportController = function (piskelController, i18n) {
+    this.createExportDom_(i18n);
+
     this.piskelController = piskelController;
-    this.tabsWidget = new pskl.widgets.Tabs(tabs, this, pskl.UserSettings.EXPORT_TAB);
+    this.tabsWidget = new pskl.widgets.Tabs(tabs, this, pskl.UserSettings.EXPORT_TAB, i18n);
     this.onSizeInputChange_ = this.onSizeInputChange_.bind(this);
   };
 
@@ -116,56 +118,61 @@
   };
 
   ns.ExportController.prototype.createExportTitle = function (i18n) {
-    var templateDataArray = [
-      ['export-settings-template', i18n.resizeTitle()]
-    ];
-    return this.populateResizeSectionTemplate(templateDataArray);
+    // var templateDataArray = [
+    //   ['export-settings-template', 'Export']
+    // ];
+    // return this.populateResizeSectionTemplate(templateDataArray);
+    var tpl = pskl.utils.Template.get('export-settings-template');
+    return pskl.utils.Template.replace(tpl, {
+      text: i18n.exportSettingSectionTitle(),
+    });
   };
 
-  ns.ExportController.prototype.createResizeCanvasForm = function (i18n) {
-    var templateDataArray = [
-      ['resize-tool-template', i18n.widthTitle(), 'resize-width'],
-      ['resize-tool-template', i18n.heightTitle(), 'resize-height'],
-      ['ratio-canvas-template', i18n.maintainAspectRatio(), 'resize-content-checkbox'],
-      ['ratio-canvas-template', i18n.resizeCanvasContent(), 'resize-ratio-checkbox'],
-      ['resize-anchor-template', i18n.anchor()],
-      ['resize-button-template', i18n.resizeSubmitButton()],
-    ];
-    return this.populateResizeSectionTemplate(templateDataArray);
+  ns.ExportController.prototype.createExportChangeScale = function (i18n) {
+    // var templateDataArray = [
+    //   ['export-scale-template', 'Scale', 'Scale the animation for export']
+    // ];
+    // return this.populateResizeSectionTemplate(templateDataArray);
+    var tpl = pskl.utils.Template.get('export-scale-template');
+    return pskl.utils.Template.replace(tpl, {
+      text: i18n.exportSettingSectionScale(),
+      inputText: i18n.exportSettingSectionScaleTheAnimation()
+    });
   };
 
-  ns.ExportController.prototype.createResizeCanvasDefaultForm = function (i18n) {
-    var templateDataArray = [
-      ['resize-tool-template', i18n.widthTitle(), 'default-width'],
-      ['resize-tool-template', i18n.heightTitle(), 'default-height'],
-      ['resize-button-template', i18n.resizeSubmitButtonDefault()],
-    ];
+  ns.ExportController.prototype.createExportChangeResolution = function (i18n) {
+    var tpl = pskl.utils.Template.get('export-change-resolution-template');
+    return pskl.utils.Template.replace(tpl, {
+      text: i18n.exportSettingSectionResolution(),
+    });
+  };
 
-    return this.populateResizeSectionTemplate(templateDataArray);
+  ns.ExportController.prototype.createExportTabs = function (i18n) {
+    var tpl = pskl.utils.Template.get('export-tabs-template');
+    return pskl.utils.Template.replace(tpl, {
+      text: i18n.exportSettingSectionOthersTab()
+    });
   };
 
   /**
   * @private
   */
   ns.ExportController.prototype.createExportDom_ = function (i18n) {
+    console.log('Inside createExportDom_()');
     var html = '';
     var exportTitleHtml = this.createExportTitle(i18n);
     html += exportTitleHtml;
-    $('#settings-title').html(html);
 
-    html = '';
-    var resizeCanvasFormHtml = this.createResizeCanvasForm(i18n);
-    html += resizeCanvasFormHtml;
-    $('#resize-canvas-form').html(html);
+    var exportChangeScaleHtml = this.createExportChangeScale(i18n);
+    html += exportChangeScaleHtml;
 
-    html = '';
-    var resizeTitleDefaultHtml = this.createResizeTitleDefault(i18n);
-    html += resizeTitleDefaultHtml;
-    $('#settings-title-default').html(html);
+    var exportChangeResolutionHtml = this.createExportChangeResolution(i18n);
+    html += exportChangeResolutionHtml;
 
-    html = '';
-    var resizeCanvasFormDefaultHtml = this.createResizeCanvasDefaultForm(i18n);
-    html += resizeCanvasFormDefaultHtml;
-    $('#default-size-form').html(html);
+    var exportTabsHtml = this.createExportTabs(i18n);
+    html += exportTabsHtml;
+
+    html += '<div class="export-panel tab-content"></div>';
+    $('#settings-section-export').html(html);
   };
 })();
