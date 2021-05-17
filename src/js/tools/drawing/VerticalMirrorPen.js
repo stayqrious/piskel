@@ -1,7 +1,7 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.VerticalMirrorPen = function (i18n) {
+  ns.VerticalMirrorPen = function(i18n) {
     this.superclass.constructor.call(this, i18n);
 
     this.toolId = 'tool-vertical-mirror-pen';
