@@ -24,5 +24,11 @@
   "filledCircleToolInstructions": "SHIFT Keep 1 to 1 ratio",
   "cropTheSpriteInstructions": "Crop to fit the content or the selection. Applies to all frames and layers!",
 
+  "zipExportSettingSectionDesc": "ZIP archive containing one PNG for each frame. File names will start with the prefix below. TEST 6",
+  "zipExportSettingSectionPrefix": "Prefix TEST 7",
+  "zipExportSettingSectionPNGFilePrefix": "PNG file prefix ... TEST 8",
+  "zipExportSettingSectionSplitByLayers": "Split by layers TEST 9",
+  "zipExportSettingSectionDownloadZip": "Download ZIP TEST 10",
+
   "loadingPiskelMessage": "Loading Piskel..."
 }

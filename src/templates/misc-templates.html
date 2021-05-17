@@ -29,4 +29,113 @@
       {{description}}
     </div>
   </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Resize Tool -->
+  <!-- Template for Resize Settings Title -->
+  <script type="text/template" id="resize-settings-template">
+    {{text}}
+  </script>
+
+  <!-- Template for Width and Height -->
+  <script type="text/template" id="resize-tool-template">
+    <div class="resize-section">
+      <span  class="resize-section-title">{{text}}</span>
+      <input type="text" class="textfield resize-size-field" autocomplete="off" name="{{inputText}}"/>
+      <span>px</span>
+    </div>
+  </script>
+
+  <!-- Template for Ratio and Canvas -->
+  <script type="text/template" id="ratio-canvas-template">
+    <div class="resize-section">
+      <label class="checkbox-container">
+        <input type="checkbox" class="{{inputText}} checkbox-fix" value="true"/>
+        <span>{{text}}</span>
+      </label>
+    </div>
+  </script>
+
+  <!-- Template for Anchor -->
+  <script type="text/template" id="resize-anchor-template">
+    <div class="resize-section">
+      <span class="resize-section-title">{{text}}</span>
+      <div class="resize-anchor-container"></div>
+    </div>
+  </script>
+
+  <!-- Template for Resize Submit Button -->
+  <script type="text/template" id="resize-button-template">
+    <input type="submit" class="button button-primary resize-button" value="{{text}}" />
+  </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Export Tool -->
+  <!-- Template for Export Settings Title -->
+  <script type="text/template" id="export-settings-template">
+    <div class="settings-title" id="settings-title">
+      {{text}}
+    </div>
+  </script>
+
+  <!-- Template for Scale Changing -->
+  <script type="text/template" id="export-scale-template">
+    <div class="settings-item export-scale" title="{{inputText}}"
+        rel="tooltip"
+        data-placement="top"
+        id="exportScale">
+      <label for="scale-input">{{text}}</label>
+      <input type="range" class="scale-input" name="scale-input" min="1"  max="32" step="1"/>
+      <span class="scale-text"></span>
+    </div>
+  </script>
+
+  <!-- Template for Change Resolution -->
+  <script type="text/template" id="export-change-resolution-template">
+    <div class="settings-item export-resize" id="export-resize">
+      <span class="resize-label">{{text}}</span>
+      <input type="text" class="textfield  resize-field  resize-width" autocomplete="off" name="resize-width"/>
+      <div class="resize-label">x</div>
+      <input type="text" class="textfield  resize-field  resize-height" autocomplete="off" name="resize-height"/>
+    </div>
+  </script>
+
+  <!-- Template for Export Tabs -->
+  <script type="text/template" id="export-tabs-template">
+    <div class="export-tabs tab-list" id="tab-list">
+      <div class="export-tab tab-item" data-tab-id="gif">GIF</div>
+      <div class="export-tab tab-item" data-tab-id="png">PNG</div>
+      <div class="export-tab tab-item" data-tab-id="zip">Zip</div>
+      <div class="export-tab tab-item" data-tab-id="misc">{{text}}</div>
+    </div>
+  </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Export Tool: Download Options -->
+  <!-- Template for Export Info Desc -->
+  <script type="text/template" id="export-info-desc-template">
+    {{text}}
+  </script>
+
+  <!-- Template for Export Info Prefix -->
+  <script type="text/template" id="export-info-prefix-template">
+    <div style="display: flex; line-height: 23px;">
+      <label style="flex-shrink: 0; padding-right:5px;">{{text}}</label>
+      <input type="text" style="flex: 1;" class="zip-prefix-name textfield"
+            autocomplete="off" placeholder="{{inputText}}">
+    </div>
+  </script>
+
+  <!-- Template for Export Info Split By Layers -->
+  <script type="text/template" id="export-info-layers-template">
+    <div class="checkbox-container" style="margin: 5px 0;">
+      <input id="zip-split-layers" class="zip-split-layers-checkbox checkbox-fix" type="checkbox" />
+      <label for="zip-split-layers">{{text}}</label>
+    </div>
+  </script>
+
+  <!-- Template for Export Info Download Button -->
+  <script type="text/template" id="export-info-download-button-template">
+    <button type="button" class="button button-primary zip-generate-button">{{text}}</button>
+  </script>
 </div>
