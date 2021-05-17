@@ -6,7 +6,7 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.Stroke = function (i18n) {
+  ns.Stroke = function(i18n) {
     this.toolId = 'tool-stroke';
     this.helpText = i18n.strokeDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.STROKE;
