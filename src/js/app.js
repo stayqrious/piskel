@@ -24,8 +24,7 @@
         * we want strings to be in. All of this is happening here: var i18n = window.locales[window.locale];
         * In the case that window.locale is undefined, we set the strings to english by default
         *
-        * Example Usage:
-        *  In tools/drawing/SimplePen.js
+        * Example Usage tools/drawing/SimplePen.js:
         * this.helpText = i18n.simplePenDrawingTool()
         * Now when the user hovers over the Pen tool, they will see the translation based on the locale
         *
