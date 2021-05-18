@@ -96,36 +96,36 @@
   };
 
   ns.ExportController.prototype.createExportTitle = function(i18n) {
-    var templateData = {
+    var templateValues = {
       text: i18n.exportSettingSectionTitle(),
     };
     var templateId = 'export-settings-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   ns.ExportController.prototype.createExportChangeScale = function(i18n) {
-    var templateData = {
+    var templateValues = {
       tooltipTitle: i18n.exportSettingSectionScaleTheAnimation(),
       labelText: i18n.exportSettingSectionScale()
     };
     var templateId = 'export-scale-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   ns.ExportController.prototype.createExportChangeResolution = function (i18n) {
-    var templateData = {
+    var templateValues = {
       spanText: i18n.exportSettingSectionResolution(),
     };
     var templateId = 'export-change-resolution-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   ns.ExportController.prototype.createExportTabs = function(i18n) {
-    var templateData = {
+    var templateValues = {
       divText: i18n.exportSettingSectionOthersTab(),
     };
     var templateId = 'export-tabs-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   /**
