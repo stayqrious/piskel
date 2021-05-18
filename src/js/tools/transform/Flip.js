@@ -3,9 +3,9 @@
 
   ns.Flip = function (i18n) {
     this.toolId = 'tool-flip';
-    this.helpText = i18n.flipTransformTool();
+    this.helpText = i18n.flipTransformToolVertAxis();
 
-    this.tooltipDescriptors = [{key : 'alt', description : i18n.flipTransformToolDescriptorHoriz()}];
+    this.tooltipDescriptors = [{key : 'alt', description : i18n.flipTransformToolDescriptorHorizAxis()}];
     if (Constants.ENABLE_MULTIPLE_LAYERS) {
       this.tooltipDescriptors.push({key : 'ctrl', description : i18n.flipTransformToolDescriptorApplyToAllLayers()});
     }

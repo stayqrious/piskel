@@ -29,7 +29,7 @@
   "centerTransformToolDescriptorApplyToAllFrames":"Apply to all frames",
   "cloneTransformTool":"Clone current layer to all frames",
   "cropTransformTool": "Crop the sprite",
-  "flipTransformTool": "Flip vertically",
+  "flipTransformToolVertAxis": "Flip vertically",
   "rotateTransformTool": "Counter-clockwise rotation",
   "rotateTransformToolDescriptorClockwiseRotation":"Clockwise rotation",
   "rotateTransformToolDescriptorApplyToAllLayers":  "Apply to all layers",
@@ -47,7 +47,7 @@
   "rectangleSelectDrawingSelectionTool": "Rectangle Selection",
   "shapeSelectDrawingSelectionTool": "Shape selection",
   "onionSkinTogglePreviewTool": "Toggle onion skin",
-  "duplicateThisFrameFramesListTool" :"Duplicate this frame",
-  "deleteThisFrameFramesListTool": "Delete this frame",
+  "duplicateThisFrameFramesListTool" :"Duplicate this frame TEST 1",
+  "deleteThisFrameFramesListTool": "Delete this frame TEST 2",
   "loadingPiskelMessage": "Loading Piskel..."
 }
