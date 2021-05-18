@@ -8,7 +8,7 @@
   var ns = $.namespace('pskl.tools.drawing');
   var DEFAULT_STEP = 3;
 
-  ns.Lighten = function (i18n) {
+  ns.Lighten = function(i18n) {
     this.superclass.constructor.call(this, i18n);
 
     this.toolId = 'tool-lighten';
