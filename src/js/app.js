@@ -11,8 +11,7 @@
 
     init: function () {
       /**
-        * i18n which stands for internalization is being applied to Piskel to allow for all content in Piskel
-        * to be translated
+        * Piskel supports Internalization(i18n) by providing translations of its UI elements.
         *
         * Currently there is a directory called i18n which contains the locale directory. In this directory, you
         * will find all the string translations in JSON format. Each file is named as follows: languageCode_countryCode
@@ -288,4 +287,3 @@
     }
   };
 })();
-
