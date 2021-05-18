@@ -102,8 +102,9 @@
 
       this.previewController = new pskl.controller.preview.PreviewController(
         this.piskelController,
-        $('#animated-preview-canvas-container'));
-      this.previewController.init(i18n);
+        $('#animated-preview-canvas-container'),
+        i18n);
+      this.previewController.init();
 
       this.minimapController = new pskl.controller.MinimapController(
         this.piskelController,
@@ -114,7 +115,8 @@
 
       this.framesListController = new pskl.controller.FramesListController(
         this.piskelController,
-        $('#preview-list-wrapper').get(0), i18n);
+        $('#preview-list-wrapper').get(0),
+        i18n);
       this.framesListController.init();
 
       this.layersListController = new pskl.controller.LayersListController(this.piskelController);
