@@ -103,62 +103,110 @@
     });
   };
 
-  ns.ResizeController.prototype.populateResizeSectionTemplate = function (templateDataArray) {
-    var obj = { 'text': '', 'inputText': '' };
-    var resultHtml = '';
-
-    for (var i = 0; i < templateDataArray.length; i++) {
-      var templateToUse = templateDataArray[i];
-      var templateId = templateToUse[0];
-      var text = templateToUse[1];
-      var inputText = templateToUse[2];
-
-      obj.text = text;
-      obj.inputText = inputText;
-
-      var templateWithValues = pskl.utils.Template.fillInTemplate(templateId, obj);
-      resultHtml += templateWithValues;
-
-      obj = { 'text': '', 'inputText': '' };
-    }
-
-    return resultHtml;
-  };
-
   ns.ResizeController.prototype.createResizeTitleDefault = function (i18n) {
-    var templateDataArray = [
-      ['resize-settings-template', i18n.resizeSettingSectionDefaultTitle()]
-    ];
-    return this.populateResizeSectionTemplate(templateDataArray);
+    var templateData = {
+      text: i18n.resizeSettingSectionDefaultTitle()
+    };
+    var templateId = 'resize-settings-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
   };
 
   ns.ResizeController.prototype.createResizeTitle = function (i18n) {
-    var templateDataArray = [
-      ['resize-settings-template', i18n.resizeSettingSectionTitle()]
-    ];
-    return this.populateResizeSectionTemplate(templateDataArray);
+    var templateData = {
+      text: i18n.resizeSettingSectionTitle()
+    };
+    var templateId = 'resize-settings-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
   };
 
   ns.ResizeController.prototype.createResizeCanvasForm = function (i18n) {
-    var templateDataArray = [
-      ['resize-tool-template', i18n.resizeSettingSectionWidth(), 'resize-width'],
-      ['resize-tool-template', i18n.resizeSettingSectionHeight(), 'resize-height'],
-      ['ratio-canvas-template', i18n.resizeSettingSectionMaintainAspectRatio(), 'resize-content-checkbox'],
-      ['ratio-canvas-template', i18n.resizeSettingSectionResizeCanvasContent(), 'resize-ratio-checkbox'],
-      ['resize-anchor-template', i18n.resizeSettingSectionAnchor()],
-      ['resize-button-template', i18n.resizeSettingSectionDefaultSubmitButton()],
-    ];
-    return this.populateResizeSectionTemplate(templateDataArray);
+    var html = '';
+
+    // Width
+    // ----------------------------
+    var templateData = {
+      inputName: 'resize-width',
+      spanText: i18n.resizeSettingSectionWidth()
+    };
+    var templateId = 'resize-tool-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateData);
+
+    // Heigth
+    // ----------------------------
+    templateData = {
+      inputName: 'resize-height',
+      spanText: i18n.resizeSettingSectionHeight()
+    };
+    templateId = 'resize-tool-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateData);
+
+    // Checkbox
+    // ----------------------------
+    templateData = {
+      cssClass: 'resize-content-checkbox',
+      spanText: i18n.resizeSettingSectionMaintainAspectRatio()
+    };
+    templateId = 'ratio-canvas-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateData);
+
+    // Ratio
+    // ----------------------------
+    templateData = {
+      cssClass: 'resize-ratio-checkbox',
+      spanText: i18n.resizeSettingSectionResizeCanvasContent()
+    };
+    templateId = 'ratio-canvas-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateData);
+
+    // Anchor
+    // ----------------------------
+    templateData = {
+      spanText: i18n.resizeSettingSectionAnchor()
+    };
+    templateId = 'resize-anchor-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateData);
+
+    // Submit Button
+    // ----------------------------
+    templateData = {
+      valueText: i18n.resizeSettingSectionSubmitButton()
+    };
+    templateId = 'resize-button-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateData);
+
+    return html;
   };
 
   ns.ResizeController.prototype.createResizeCanvasDefaultForm = function (i18n) {
-    var templateDataArray = [
-      ['resize-tool-template', i18n.resizeSettingSectionDefaultWidth(), 'default-width'],
-      ['resize-tool-template', i18n.resizeSettingSectionDefaultHeight(), 'default-height'],
-      ['resize-button-template', i18n.resizeSettingSectionDefaultSubmitButton()],
-    ];
+    var html = '';
 
-    return this.populateResizeSectionTemplate(templateDataArray);
+    // Default Width
+    // ----------------------------
+    var templateData = {
+      spanText: i18n.resizeSettingSectionDefaultWidth(),
+      inputName: 'default-width'
+    };
+    var templateId = 'resize-tool-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateData);
+
+    // Default Height
+    // ----------------------------
+    templateData = {
+      spanText: i18n.resizeSettingSectionDefaultHeight(),
+      inputName: 'default-height'
+    };
+    templateId = 'resize-tool-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateData);
+
+    // Default Submit Button
+    // ----------------------------
+    templateData = {
+      valueText: i18n.resizeSettingSectionDefaultSubmitButton()
+    };
+    templateId = 'resize-button-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateData);
+
+    return html;
   };
 
    /**
