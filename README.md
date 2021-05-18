@@ -37,14 +37,14 @@ To publish a new version to npm switch to the master branch, use `npm login` to 
 * Publish the new release package to npm.
 
 ## Internationalization (i18n)
-The Piskel UI can support different languages by setting the `window.locale` to a four letter locale code, i.e. `en_us`, `es_mx`, etc.
+The Piskel UI can support different languages by setting the `window.piskel_locale` to a four letter locale code, i.e. `en_us`, `es_mx`, etc.
 
 The available strings are in `i18n/locales` directory and each locale has its own file. For example: `en_us.json` where `en` is English and `us` is United States
 Note that en_us.json should contain all available strings because this is the locale other languages will fallback to if a translation from English doesn't exist.
 
-The strings for all the languages are loaded into `window.locales` and the language specific strings can be accessed using the four letter locale code. For example:
+The strings for all the languages are loaded into `window.piskel_locales` and the language specific strings can be accessed using the four letter locale code. For example:
 ```
-var i18n = window.locales[window.locale];
+var i18n = window.piskel_locales[window.piskel_locale];
 console.log(i18n.simplePenDrawingTool());
 ```
 

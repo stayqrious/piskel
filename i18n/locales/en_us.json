@@ -47,7 +47,7 @@
   "rectangleSelectDrawingSelectionTool": "Rectangle Selection",
   "shapeSelectDrawingSelectionTool": "Shape selection",
   "onionSkinTogglePreviewTool": "Toggle onion skin",
-  "duplicateThisFrameFramesListTool" :"Duplicate this frame TEST 1",
-  "deleteThisFrameFramesListTool": "Delete this frame TEST 2",
+  "duplicateThisFrameFramesListTool" :"Duplicate this frame",
+  "deleteThisFrameFramesListTool": "Delete this frame",
   "loadingPiskelMessage": "Loading Piskel..."
 }
