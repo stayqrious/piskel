@@ -36,21 +36,19 @@ To publish a new version to npm switch to the master branch, use `npm login` to 
 * Push the commit and tag to github.
 * Publish the new release package to npm.
 
-## i18n
-i18n which stands for internalization is being applied to Piskel to allows for all content in Piskel to be translated
+## Internationalization (i18n)
+The Piskel UI can support different languages by setting the `window.locale` to a four letter locale code, i.e. `en_us`, `es_mx`, etc.
 
-Currently there is a directory called i18n which contains the locale directory. In this directory, you
-will find all the string translations in JSON format. Each file is named as follows: languageCode_countryCode
+The available strings are in `i18n/locales` directory and each locale has its own file. For example: `en_us.json` where `en` is English and `us` is United States
+Note that en_us.json should contain all available strings because this is the locale other languages will fallback to if a translation from English doesn't exist.
 
-For example: en_us.json where en is English and us is United States
+The strings for all the languages are loaded into `window.locales` and the language specific strings can be accessed using the four letter locale code. For example:
+```
+var i18n = window.locales[window.locale];
+console.log(i18n.simplePenDrawingTool());
+```
 
-The strings that we will be used depend on the window.locale. window.locale is the 4 letter locale
-code defined by users of the Piskel library so they can optionally load non-English strings
-into the Piskel UI. For example "en_us" or "es_es"
-window.locales will contains all strings available, then we will use window.locale to select the language
-we want strings to be in. All of this is happening here: var i18n = window.locales[window.locale];
-
-To see how each key becomes a function look at the tasks/build-i18n.js file where we use the MessageFormat API
+The JSON files are converted to Javascript files during the build in `tasks/build-i18n.js`.  The [MessageFormat](http://messageformat.github.io/messageformat/) library is used to convert the static JSON strings into Javascript functions so dynamic content can be injected into the strings.
 
 ## License
 

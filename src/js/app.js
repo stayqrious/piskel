@@ -11,8 +11,7 @@
 
     init: function () {
       /**
-        * i18n which stands for internalization is being applied to Piskel to allow for all content in Piskel
-        * to be translated
+        * Piskel supports Internalization(i18n) by providing translations of its UI elements.
         *
         * Currently there is a directory called i18n which contains the locale directory. In this directory, you
         * will find all the string translations in JSON format. Each file is named as follows: languageCode_countryCode
@@ -25,8 +24,7 @@
         * we want strings to be in. All of this is happening here: var i18n = window.locales[window.locale];
         * In the case that window.locale is undefined, we set the strings to english by default
         *
-        * Example Usage:
-        *  In tools/drawing/SimplePen.js
+        * Example Usage tools/drawing/SimplePen.js:
         * this.helpText = i18n.simplePenDrawingTool()
         * Now when the user hovers over the Pen tool, they will see the translation based on the locale
         *
@@ -288,4 +286,3 @@
     }
   };
 })();
-
