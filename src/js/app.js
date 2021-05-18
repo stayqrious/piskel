@@ -10,6 +10,28 @@
   ns.app = {
 
     init: function () {
+      /**
+        * i18n which stands for internalization is being applied to Piskel to allow for all content in Piskel
+        * to be translated
+        *
+        * Currently there is a directory called i18n which contains the locale directory. In this directory, you
+        * will find all the string translations in JSON format. Each file is named as follows: languageCode_countryCode
+        * For example: en_us.json where en is English and us is United States
+        *
+        * The strings that we will be used depend on the window.locale. window.locale is the 4 letter locale
+        * code defined by users of the Piskel library so they can optionally load non-English strings
+        * into the Piskel UI. For example "en_us" or "es_es"
+        * window.locales will contains all strings available, then we will use window.locale to select the language
+        * we want strings to be in. All of this is happening here: var i18n = window.locales[window.locale];
+        * In the case that window.locale is undefined, we set the strings to english by default
+        *
+        * Example Usage:
+        *  In tools/drawing/SimplePen.js
+        * this.helpText = i18n.simplePenDrawingTool()
+        * Now when the user hovers over the Pen tool, they will see the translation based on the locale
+        *
+        * To see how each key becomes a function look at the tasks/build-i18n.js file where we use the MessageFormat API
+      */
       var i18n = window.locales[window.locale];
 
       if (window.locale === undefined) {

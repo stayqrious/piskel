@@ -6,12 +6,12 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.Stroke = function (i18n) {
+  ns.Stroke = function(i18n) {
     this.toolId = 'tool-stroke';
     this.helpText = i18n.strokeDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.STROKE;
     this.tooltipDescriptors = [
-      {key : 'shift', description : i18n.strokeDrawingToolDescriptorHoldShift()}
+      {key : 'shift', description : i18n.strokeDrawingToolDescriptorDrawStraightLine()}
     ];
 
     // Stroke's first point coordinates (set in applyToolAt)

@@ -20,12 +20,10 @@
   "shapeToolDrawingDescriptorKeep1To1Ratio": "Keep 1 to 1 ratio",
   "simplePenDrawingTool": "Pen tool",
   "strokeDrawingTool": "Stroke tool",
-  "strokeDrawingToolDescriptorHoldShift": "Hold shift to draw straight lines",
+  "strokeDrawingToolDescriptorDrawStraightLine": "Hold shift to draw straight lines",
   "verticalMirrorPenDrawingTool": "Vertical Mirror pen",
   "verticalMirrorPenDrawingToolDescriptorHorizAxis": "Use horizontal axis",
-  "verticalMirrorPenDrawingToolDescriptorHorizAndVert": "Use horizontal and vertical axis",
-  
-
+  "verticalMirrorPenDrawingToolDescriptorHorizAndVertAxis": "Use horizontal and vertical axis",
   "centerTransformTool":"Align image to the center",
   "centerTransformToolDescriptorApplyToAllLayers":  "Apply to all layers",
   "centerTransformToolDescriptorApplyToAllFrames":"Apply to all frames",
@@ -38,26 +36,18 @@
   "rotateTransformToolDescriptorApplyToAllFrames":"Apply to all frames",
   "cropTransformToolDescriptorCropToFit": "Crop to fit the content or the selection.",
   "cropTransformToolDescriptorAppliesToAllFramesLayers": "Applies to all frames and layers!",
-  "flipTransformToolDescriptorHoriz": "Flip horizontally",
+  "flipTransformToolDescriptorHorizAxis": "Flip horizontally",
   "flipTransformToolDescriptorApplyToAllLayers": "Apply to all layers",
   "flipTransformToolDescriptorApplyToAllFrames":"Apply to all frames",
-  
-  
   "baseSelectDrawingSelectionToolDescriptorDragTheSelection": "Drag the selection to move it. You may switch to other layers and frames.",
   "baseSelectDrawingSelectionToolDescriptorDuplicateTheSelectedArea": "Duplicate the selected area",
-  "baseSelectDrawingSelectionToolDescriptorHoldToMoveTheContent": "Hold to move the content",
+  "baseSelectDrawingSelectionToolDescriptorMoveTheContent": "Hold to move the content",
   "baseSelectDrawingSelectionToolDescriptorDragTheSelectionMaySwitchToOtherFrames": "Drag the selection to move it. You may switch to other frames.",  
   "lassoSelectDrawingSelectionTool": "Lasso selection",
   "rectangleSelectDrawingSelectionTool": "Rectangle Selection",
   "shapeSelectDrawingSelectionTool": "Shape selection",
-    
-
   "onionSkinTogglePreviewTool": "Toggle onion skin",
-
-
   "duplicateThisFrameFramesListTool" :"Duplicate this frame",
   "deleteThisFrameFramesListTool": "Delete this frame",
-
-
   "loadingPiskelMessage": "Loading Piskel..."
 }

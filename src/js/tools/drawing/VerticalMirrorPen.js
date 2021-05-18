@@ -1,7 +1,7 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.VerticalMirrorPen = function (i18n) {
+  ns.VerticalMirrorPen = function(i18n) {
     this.superclass.constructor.call(this, i18n);
 
     this.toolId = 'tool-vertical-mirror-pen';
@@ -10,7 +10,7 @@
 
     this.tooltipDescriptors = [
       {key : 'ctrl', description : i18n.verticalMirrorPenDrawingToolDescriptorHorizAxis()},
-      {key : 'shift', description : i18n.verticalMirrorPenDrawingToolDescriptorHorizAndVert()}
+      {key : 'shift', description : i18n.verticalMirrorPenDrawingToolDescriptorHorizAndVertAxis()}
     ];
   };
 

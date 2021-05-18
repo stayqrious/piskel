@@ -6,7 +6,7 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.SimplePen = function (i18n) {
+  ns.SimplePen = function(i18n) {
     this.toolId = 'tool-pen';
     this.helpText = i18n.simplePenDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.PEN;

@@ -23,7 +23,7 @@
     this.tooltipDescriptors = [
       {description : i18n.baseSelectDrawingSelectionToolDescriptorDragTheSelection()},
       {key : 'ctrl+c', description : i18n.baseSelectDrawingSelectionToolDescriptorDuplicateTheSelectedArea()},
-      {key : 'shift', description : i18n.baseSelectDrawingSelectionToolDescriptorHoldToMoveTheContent()}
+      {key : 'shift', description : i18n.baseSelectDrawingSelectionToolDescriptorMoveTheContent()}
     ];
     if (!Constants.ENABLE_MULTIPLE_LAYERS) {
       this.tooltipDescriptors[0] = {description : i18n.baseSelectDrawingSelectionToolDescriptorDragTheSelectionMaySwitchToOtherFrames()};
