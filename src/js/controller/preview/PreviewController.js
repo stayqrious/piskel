@@ -57,8 +57,6 @@
 
     var registerShortcut = pskl.app.shortcutService.registerShortcut.bind(pskl.app.shortcutService);
     registerShortcut(this.onionSkinShortcut, this.toggleOnionSkin_.bind(this));
-    console.log('What is this.i18n in PreviewController');
-    console.log(this.i18n);
     var onionSkinTooltip = pskl.utils.TooltipFormatter.format(this.i18n.onionSkinTogglePreviewTool(), this.onionSkinShortcut);
     this.toggleOnionSkinButton.setAttribute('title', onionSkinTooltip);
 
