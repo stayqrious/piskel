@@ -30,7 +30,7 @@
 
   pskl.utils.inherit(ns.ExportController, pskl.controller.settings.AbstractSettingController);
 
-  ns.ExportController.prototype.init = function () {
+  ns.ExportController.prototype.init = function() {
     // Initialize zoom controls
     this.scaleInput = document.querySelector('.export-scale .scale-input');
     this.addEventListener(this.scaleInput, 'change', this.onScaleChange_);
@@ -54,13 +54,13 @@
     this.tabsWidget.init(container);
   };
 
-  ns.ExportController.prototype.destroy = function () {
+  ns.ExportController.prototype.destroy = function() {
     this.sizeInputWidget.destroy();
     this.tabsWidget.destroy();
     this.superclass.destroy.call(this);
   };
 
-  ns.ExportController.prototype.onScaleChange_ = function () {
+  ns.ExportController.prototype.onScaleChange_ = function() {
     var value = parseFloat(this.scaleInput.value);
     if (!isNaN(value)) {
       if (Math.round(this.getExportZoom()) != value) {
@@ -70,13 +70,13 @@
     }
   };
 
-  ns.ExportController.prototype.updateScaleText_ = function (scale) {
+  ns.ExportController.prototype.updateScaleText_ = function(scale) {
     scale = scale.toFixed(1);
     var scaleText = document.querySelector('.export-scale .scale-text');
     scaleText.innerHTML = scale + 'x';
   };
 
-  ns.ExportController.prototype.onSizeInputChange_ = function () {
+  ns.ExportController.prototype.onSizeInputChange_ = function() {
     var zoom = this.getExportZoom();
     if (isNaN(zoom)) {
       return;
@@ -91,75 +91,49 @@
     }
   };
 
-  ns.ExportController.prototype.getExportZoom = function () {
+  ns.ExportController.prototype.getExportZoom = function() {
     return parseInt(this.widthInput.value, 10) / this.piskelController.getWidth();
   };
 
-  ns.ExportController.prototype.populateResizeSectionTemplate = function (templateDataArray) {
-    var obj = { 'text': '', 'inputText': '' };
-    var resultHtml = '';
-
-    for (var i = 0; i < templateDataArray.length; i++) {
-      var templateToUse = templateDataArray[i];
-      var templateId = templateToUse[0];
-      var text = templateToUse[1];
-      var inputText = templateToUse[2];
-
-      obj.text = text;
-      obj.inputText = inputText;
-
-      var templateWithValues = pskl.utils.Template.fillInTemplate(templateId, obj);
-      resultHtml += templateWithValues;
-
-      obj = { 'text': '', 'inputText': '' };
-    }
-
-    return resultHtml;
-  };
-
-  ns.ExportController.prototype.createExportTitle = function (i18n) {
-    // var templateDataArray = [
-    //   ['export-settings-template', 'Export']
-    // ];
-    // return this.populateResizeSectionTemplate(templateDataArray);
-    var tpl = pskl.utils.Template.get('export-settings-template');
-    return pskl.utils.Template.replace(tpl, {
+  ns.ExportController.prototype.createExportTitle = function(i18n) {
+    var templateData = {
       text: i18n.exportSettingSectionTitle(),
-    });
+    };
+    var templateId = 'export-settings-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
   };
 
-  ns.ExportController.prototype.createExportChangeScale = function (i18n) {
-    // var templateDataArray = [
-    //   ['export-scale-template', 'Scale', 'Scale the animation for export']
-    // ];
-    // return this.populateResizeSectionTemplate(templateDataArray);
-    var tpl = pskl.utils.Template.get('export-scale-template');
-    return pskl.utils.Template.replace(tpl, {
-      text: i18n.exportSettingSectionScale(),
-      inputText: i18n.exportSettingSectionScaleTheAnimation()
-    });
+  ns.ExportController.prototype.createExportChangeScale = function(i18n) {
+    var templateData = {
+      tooltipTitle: i18n.exportSettingSectionScaleTheAnimation(),
+      labelText: i18n.exportSettingSectionScale()
+    };
+    var templateId = 'export-scale-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
   };
 
   ns.ExportController.prototype.createExportChangeResolution = function (i18n) {
-    var tpl = pskl.utils.Template.get('export-change-resolution-template');
-    return pskl.utils.Template.replace(tpl, {
-      text: i18n.exportSettingSectionResolution(),
-    });
+    var templateData = {
+      spanText: i18n.exportSettingSectionResolution(),
+    };
+    var templateId = 'export-change-resolution-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
   };
 
-  ns.ExportController.prototype.createExportTabs = function (i18n) {
-    var tpl = pskl.utils.Template.get('export-tabs-template');
-    return pskl.utils.Template.replace(tpl, {
-      text: i18n.exportSettingSectionOthersTab()
-    });
+  ns.ExportController.prototype.createExportTabs = function(i18n) {
+    var templateData = {
+      divText: i18n.exportSettingSectionOthersTab(),
+    };
+    var templateId = 'export-tabs-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
   };
 
   /**
   * @private
   */
-  ns.ExportController.prototype.createExportDom_ = function (i18n) {
-    console.log('Inside createExportDom_()');
+  ns.ExportController.prototype.createExportDom_ = function(i18n) {
     var html = '';
+
     var exportTitleHtml = this.createExportTitle(i18n);
     html += exportTitleHtml;
 
