@@ -54,5 +54,16 @@
   "exportSettingSectionScaleTheAnimation": "Scale the animation for export",
   "exportSettingSectionScale": "Scale",
   "exportSettingSectionResolution": "Resolution",
-  "exportSettingSectionOthersTab": "Others"
+  "exportSettingSectionOthersTab": "Others",
+  "resizeSettingSectionTitle": "Resize",
+  "resizeSettingSectionSubmitButton" : "Resize",
+  "resizeSettingSectionWidth": "Width",
+  "resizeSettingSectionHeight": "Height",
+  "resizeSettingSectionMaintainAspectRatio":  "Maintain aspect ratio",
+  "resizeSettingSectionResizeCanvasContent":"Resize canvas content",
+  "resizeSettingSectionAnchor": "Anchor",
+  "resizeSettingSectionDefaultTitle": "Default size", 
+  "resizeSettingSectionDefaultSubmitButton": "Set Default",
+  "resizeSettingSectionDefaultWidth": "Width",
+  "resizeSettingSectionDefaultHeight": "Height"
 }
