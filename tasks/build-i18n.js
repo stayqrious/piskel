@@ -35,8 +35,8 @@ module.exports = function(grunt) {
   });
 
   // Compiles the MessageFormat JSON into a usable Javascript object.
-  // A locale's i18n string are accessible through the `window.locales` objects.
-  // For example, to access the English 'hello': `window.locales.en_us.hello()`
+  // A locale's i18n string are accessible through the `window.piskel_locales` objects.
+  // For example, to access the English 'hello': `window.piskel_locales.en_us.hello()`
   function process(locale, json) {
     var mf;
     try {
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
     return (
       mf
         .compile(json)
-        .toString('(window.locales = window.locales || {}).' + locale) + ';'
+        .toString('(window.piskel_locales = window.piskel_locales || {}).' + locale) + ';'
     );
   }
 };
