@@ -7,7 +7,11 @@
   var WHITE = '#FFFFFF';
 
   ns.GifExportController = function (piskelController, exportController, i18n) {
+    console.log('Inside GifExportController constructor');
+    console.log('What is i2un');
+    console.log(i18n);
     this.createGifExportDom_(i18n);
+    this.i18n = i18n;
     this.piskelController = piskelController;
     this.exportController = exportController;
   };
@@ -135,7 +139,7 @@
       });
     }
 
-    $.publish(Events.SHOW_PROGRESS, [{'name': 'Building animated GIF ...'}]);
+    $.publish(Events.SHOW_PROGRESS, [{'name': this.i18n.gifExportSettingSectionBuildingAnimatedGif()}]);
     gif.on('progress', function(percentage) {
       $.publish(Events.UPDATE_PROGRESS, [{'progress': (percentage * 100).toFixed(1)}]);
     }.bind(this));
@@ -175,7 +179,7 @@
         link : imageUrl,
         shortLink : this.shorten_(imageUrl, URL_MAX_LENGTH, '...')
       });
-      this.uploadStatusContainerEl.innerHTML = 'Your image is now available at : ' + linkHtml;
+      this.uploadStatusContainerEl.innerHTML = this.i18n.gifExportSettingSectionYourImageAvailableAt() + ' ' + linkHtml;
     } else {
       // FIXME : Should display error message instead
     }
@@ -201,7 +205,7 @@
 
   ns.GifExportController.prototype.createGifExportWarning = function (i18n) {
     var templateData = {
-      divText: i18n.gifExportSettingSectionWarning(),
+      divText: i18n.gifExportSettingSectionWarningMessage(),
     };
     var templateId = 'gif-export-warning-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateData);
@@ -252,6 +256,8 @@
     html = '';
     var gifExportWarningHtml = this.createGifExportWarning(i18n);
     html += gifExportWarningHtml;
+    console.log('Whgat is html');
+    console.log(html);
     $('#gif-export-warning').html(html);
 
     html = '';
@@ -259,13 +265,14 @@
     html += gifExportLoopRepeatedlyHtml;
     $('#loop-repeatedly-section').html(html);
 
+    html = '';
     var gifExportDownloadHtml = this.createGifExportDownloadSection(i18n);
     html += gifExportDownloadHtml;
 
     var gifExportUploadHtml = this.createGifExportUploadSection(i18n);
     html += gifExportUploadHtml;
-
+    
     html += '<div class=\'gif-upload\'><div class=\'gif-export-preview\'></div><div class=\'gif-upload-status\'></div></div>';
-    $('#export-panel-gif').html(html);
+    $('#gif-export-actions-section').html(html);
   };
 })();
