@@ -114,7 +114,7 @@
 
   ns.ExportController.prototype.createExportChangeResolution = function (i18n) {
     var templateValues = {
-      spanText: i18n.exportSettingSectionResolution(),
+      label: i18n.exportSettingSectionResolution(),
     };
     var templateId = 'export-change-resolution-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateValues);
