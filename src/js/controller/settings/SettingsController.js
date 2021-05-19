@@ -27,11 +27,11 @@
       controller : ns.SaveController
     }
   };
-
   var SEL_SETTING_CLS = 'has-expanded-drawer';
   var EXP_DRAWER_CLS = 'expanded';
 
-  ns.SettingsController = function (piskelController) {
+  ns.SettingsController = function (piskelController, i18n) {
+    this.i18n = i18n;
     this.piskelController = piskelController;
     this.closeDrawerShortcut = pskl.service.keyboard.Shortcuts.MISC.CLOSE_POPUP;
     this.settingsContainer = document.querySelector('[data-pskl-controller=settings]');
@@ -43,7 +43,7 @@
   /**
    * @public
    */
-  ns.SettingsController.prototype.init = function() {
+  ns.SettingsController.prototype.init = function () {
     pskl.utils.Event.addEventListener(this.settingsContainer, 'click', this.onSettingsContainerClick_, this);
     pskl.utils.Event.addEventListener(document.body, 'click', this.onBodyClick_, this);
 
@@ -85,7 +85,7 @@
     this.destroyCurrentController_();
 
     this.currentSetting = setting;
-    this.currentController = new settings[setting].controller(this.piskelController);
+    this.currentController = new settings[setting].controller(this.piskelController, this.i18n);
     this.currentController.init();
 
     pskl.app.shortcutService.registerShortcut(this.closeDrawerShortcut, this.closeDrawer_.bind(this));

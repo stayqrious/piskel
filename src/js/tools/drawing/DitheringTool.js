@@ -6,10 +6,11 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.DitheringTool = function() {
-    ns.SimplePen.call(this);
+  ns.DitheringTool = function (i18n) {
+    ns.SimplePen.call(this, i18n);
+
     this.toolId = 'tool-dithering';
-    this.helpText = 'Dithering tool';
+    this.helpText = i18n.ditheringDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.DITHERING;
   };
 
