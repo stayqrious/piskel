@@ -6,11 +6,11 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.FilledRectangle = function() {
-    ns.ShapeTool.call(this);
+  ns.FilledRectangle = function(i18n) {
+    ns.ShapeTool.call(this, i18n);
 
     this.toolId = 'tool-filled-rectangle';
-    this.helpText = 'Filled Rectangle tool';
+    this.helpText = i18n.filledRectangleDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.FILLED_RECTANGLE;
   };
 
