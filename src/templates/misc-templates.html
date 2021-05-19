@@ -70,6 +70,47 @@
   </script>
 
   <!-- ----------------------------------------------------------- -->
+  <!-- Export Tool -->
+  <!-- Template for Export Settings Title -->
+  <script type="text/template" id="export-settings-template">
+    <div class="settings-title" id="settings-title">
+      {{text}}
+    </div>
+  </script>
+
+   <!-- Template for Scale Changing -->
+   <script type="text/template" id="export-scale-template">
+    <div class="settings-item export-scale" title="{{tooltipTitle}}"
+        rel="tooltip"
+        data-placement="top"
+        id="exportScale">
+      <label for="scale-input">{{labelText}}</label>
+      <input type="range" class="scale-input" name="scale-input" min="1"  max="32" step="1"/>
+      <span class="scale-text"></span>
+    </div>
+  </script>
+
+  <!-- Template for Change Resolution -->
+  <script type="text/template" id="export-change-resolution-template">
+    <div class="settings-item export-resize" id="export-resize">
+      <span class="resize-label">{{label}}</span>
+      <input type="text" class="textfield  resize-field  resize-width" autocomplete="off" name="resize-width"/>
+      <div class="resize-label">x</div>
+      <input type="text" class="textfield  resize-field  resize-height" autocomplete="off" name="resize-height"/>
+    </div>
+  </script>
+
+  <!-- Template for Export Tabs -->
+  <script type="text/template" id="export-tabs-template">
+    <div class="export-tabs tab-list" id="tab-list">
+      <div class="export-tab tab-item" data-tab-id="gif">GIF</div>
+      <div class="export-tab tab-item" data-tab-id="png">PNG</div>
+      <div class="export-tab tab-item" data-tab-id="zip">Zip</div>
+      <div class="export-tab tab-item" data-tab-id="misc">{{tabText}}</div>
+    </div>
+  </script>
+
+  <!-- ----------------------------------------------------------- -->
   <!-- Gif Export Tool -->
   <!-- Template for Gif Export Desc -->
   <script type="text/template" id="gif-export-desc-template">
