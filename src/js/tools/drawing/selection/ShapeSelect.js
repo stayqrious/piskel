@@ -6,11 +6,11 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing.selection');
 
-  ns.ShapeSelect = function() {
-    ns.BaseSelect.call(this);
+  ns.ShapeSelect = function(i18n) {
+    ns.BaseSelect.call(this, i18n);
 
     this.toolId = 'tool-shape-select';
-    this.helpText = 'Shape selection';
+    this.helpText = i18n.shapeSelectDrawingSelectionTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.SHAPE_SELECT;
   };
 

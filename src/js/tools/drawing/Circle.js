@@ -6,11 +6,11 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing');
 
-  ns.Circle = function() {
-    ns.ShapeTool.call(this);
+  ns.Circle = function(i18n) {
+    ns.ShapeTool.call(this, i18n);
 
     this.toolId = 'tool-circle';
-    this.helpText = 'Circle tool';
+    this.helpText = i18n.circleDrawingTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.CIRCLE;
   };
 

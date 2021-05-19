@@ -5,7 +5,8 @@
   var PREVIEW_SIZE = 200;
   var RENDER_MINIMUM_DELAY = 300;
 
-  ns.PreviewController = function (piskelController, container) {
+  ns.PreviewController = function (piskelController, container, i18n) {
+    this.i18n = i18n;
     this.piskelController = piskelController;
     this.container = container;
 
@@ -44,7 +45,7 @@
     this.popupPreviewController = new ns.PopupPreviewController(piskelController);
   };
 
-  ns.PreviewController.prototype.init = function () {
+  ns.PreviewController.prototype.init = function() {
     this.fpsRangeInput.addEventListener('change', this.onFpsRangeInputUpdate_.bind(this));
     this.fpsRangeInput.addEventListener('input', this.onFpsRangeInputUpdate_.bind(this));
 
@@ -56,8 +57,7 @@
 
     var registerShortcut = pskl.app.shortcutService.registerShortcut.bind(pskl.app.shortcutService);
     registerShortcut(this.onionSkinShortcut, this.toggleOnionSkin_.bind(this));
-
-    var onionSkinTooltip = pskl.utils.TooltipFormatter.format('Toggle onion skin', this.onionSkinShortcut);
+    var onionSkinTooltip = pskl.utils.TooltipFormatter.format(this.i18n.onionSkinTogglePreviewTool(), this.onionSkinShortcut);
     this.toggleOnionSkinButton.setAttribute('title', onionSkinTooltip);
 
     for (var size in this.previewSizes) {

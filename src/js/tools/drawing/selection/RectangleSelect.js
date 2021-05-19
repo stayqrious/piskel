@@ -6,11 +6,11 @@
 (function() {
   var ns = $.namespace('pskl.tools.drawing.selection');
 
-  ns.RectangleSelect = function() {
-    ns.AbstractDragSelect.call(this);
+  ns.RectangleSelect = function(i18n) {
+    ns.AbstractDragSelect.call(this, i18n);
 
     this.toolId = 'tool-rectangle-select';
-    this.helpText = 'Rectangle selection';
+    this.helpText = i18n.rectangleSelectDrawingSelectionTool();
     this.shortcut = pskl.service.keyboard.Shortcuts.TOOL.RECTANGLE_SELECT;
 
   };
