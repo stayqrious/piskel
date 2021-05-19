@@ -105,7 +105,7 @@
 
   ns.ResizeController.prototype.createResizeTitleDefault = function (i18n) {
     var templateData = {
-      text: i18n.resizeSettingSectionDefaultTitle()
+      divText: i18n.resizeSettingSectionDefaultTitle()
     };
     var templateId = 'resize-settings-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateData);
@@ -113,7 +113,7 @@
 
   ns.ResizeController.prototype.createResizeTitle = function (i18n) {
     var templateData = {
-      text: i18n.resizeSettingSectionTitle()
+      divText: i18n.resizeSettingSectionTitle()
     };
     var templateId = 'resize-settings-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateData);

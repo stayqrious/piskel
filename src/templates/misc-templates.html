@@ -34,7 +34,7 @@
   <!-- Resize Tool -->
   <!-- Template for Resize Settings Title -->
   <script type="text/template" id="resize-settings-template">
-    {{text}}
+    {{divText}}
   </script>
 
   <!-- Template for Width and Height -->
@@ -67,5 +67,37 @@
   <!-- Template for Resize Submit Button -->
   <script type="text/template" id="resize-button-template">
     <input type="submit" class="button button-primary resize-button" value="{{valueText}}" />
+  </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Gif Export Tool -->
+  <!-- Template for Gif Export Desc -->
+  <script type="text/template" id="gif-export-desc-template">
+    {{divText}}
+  </script>
+
+  <!-- Template for Gif Export Warning -->
+  <script type="text/template" id="gif-export-warning-template">
+    <div class="gif-export-warning-icon icon-common-warning-red">&nbsp;</div>
+    <div class="gif-export-warning-message">
+      {{divText}}
+    </div>
+  </script>
+
+  <!-- Template for Gif Export Loop Repeatedly -->
+  <script type="text/template" id="gif-export-loop-repeatedly-template">
+    <input id="gif-repeat-checkbox" class="gif-repeat-checkbox checkbox-fix" type="checkbox" />
+    <label for="gif-repeat-checkbox"
+           title="{{tooltipTitle}}"
+           rel="tooltip"
+           data-placement="top">{{labelText}}</label>
+  </script>
+
+  <!-- Template for Gif Export Download and Upload Section -->
+  <script type="text/template" id="gif-export-upload-download-template">
+    <div class="export-panel-section export-panel-row {{codeDotOrgClass}}" id="{{id}}">
+      <button type="button" class="button button-primary {{cssClass}}">{{buttonText}}</button>
+      <div class="export-info">{{divText}}</div>
+    </div>
   </script>
 </div>

@@ -6,7 +6,8 @@
   var MAGIC_PINK = '#FF00FF';
   var WHITE = '#FFFFFF';
 
-  ns.GifExportController = function (piskelController, exportController) {
+  ns.GifExportController = function (piskelController, exportController, i18n) {
+    this.createGifExportDom_(i18n);
     this.piskelController = piskelController;
     this.exportController = exportController;
   };
@@ -188,5 +189,83 @@
       url = part1 + suffix + part2;
     }
     return url;
+  };
+
+  ns.GifExportController.prototype.createGifExportDesc = function (i18n) {
+    var templateData = {
+      divText: i18n.gifExportSettingSectionDesc(),
+    };
+    var templateId = 'gif-export-desc-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  };
+
+  ns.GifExportController.prototype.createGifExportWarning = function (i18n) {
+    var templateData = {
+      divText: i18n.gifExportSettingSectionWarning(),
+    };
+    var templateId = 'gif-export-warning-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  };
+
+  ns.GifExportController.prototype.createGifExportLoopRepeatedly = function (i18n) {
+    var templateData = {
+      labelText: i18n.gifExportSettingSectionLoopRepeatedly(),
+      tooltipTitle: i18n.gifExportSettingSectionUncheckToPlay()
+    };
+    var templateId = 'gif-export-loop-repeatedly-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  };
+
+  ns.GifExportController.prototype.createGifExportDownloadSection = function (i18n) {
+    var templateData = {
+      codeDotOrgClass: '',
+      id: 'download-gif-section',
+      cssClass: 'gif-download-button',
+      buttonText: i18n.gifExportSettingSectionDownload(),
+      divText: i18n.gifExportSettingSectionDownloadDesc()
+    };
+    var templateId = 'gif-export-upload-download-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  };
+
+  ns.GifExportController.prototype.createGifExportUploadSection = function (i18n) {
+    var templateData = {
+      codeDotOrgClass: 'upload-gif-gamelab',
+      id: 'upload-gif-section',
+      cssClass: 'gif-upload-button',
+      buttonText: i18n.gifExportSettingSectionUpload(),
+      divText: i18n.gifExportSettingSectionUploadDesc()
+    };
+    var templateId = 'gif-export-upload-download-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  };
+
+  /**
+  * @private
+  */
+  ns.GifExportController.prototype.createGifExportDom_ = function (i18n) {
+    var html = '';
+    var gifExportDescHtml = this.createGifExportDesc(i18n);
+    html += gifExportDescHtml;
+    $('#export-info').html(html);
+
+    html = '';
+    var gifExportWarningHtml = this.createGifExportWarning(i18n);
+    html += gifExportWarningHtml;
+    $('#gif-export-warning').html(html);
+
+    html = '';
+    var gifExportLoopRepeatedlyHtml = this.createGifExportLoopRepeatedly(i18n);
+    html += gifExportLoopRepeatedlyHtml;
+    $('#loop-repeatedly-section').html(html);
+
+    var gifExportDownloadHtml = this.createGifExportDownloadSection(i18n);
+    html += gifExportDownloadHtml;
+
+    var gifExportUploadHtml = this.createGifExportUploadSection(i18n);
+    html += gifExportUploadHtml;
+
+    html += '<div class=\'gif-upload\'><div class=\'gif-export-preview\'></div><div class=\'gif-upload-status\'></div></div>';
+    $('#export-panel-gif').html(html);
   };
 })();

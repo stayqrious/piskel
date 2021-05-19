@@ -60,5 +60,15 @@
   "resizeSettingSectionDefaultTitle": "Default size", 
   "resizeSettingSectionDefaultSubmitButton": "Set Default",
   "resizeSettingSectionDefaultWidth": "Width",
-  "resizeSettingSectionDefaultHeight": "Height"
+  "resizeSettingSectionDefaultHeight": "Height",
+
+  "gifExportSettingSectionDesc": "Convert your sprite to an animated GIF. TEST 1",
+  "gifExportSettingSectionWarningMessage": "Too many colors: can not preserve original colors or transparency. TEST 2",
+  "gifExportSettingSectionLoopRepeatedly": "Loop repeatedly TEST 3",
+  "gifExportSettingSectionDownload": "Download TEST 4",
+  "gifExportSettingSectionDownloadDesc": "Download as an animated GIF. TEST 5",
+  "gifExportSettingSectionUpload": "Upload TEST 6",
+  "gifExportSettingSectionUploadDesc": "Upload as an animated GIF to a public URL. TEST 7",
+  "gifExportSettingSectionUncheckToPlay": "Uncheck to play the animation only one time. TEST 8"    
+  
 }
