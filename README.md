@@ -36,6 +36,20 @@ To publish a new version to npm switch to the master branch, use `npm login` to 
 * Push the commit and tag to github.
 * Publish the new release package to npm.
 
+## Internationalization (i18n)
+The Piskel UI can support different languages by setting the `window.piskel_locale` to a four letter locale code, i.e. `en_us`, `es_mx`, etc.
+
+The available strings are in `i18n/locales` directory and each locale has its own file. For example: `en_us.json` where `en` is English and `us` is United States
+Note that en_us.json should contain all available strings because this is the locale other languages will fallback to if a translation from English doesn't exist.
+
+The strings for all the languages are loaded into `window.piskel_locales` and the language specific strings can be accessed using the four letter locale code. For example:
+```
+var i18n = window.piskel_locales[window.piskel_locale];
+console.log(i18n.simplePenDrawingTool());
+```
+
+The JSON files are converted to Javascript files during the build in `tasks/build-i18n.js`.  The [MessageFormat](http://messageformat.github.io/messageformat/) library is used to convert the static JSON strings into Javascript functions so dynamic content can be injected into the strings.
+
 ## License
 
 Code Studio Piskel is Copyright 2016 Code.org
