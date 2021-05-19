@@ -49,5 +49,16 @@
   "onionSkinTogglePreviewTool": "Toggle onion skin",
   "duplicateThisFrameFramesListTool" :"Duplicate this frame",
   "deleteThisFrameFramesListTool": "Delete this frame",
-  "loadingPiskelMessage": "Loading Piskel..."
+  "loadingPiskelMessage": "Loading Piskel...",
+  "resizeSettingSectionTitle": "Resize",
+  "resizeSettingSectionSubmitButton" : "Resize",
+  "resizeSettingSectionWidth": "Width",
+  "resizeSettingSectionHeight": "Height",
+  "resizeSettingSectionMaintainAspectRatio":  "Maintain aspect ratio",
+  "resizeSettingSectionResizeCanvasContent":"Resize canvas content",
+  "resizeSettingSectionAnchor": "Anchor",
+  "resizeSettingSectionDefaultTitle": "Default size", 
+  "resizeSettingSectionDefaultSubmitButton": "Set Default",
+  "resizeSettingSectionDefaultWidth": "Width",
+  "resizeSettingSectionDefaultHeight": "Height"
 }
