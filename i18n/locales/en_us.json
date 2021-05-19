@@ -50,9 +50,9 @@
   "duplicateThisFrameFramesListTool" :"Duplicate this frame",
   "deleteThisFrameFramesListTool": "Delete this frame",
   "loadingPiskelMessage": "Loading Piskel...",
-  "exportSettingSectionTitle": "Export TEST 1",
-  "exportSettingSectionScaleTheAnimation": "Scale the animation for export TEST 2",
-  "exportSettingSectionScale": "Scale TEST 3",
-  "exportSettingSectionResolution": "Resolution TEST 4",
-  "exportSettingSectionOthersTab": "Others TEST 5"
+  "exportSettingSectionTitle": "Export",
+  "exportSettingSectionScaleTheAnimation": "Scale the animation for export",
+  "exportSettingSectionScale": "Scale",
+  "exportSettingSectionResolution": "Resolution",
+  "exportSettingSectionOthersTab": "Others"
 }
