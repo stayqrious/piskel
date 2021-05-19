@@ -122,7 +122,7 @@
 
   ns.ExportController.prototype.createExportTabs = function(i18n) {
     var templateValues = {
-      divText: i18n.exportSettingSectionOthersTab(),
+      tabText: i18n.exportSettingSectionOthersTab(),
     };
     var templateId = 'export-tabs-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateValues);
