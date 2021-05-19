@@ -7,9 +7,6 @@
   var WHITE = '#FFFFFF';
 
   ns.GifExportController = function (piskelController, exportController, i18n) {
-    console.log('Inside GifExportController constructor');
-    console.log('What is i2un');
-    console.log(i18n);
     this.createGifExportDom_(i18n);
     this.i18n = i18n;
     this.piskelController = piskelController;
@@ -197,7 +194,7 @@
 
   ns.GifExportController.prototype.createGifExportDesc = function (i18n) {
     var templateData = {
-      divText: i18n.gifExportSettingSectionDesc(),
+      description: i18n.gifExportSettingSectionDesc(),
     };
     var templateId = 'gif-export-desc-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateData);
@@ -205,7 +202,7 @@
 
   ns.GifExportController.prototype.createGifExportWarning = function (i18n) {
     var templateData = {
-      divText: i18n.gifExportSettingSectionWarningMessage(),
+      description: i18n.gifExportSettingSectionWarningMessage(),
     };
     var templateId = 'gif-export-warning-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateData);
@@ -226,7 +223,7 @@
       id: 'download-gif-section',
       cssClass: 'gif-download-button',
       buttonText: i18n.gifExportSettingSectionDownload(),
-      divText: i18n.gifExportSettingSectionDownloadDesc()
+      description: i18n.gifExportSettingSectionDownloadDesc()
     };
     var templateId = 'gif-export-upload-download-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateData);
@@ -238,7 +235,7 @@
       id: 'upload-gif-section',
       cssClass: 'gif-upload-button',
       buttonText: i18n.gifExportSettingSectionUpload(),
-      divText: i18n.gifExportSettingSectionUploadDesc()
+      description: i18n.gifExportSettingSectionUploadDesc()
     };
     var templateId = 'gif-export-upload-download-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateData);
@@ -256,8 +253,6 @@
     html = '';
     var gifExportWarningHtml = this.createGifExportWarning(i18n);
     html += gifExportWarningHtml;
-    console.log('Whgat is html');
-    console.log(html);
     $('#gif-export-warning').html(html);
 
     html = '';
