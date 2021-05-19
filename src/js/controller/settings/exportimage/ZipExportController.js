@@ -76,7 +76,7 @@
 
   ns.ZipExportController.prototype.createZipExportDesc = function (i18n) {
     var templateData = {
-      text: i18n.zipExportSettingSectionDesc(),
+      divText: i18n.zipExportSettingSectionDesc(),
     };
     var templateId = 'zip-export-desc-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateData);
