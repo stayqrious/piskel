@@ -125,6 +125,16 @@
     }
   };
 
+  ns.SettingsController.prototype.createUserSetting = function () {
+    var templateData = {
+      dataSetting: 'user',
+      iconSetting: 'icon-settings-gear-white',
+      title: '<span class=\'highlight\'>PREFERENCES</span></br>'
+    };
+    var templateId = 'gif-export-desc-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  }
+
    /**
    * @private
    */
