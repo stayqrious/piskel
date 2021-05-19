@@ -6,7 +6,7 @@
     /**
      * Takes in a templateId and values to replace the keys found in the template
      * @param {string} templateId - ID used to retrieve the correct template from misc-templates.html
-     * @param {string} templateValues - The values to fill in the template with.
+     * @param {Object} templateValues - The values to fill in the template with.
      */
     fillInTemplate : function (templateId, templateValues) {
       var tpl = ns.Template.get(templateId);
