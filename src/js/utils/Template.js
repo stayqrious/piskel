@@ -5,7 +5,6 @@
   ns.Template = {
     /**
      * Takes in a templateId and values to replace the keys found in the template
-     * Requires Node-Webkit environment for file system access
      * @param {string} templateId - ID used to retrieve the correct template from misc-templates.html
      * @param {string} templateValues - The values to fill in the template with.
      */
