@@ -20,15 +20,17 @@
     }
   };
 
-  ns.ExportController = function (piskelController) {
+  ns.ExportController = function (piskelController, i18n) {
+    this.createExportDom_(i18n);
+
     this.piskelController = piskelController;
-    this.tabsWidget = new pskl.widgets.Tabs(tabs, this, pskl.UserSettings.EXPORT_TAB);
+    this.tabsWidget = new pskl.widgets.Tabs(tabs, this, pskl.UserSettings.EXPORT_TAB, i18n);
     this.onSizeInputChange_ = this.onSizeInputChange_.bind(this);
   };
 
   pskl.utils.inherit(ns.ExportController, pskl.controller.settings.AbstractSettingController);
 
-  ns.ExportController.prototype.init = function () {
+  ns.ExportController.prototype.init = function() {
     // Initialize zoom controls
     this.scaleInput = document.querySelector('.export-scale .scale-input');
     this.addEventListener(this.scaleInput, 'change', this.onScaleChange_);
@@ -52,13 +54,13 @@
     this.tabsWidget.init(container);
   };
 
-  ns.ExportController.prototype.destroy = function () {
+  ns.ExportController.prototype.destroy = function() {
     this.sizeInputWidget.destroy();
     this.tabsWidget.destroy();
     this.superclass.destroy.call(this);
   };
 
-  ns.ExportController.prototype.onScaleChange_ = function () {
+  ns.ExportController.prototype.onScaleChange_ = function() {
     var value = parseFloat(this.scaleInput.value);
     if (!isNaN(value)) {
       if (Math.round(this.getExportZoom()) != value) {
@@ -68,13 +70,13 @@
     }
   };
 
-  ns.ExportController.prototype.updateScaleText_ = function (scale) {
+  ns.ExportController.prototype.updateScaleText_ = function(scale) {
     scale = scale.toFixed(1);
     var scaleText = document.querySelector('.export-scale .scale-text');
     scaleText.innerHTML = scale + 'x';
   };
 
-  ns.ExportController.prototype.onSizeInputChange_ = function () {
+  ns.ExportController.prototype.onSizeInputChange_ = function() {
     var zoom = this.getExportZoom();
     if (isNaN(zoom)) {
       return;
@@ -89,7 +91,62 @@
     }
   };
 
-  ns.ExportController.prototype.getExportZoom = function () {
+  ns.ExportController.prototype.getExportZoom = function() {
     return parseInt(this.widthInput.value, 10) / this.piskelController.getWidth();
+  };
+
+  ns.ExportController.prototype.createExportTitle = function(i18n) {
+    var templateValues = {
+      text: i18n.exportSettingSectionTitle(),
+    };
+    var templateId = 'export-settings-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.ExportController.prototype.createExportChangeScale = function(i18n) {
+    var templateValues = {
+      tooltipTitle: i18n.exportSettingSectionScaleTheAnimation(),
+      labelText: i18n.exportSettingSectionScale()
+    };
+    var templateId = 'export-scale-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.ExportController.prototype.createExportChangeResolution = function (i18n) {
+    var templateValues = {
+      label: i18n.exportSettingSectionResolution(),
+    };
+    var templateId = 'export-change-resolution-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.ExportController.prototype.createExportTabs = function(i18n) {
+    var templateValues = {
+      tabText: i18n.exportSettingSectionOthersTab(),
+    };
+    var templateId = 'export-tabs-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  /**
+  * @private
+  */
+  ns.ExportController.prototype.createExportDom_ = function(i18n) {
+    var html = '';
+
+    var exportTitleHtml = this.createExportTitle(i18n);
+    html += exportTitleHtml;
+
+    var exportChangeScaleHtml = this.createExportChangeScale(i18n);
+    html += exportChangeScaleHtml;
+
+    var exportChangeResolutionHtml = this.createExportChangeResolution(i18n);
+    html += exportChangeResolutionHtml;
+
+    var exportTabsHtml = this.createExportTabs(i18n);
+    html += exportTabsHtml;
+
+    html += '<div class="export-panel tab-content"></div>';
+    $('#settings-section-export').html(html);
   };
 })();
