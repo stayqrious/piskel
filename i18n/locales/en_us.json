@@ -49,6 +49,7 @@
   "onionSkinTogglePreviewTool": "Toggle onion skin",
   "duplicateThisFrameFramesListTool" :"Duplicate this frame",
   "deleteThisFrameFramesListTool": "Delete this frame",
+  "addNewFrameFramesListTool": "Add new frame TEST 1",
   "loadingPiskelMessage": "Loading Piskel...",
   "exportSettingSectionTitle": "Export",
   "exportSettingSectionScaleTheAnimation": "Scale the animation for export",
@@ -65,5 +66,5 @@
   "resizeSettingSectionDefaultTitle": "Default size", 
   "resizeSettingSectionDefaultSubmitButton": "Set Default",
   "resizeSettingSectionDefaultWidth": "Width",
-  "resizeSettingSectionDefaultHeight": "Height"
+  "resizeSettingSectionDefaultHeight": "Height"  
 }

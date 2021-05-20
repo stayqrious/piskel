@@ -182,7 +182,7 @@
     newFrameButton.className = 'add-frame-action';
     newFrameButton.setAttribute('data-tile-action', ACTION.NEW_FRAME);
     newFrameButton.innerHTML = '<div class="add-frame-action-icon icon-frame-plus-white">' +
-      '</div><div class="label">Add new frame</div>';
+      '</div><div class="label">' + this.i18n.addNewFrameFramesListTool() + '</div>';
     this.previewList.appendChild(newFrameButton);
     this.addFrameTile = newFrameButton;
 
