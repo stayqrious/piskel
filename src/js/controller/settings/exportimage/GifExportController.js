@@ -246,10 +246,10 @@
   * @private
   */
   ns.GifExportController.prototype.createGifExportDom_ = function (i18n) {
-    var html = '';
     $('#export-info').html(this.createGifExportDesc(i18n));
     $('#gif-export-warning').html(this.createGifExportWarning(i18n));
     $('#loop-repeatedly-section').html(this.createGifExportLoopRepeatedly(i18n));
+    var html = '';
     html += this.createGifExportDownloadSection(i18n);
     html += this.createGifExportUploadSection(i18n);
     html += '<div class=\'gif-upload\'><div class=\'gif-export-preview\'></div><div class=\'gif-upload-status\'></div></div>';
