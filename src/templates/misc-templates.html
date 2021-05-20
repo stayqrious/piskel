@@ -84,7 +84,7 @@
         rel="tooltip"
         data-placement="top"
         id="exportScale">
-      <label for="scale-input">{{labelText}}</label>
+      <label for="scale-input">{{label}}</label>
       <input type="range" class="scale-input" name="scale-input" min="1"  max="32" step="1"/>
       <span class="scale-text"></span>
     </div>
@@ -114,13 +114,13 @@
   <!-- Zip Export Tool -->
   <!-- Template for Zip Export Desc -->
   <script type="text/template" id="zip-export-desc-template">
-    {{divText}}
+    {{description}}
   </script>
 
   <!-- Template for Zip Export Prefix -->
   <script type="text/template" id="zip-export-prefix-template">
     <div style="display: flex; line-height: 23px;">
-      <label style="flex-shrink: 0; padding-right:5px;">{{labelText}}</label>
+      <label style="flex-shrink: 0; padding-right:5px;">{{label}}</label>
       <input type="text" style="flex: 1;" class="zip-prefix-name textfield"
             autocomplete="off" placeholder="{{placeholderText}}">
     </div>
@@ -130,7 +130,7 @@
   <script type="text/template" id="zip-export-layers-template">
     <div class="checkbox-container" style="margin: 5px 0;">
       <input id="zip-split-layers" class="zip-split-layers-checkbox checkbox-fix" type="checkbox" />
-      <label for="zip-split-layers">{{labelText}}</label>
+      <label for="zip-split-layers">{{label}}</label>
     </div>
   </script>
 

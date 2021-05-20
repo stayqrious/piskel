@@ -75,36 +75,36 @@
   };
 
   ns.ZipExportController.prototype.createZipExportDesc = function (i18n) {
-    var templateData = {
-      divText: i18n.zipExportSettingSectionDesc(),
+    var templateValues = {
+      description: i18n.zipExportSettingSectionDesc(),
     };
     var templateId = 'zip-export-desc-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   ns.ZipExportController.prototype.createZipExportPrefix = function (i18n) {
-    var templateData = {
-      labelText: i18n.zipExportSettingSectionPrefix(),
+    var templateValues = {
+      label: i18n.zipExportSettingSectionPrefix(),
       placeholderText: i18n.zipExportSettingSectionPNGFilePrefix()
     };
     var templateId = 'zip-export-prefix-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   ns.ZipExportController.prototype.createZipExportLayers = function (i18n) {
-    var templateData = {
-      labelText: i18n.zipExportSettingSectionSplitByLayers()
+    var templateValues = {
+      label: i18n.zipExportSettingSectionSplitByLayers()
     };
     var templateId = 'zip-export-layers-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   ns.ZipExportController.prototype.createZipExportDownloadButton = function (i18n) {
-    var templateData = {
+    var templateValues = {
       buttonText: i18n.zipExportSettingSectionDownloadZip()
     };
     var templateId = 'zip-export-download-button-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   /**
@@ -112,20 +112,11 @@
   */
   ns.ZipExportController.prototype.createZipExportDom_ = function (i18n) {
     var html = '';
-    var zipExportDescHtml = this.createZipExportDesc(i18n);
-    html += zipExportDescHtml;
-    $('#export-info').html(html);
+    $('#export-info').html(this.createZipExportDesc(i18n));
 
-    html = '';
-    var zipExportPrefixHtml = this.createZipExportPrefix(i18n);
-    html += zipExportPrefixHtml;
-
-    var zipExportLayersHtml = this.createZipExportLayers(i18n);
-    html += zipExportLayersHtml;
-
-    var zipExportDownloadButtonHtml = this.createZipExportDownloadButton(i18n);
-    html += zipExportDownloadButtonHtml;
-
+    html += this.createZipExportPrefix(i18n);
+    html += this.createZipExportLayers(i18n);
+    html += this.createZipExportDownloadButton(i18n);
     $('#export-panel-section').html(html);
   };
 })();
