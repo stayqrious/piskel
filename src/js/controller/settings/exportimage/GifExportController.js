@@ -177,7 +177,7 @@
         link : imageUrl,
         shortLink : this.shorten_(imageUrl, URL_MAX_LENGTH, '...')
       });
-      this.uploadStatusContainerEl.innerHTML = `${this.i18n.gifExportSettingSectionYourImageAvailableAt()} ${linkHtml}`;
+      this.uploadStatusContainerEl.innerHTML = this.i18n.gifExportSettingSectionYourImageAvailableAt() + ' :' + linkHtml;
     } else {
       // FIXME : Should display error message instead
     }
