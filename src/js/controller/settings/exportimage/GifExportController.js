@@ -194,32 +194,32 @@
   };
 
   ns.GifExportController.prototype.createGifExportDesc = function (i18n) {
-    var templateData = {
+    var templateValues = {
       description: i18n.gifExportSettingSectionDesc(),
     };
     var templateId = 'gif-export-desc-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   ns.GifExportController.prototype.createGifExportWarning = function (i18n) {
-    var templateData = {
+    var templateValues = {
       description: i18n.gifExportSettingSectionWarningMessage(),
     };
     var templateId = 'gif-export-warning-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   ns.GifExportController.prototype.createGifExportLoopRepeatedly = function (i18n) {
-    var templateData = {
+    var templateValues = {
       label: i18n.gifExportSettingSectionLoopRepeatedly(),
       tooltipTitle: i18n.gifExportSettingSectionUncheckToPlay()
     };
     var templateId = 'gif-export-loop-repeatedly-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   ns.GifExportController.prototype.createGifExportDownloadSection = function (i18n) {
-    var templateData = {
+    var templateValues = {
       codeDotOrgClass: '',
       id: 'download-gif-section',
       cssClass: 'gif-download-button',
@@ -227,11 +227,11 @@
       description: i18n.gifExportSettingSectionDownloadDesc()
     };
     var templateId = 'gif-export-upload-download-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   ns.GifExportController.prototype.createGifExportUploadSection = function (i18n) {
-    var templateData = {
+    var templateValues = {
       codeDotOrgClass: 'upload-gif-gamelab',
       id: 'upload-gif-section',
       cssClass: 'gif-upload-button',
@@ -239,7 +239,7 @@
       description: i18n.gifExportSettingSectionUploadDesc()
     };
     var templateId = 'gif-export-upload-download-template';
-    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
   };
 
   /**
