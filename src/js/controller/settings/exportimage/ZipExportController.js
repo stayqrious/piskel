@@ -111,9 +111,8 @@
   * @private
   */
   ns.ZipExportController.prototype.createZipExportDom_ = function (i18n) {
-    var html = '';
     $('#export-info').html(this.createZipExportDesc(i18n));
-
+    var html = '';
     html += this.createZipExportPrefix(i18n);
     html += this.createZipExportLayers(i18n);
     html += this.createZipExportDownloadButton(i18n);
