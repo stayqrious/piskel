@@ -65,5 +65,7 @@
   "resizeSettingSectionDefaultTitle": "Default size", 
   "resizeSettingSectionDefaultSubmitButton": "Set Default",
   "resizeSettingSectionDefaultWidth": "Width",
-  "resizeSettingSectionDefaultHeight": "Height"
+  "resizeSettingSectionDefaultHeight": "Height",
+  "penSizeChangeTitle": "Pen size TEST 1",
+  "penSizeChangeAt14816": "at 1, 4, 8, or 16 pixels TEST 2"
 }
