@@ -65,5 +65,17 @@
   "resizeSettingSectionDefaultTitle": "Default size", 
   "resizeSettingSectionDefaultSubmitButton": "Set Default",
   "resizeSettingSectionDefaultWidth": "Width",
-  "resizeSettingSectionDefaultHeight": "Height"
+  "resizeSettingSectionDefaultHeight": "Height",
+  "preferencesSetting": "PREFERENCES TEST 1",
+  "resizeSetting": "RESIZE TEST 2",
+  "resizeSettingDescriptorResizeTheDrawingArea":"Resize the drawing area 3",
+  "saveSetting": "SAVE TEST 4",
+  "saveSettingDescriptorSaveToGallerySaveLocally": "Save to your gallery, save locally 5",
+  "saveSettingDescriptorExportAsFile": "export as a file 6",
+  "exportSetting": "EXPORT TEST 7",
+  "exportSettingDescriptorExportAsImageSpriteSheet": "Export as Image, as Spritesheet 8",
+  "exportSettingDescriptorOrAsAnimatedGif": "or as Animated GIF 9",
+  "importSetting": "IMPORT TEST 10",
+  "importSettingDescriptorImportAsExistingImage": "Import an existing image 11",
+  "importSettingDescriptorAnimatedGifOrPiskelFile": "an animated GIF or a .piskel file 12"
 }
