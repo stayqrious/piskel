@@ -182,6 +182,6 @@
     html += this.createSaveSetting(i18n);
     html += this.createExportSetting(i18n);
     html += this.createImportSetting(i18n);
-    $('#vertical-centerer').html(html);
+    $('#settings-vertical-centerer').html(html);
   };
 })();
