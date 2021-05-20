@@ -8,7 +8,7 @@
 
   ns.GifExportController = function (piskelController, exportController, i18n) {
     this.createGifExportDom_(i18n);
-    
+
     this.i18n = i18n;
     this.piskelController = piskelController;
     this.exportController = exportController;
