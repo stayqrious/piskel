@@ -34,13 +34,13 @@
   <!-- Resize Tool -->
   <!-- Template for Resize Settings Title -->
   <script type="text/template" id="resize-settings-template">
-    {{text}}
+    {{title}}
   </script>
 
   <!-- Template for Width and Height -->
   <script type="text/template" id="resize-tool-template">
     <div class="resize-section">
-      <span class="resize-section-title">{{spanText}}</span>
+      <span class="resize-section-title">{{label}}</span>
       <input type="text" class="textfield resize-size-field" autocomplete="off" name="{{inputName}}"/>
       <span>px</span>
     </div>
@@ -51,7 +51,7 @@
     <div class="resize-section">
       <label class="checkbox-container">
         <input type="checkbox" class="{{cssClass}} checkbox-fix" value="true"/>
-        <span>{{spanText}}</span>
+        <span>{{label}}</span>
       </label>
     </div>
   </script>
@@ -59,7 +59,7 @@
   <!-- Template for Anchor -->
   <script type="text/template" id="resize-anchor-template">
     <div class="resize-section">
-      <span class="resize-section-title">{{spanText}}</span>
+      <span class="resize-section-title">{{title}}</span>
       <div class="resize-anchor-container"></div>
     </div>
   </script>
@@ -84,7 +84,7 @@
         rel="tooltip"
         data-placement="top"
         id="exportScale">
-      <label for="scale-input">{{labelText}}</label>
+      <label for="scale-input">{{label}}</label>
       <input type="range" class="scale-input" name="scale-input" min="1"  max="32" step="1"/>
       <span class="scale-text"></span>
     </div>
@@ -107,6 +107,38 @@
       <div class="export-tab tab-item" data-tab-id="png">PNG</div>
       <div class="export-tab tab-item" data-tab-id="zip">Zip</div>
       <div class="export-tab tab-item" data-tab-id="misc">{{tabText}}</div>
+    </div>
+  </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Gif Export Tool -->
+  <!-- Template for Gif Export Desc -->
+  <script type="text/template" id="gif-export-desc-template">
+    {{description}}
+  </script>
+
+  <!-- Template for Gif Export Warning -->
+  <script type="text/template" id="gif-export-warning-template">
+    <div class="gif-export-warning-icon icon-common-warning-red">&nbsp;</div>
+    <div class="gif-export-warning-message">
+      {{description}}
+    </div>
+  </script>
+
+  <!-- Template for Gif Export Loop Repeatedly -->
+  <script type="text/template" id="gif-export-loop-repeatedly-template">
+    <input id="gif-repeat-checkbox" class="gif-repeat-checkbox checkbox-fix" type="checkbox" />
+    <label for="gif-repeat-checkbox"
+           title="{{tooltipTitle}}"
+           rel="tooltip"
+           data-placement="top">{{label}}</label>
+  </script>
+
+  <!-- Template for Gif Export Download and Upload Section -->
+  <script type="text/template" id="gif-export-upload-download-template">
+    <div class="export-panel-section export-panel-row {{codeDotOrgClass}}" id="{{id}}">
+      <button type="button" class="button button-primary {{cssClass}}">{{buttonText}}</button>
+      <div class="export-info">{{description}}</div>
     </div>
   </script>
 </div>

@@ -6,7 +6,10 @@
   var MAGIC_PINK = '#FF00FF';
   var WHITE = '#FFFFFF';
 
-  ns.GifExportController = function (piskelController, exportController) {
+  ns.GifExportController = function (piskelController, exportController, i18n) {
+    this.createGifExportDom_(i18n);
+
+    this.i18n = i18n;
     this.piskelController = piskelController;
     this.exportController = exportController;
   };
@@ -134,7 +137,7 @@
       });
     }
 
-    $.publish(Events.SHOW_PROGRESS, [{'name': 'Building animated GIF ...'}]);
+    $.publish(Events.SHOW_PROGRESS, [{'name': this.i18n.gifExportSettingSectionBuildingAnimatedGif()}]);
     gif.on('progress', function(percentage) {
       $.publish(Events.UPDATE_PROGRESS, [{'progress': (percentage * 100).toFixed(1)}]);
     }.bind(this));
@@ -174,7 +177,7 @@
         link : imageUrl,
         shortLink : this.shorten_(imageUrl, URL_MAX_LENGTH, '...')
       });
-      this.uploadStatusContainerEl.innerHTML = 'Your image is now available at : ' + linkHtml;
+      this.uploadStatusContainerEl.innerHTML = `${this.i18n.gifExportSettingSectionYourImageAvailableAt()} ${linkHtml}`;
     } else {
       // FIXME : Should display error message instead
     }
@@ -188,5 +191,68 @@
       url = part1 + suffix + part2;
     }
     return url;
+  };
+
+  ns.GifExportController.prototype.createGifExportDesc = function (i18n) {
+    var templateData = {
+      description: i18n.gifExportSettingSectionDesc(),
+    };
+    var templateId = 'gif-export-desc-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  };
+
+  ns.GifExportController.prototype.createGifExportWarning = function (i18n) {
+    var templateData = {
+      description: i18n.gifExportSettingSectionWarningMessage(),
+    };
+    var templateId = 'gif-export-warning-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  };
+
+  ns.GifExportController.prototype.createGifExportLoopRepeatedly = function (i18n) {
+    var templateData = {
+      label: i18n.gifExportSettingSectionLoopRepeatedly(),
+      tooltipTitle: i18n.gifExportSettingSectionUncheckToPlay()
+    };
+    var templateId = 'gif-export-loop-repeatedly-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  };
+
+  ns.GifExportController.prototype.createGifExportDownloadSection = function (i18n) {
+    var templateData = {
+      codeDotOrgClass: '',
+      id: 'download-gif-section',
+      cssClass: 'gif-download-button',
+      buttonText: i18n.gifExportSettingSectionDownload(),
+      description: i18n.gifExportSettingSectionDownloadDesc()
+    };
+    var templateId = 'gif-export-upload-download-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  };
+
+  ns.GifExportController.prototype.createGifExportUploadSection = function (i18n) {
+    var templateData = {
+      codeDotOrgClass: 'upload-gif-gamelab',
+      id: 'upload-gif-section',
+      cssClass: 'gif-upload-button',
+      buttonText: i18n.gifExportSettingSectionUpload(),
+      description: i18n.gifExportSettingSectionUploadDesc()
+    };
+    var templateId = 'gif-export-upload-download-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateData);
+  };
+
+  /**
+  * @private
+  */
+  ns.GifExportController.prototype.createGifExportDom_ = function (i18n) {
+    $('#export-info').html(this.createGifExportDesc(i18n));
+    $('#gif-export-warning').html(this.createGifExportWarning(i18n));
+    $('#loop-repeatedly-section').html(this.createGifExportLoopRepeatedly(i18n));
+    var html = '';
+    html += this.createGifExportDownloadSection(i18n);
+    html += this.createGifExportUploadSection(i18n);
+    html += '<div class=\'gif-upload\'><div class=\'gif-export-preview\'></div><div class=\'gif-upload-status\'></div></div>';
+    $('#gif-export-actions-section').html(html);
   };
 })();
