@@ -22,7 +22,6 @@
 
   ns.ExportController = function (piskelController, i18n) {
     this.createExportDom_(i18n);
-
     this.piskelController = piskelController;
     this.tabsWidget = new pskl.widgets.Tabs(tabs, this, pskl.UserSettings.EXPORT_TAB, i18n);
     this.onSizeInputChange_ = this.onSizeInputChange_.bind(this);
