@@ -34,13 +34,13 @@
   <!-- Resize Tool -->
   <!-- Template for Resize Settings Title -->
   <script type="text/template" id="resize-settings-template">
-    {{divText}}
+    {{title}}
   </script>
 
   <!-- Template for Width and Height -->
   <script type="text/template" id="resize-tool-template">
     <div class="resize-section">
-      <span class="resize-section-title">{{spanText}}</span>
+      <span class="resize-section-title">{{labelText}}</span>
       <input type="text" class="textfield resize-size-field" autocomplete="off" name="{{inputName}}"/>
       <span>px</span>
     </div>
@@ -51,7 +51,7 @@
     <div class="resize-section">
       <label class="checkbox-container">
         <input type="checkbox" class="{{cssClass}} checkbox-fix" value="true"/>
-        <span>{{spanText}}</span>
+        <span>{{labelText}}</span>
       </label>
     </div>
   </script>
@@ -59,7 +59,7 @@
   <!-- Template for Anchor -->
   <script type="text/template" id="resize-anchor-template">
     <div class="resize-section">
-      <span class="resize-section-title">{{spanText}}</span>
+      <span class="resize-section-title">{{title}}</span>
       <div class="resize-anchor-container"></div>
     </div>
   </script>

@@ -210,7 +210,7 @@
 
   ns.GifExportController.prototype.createGifExportLoopRepeatedly = function (i18n) {
     var templateData = {
-      labelText: i18n.gifExportSettingSectionLoopRepeatedly(),
+      label: i18n.gifExportSettingSectionLoopRepeatedly(),
       tooltipTitle: i18n.gifExportSettingSectionUncheckToPlay()
     };
     var templateId = 'gif-export-loop-repeatedly-template';
@@ -246,27 +246,11 @@
   */
   ns.GifExportController.prototype.createGifExportDom_ = function (i18n) {
     var html = '';
-    var gifExportDescHtml = this.createGifExportDesc(i18n);
-    html += gifExportDescHtml;
-    $('#export-info').html(html);
-
-    html = '';
-    var gifExportWarningHtml = this.createGifExportWarning(i18n);
-    html += gifExportWarningHtml;
-    $('#gif-export-warning').html(html);
-
-    html = '';
-    var gifExportLoopRepeatedlyHtml = this.createGifExportLoopRepeatedly(i18n);
-    html += gifExportLoopRepeatedlyHtml;
-    $('#loop-repeatedly-section').html(html);
-
-    html = '';
-    var gifExportDownloadHtml = this.createGifExportDownloadSection(i18n);
-    html += gifExportDownloadHtml;
-
-    var gifExportUploadHtml = this.createGifExportUploadSection(i18n);
-    html += gifExportUploadHtml;
-    
+    $('#export-info').html(this.createGifExportDesc(i18n));
+    $('#gif-export-warning').html(this.createGifExportWarning(i18n));
+    $('#loop-repeatedly-section').html(this.createGifExportLoopRepeatedly(i18n));
+    html += this.createGifExportDownloadSection(i18n);
+    html += this.createGifExportUploadSection(i18n);
     html += '<div class=\'gif-upload\'><div class=\'gif-export-preview\'></div><div class=\'gif-upload-status\'></div></div>';
     $('#gif-export-actions-section').html(html);
   };

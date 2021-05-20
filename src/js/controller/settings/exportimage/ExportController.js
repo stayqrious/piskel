@@ -22,6 +22,7 @@
 
   ns.ExportController = function (piskelController, i18n) {
     this.createExportDom_(i18n);
+
     this.piskelController = piskelController;
     this.tabsWidget = new pskl.widgets.Tabs(tabs, this, pskl.UserSettings.EXPORT_TAB, i18n);
     this.onSizeInputChange_ = this.onSizeInputChange_.bind(this);
@@ -105,7 +106,7 @@
   ns.ExportController.prototype.createExportChangeScale = function(i18n) {
     var templateValues = {
       tooltipTitle: i18n.exportSettingSectionScaleTheAnimation(),
-      labelText: i18n.exportSettingSectionScale()
+      label: i18n.exportSettingSectionScale()
     };
     var templateId = 'export-scale-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateValues);
@@ -132,19 +133,10 @@
   */
   ns.ExportController.prototype.createExportDom_ = function(i18n) {
     var html = '';
-
-    var exportTitleHtml = this.createExportTitle(i18n);
-    html += exportTitleHtml;
-
-    var exportChangeScaleHtml = this.createExportChangeScale(i18n);
-    html += exportChangeScaleHtml;
-
-    var exportChangeResolutionHtml = this.createExportChangeResolution(i18n);
-    html += exportChangeResolutionHtml;
-
-    var exportTabsHtml = this.createExportTabs(i18n);
-    html += exportTabsHtml;
-
+    html += this.createExportTitle(i18n);
+    html += this.createExportChangeScale(i18n);
+    html += this.createExportChangeResolution(i18n);
+    html += this.createExportTabs(i18n);
     html += '<div class="export-panel tab-content"></div>';
     $('#settings-section-export').html(html);
   };
