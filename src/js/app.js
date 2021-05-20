@@ -83,7 +83,7 @@
       this.mouseStateService = new pskl.service.MouseStateService();
       this.mouseStateService.init();
 
-      this.paletteController = new pskl.controller.PaletteController();
+      this.paletteController = new pskl.controller.PaletteController(i18n);
       this.paletteController.init();
 
       this.currentColorsService = new pskl.service.CurrentColorsService(this.piskelController);

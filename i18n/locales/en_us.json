@@ -65,5 +65,8 @@
   "resizeSettingSectionDefaultTitle": "Default size", 
   "resizeSettingSectionDefaultSubmitButton": "Set Default",
   "resizeSettingSectionDefaultWidth": "Width",
-  "resizeSettingSectionDefaultHeight": "Height"
+  "resizeSettingSectionDefaultHeight": "Height",
+  "colorPalettePrimary": "Primary - left mouse button TEST 1",
+  "colorPaletteSecondary": "Secondary - right mouse button TEST 2",
+  "colorPaletteSwapColors": "Swap colors (X) TEST 3"
 }
