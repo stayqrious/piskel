@@ -5,9 +5,7 @@
     this.tabs = tabs;
     this.parentController = parentController;
     this.settingsName = settingsName;
-
     this.i18n = i18n;
-
     this.currentTab = null;
     this.currentController = null;
   };

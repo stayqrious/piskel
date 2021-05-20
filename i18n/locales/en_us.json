@@ -70,5 +70,15 @@
   "zipExportSettingSectionPrefix": "Prefix",
   "zipExportSettingSectionPNGFilePrefix": "PNG file prefix ...",
   "zipExportSettingSectionSplitByLayers": "Split by layers",
-  "zipExportSettingSectionDownloadZip": "Download ZIP"
+  "zipExportSettingSectionDownloadZip": "Download ZIP",
+  "gifExportSettingSectionDesc": "Convert your sprite to an animated GIF.",
+  "gifExportSettingSectionWarningMessage": "Too many colors: can not preserve original colors or transparency.",
+  "gifExportSettingSectionLoopRepeatedly": "Loop repeatedly",
+  "gifExportSettingSectionDownload": "Download",
+  "gifExportSettingSectionDownloadDesc": "Download as an animated GIF.",
+  "gifExportSettingSectionUpload": "Upload",
+  "gifExportSettingSectionUploadDesc": "Upload as an animated GIF to a public URL.",
+  "gifExportSettingSectionUncheckToPlay": "Uncheck to play the animation only one time.",
+  "gifExportSettingSectionBuildingAnimatedGif": "Building animated GIF ...",
+  "gifExportSettingSectionYourImageAvailableAt": "Your image is now available at :"
 }
