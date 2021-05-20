@@ -38,8 +38,6 @@
    * @private
    */
   ns.PenSizeController.prototype.createPenSizeDom_ = function (i18n) {
-    var html = '';
-    html += this.createChangePenSize(i18n);
-    $('#pen-size-container').html(html);
+    $('#pen-size-container').html(this.createChangePenSize(i18n));
   };
 })();
