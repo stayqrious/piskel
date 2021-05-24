@@ -192,7 +192,7 @@
       this.penSizeService = new pskl.service.pensize.PenSizeService();
       this.penSizeService.init();
 
-      this.penSizeController = new pskl.controller.PenSizeController();
+      this.penSizeController = new pskl.controller.PenSizeController(i18n);
       this.penSizeController.init();
 
       this.fileDropperService = new pskl.service.FileDropperService(this.piskelController);
