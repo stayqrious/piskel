@@ -52,6 +52,15 @@
   "loadingPiskelMessage": "Loading Piskel...",
   "penSizeChangeTitle": "Pen size",
   "penSizeChangeAvailableSizes": "at 1, 4, 8, or 16 pixels",
+  "preferencesSetting": "PREFERENCES",
+  "resizeSetting": "RESIZE",
+  "resizeSettingDescriptorResizeTheDrawingArea":"Resize the drawing area",
+  "saveSetting": "SAVE",
+  "saveSettingDescriptorSaveToGallerySaveLocallyExportAsFile": "Save to your gallery, save locally, export as a file",
+  "exportSetting": "EXPORT",
+  "exportSettingDescriptorExportAsImageSpriteSheetOrGif": "Export as Image, as Spritesheet or as Animated GIF",
+  "importSetting": "IMPORT",
+  "importSettingDescriptorImportAsExistingImageGifOrPiskelFile": "Import an existing image, an animated GIF or a .piskel file",
   "exportSettingSectionTitle": "Export",
   "exportSettingSectionScaleTheAnimation": "Scale the animation for export",
   "exportSettingSectionScale": "Scale",
@@ -82,5 +91,5 @@
   "gifExportSettingSectionUploadDesc": "Upload as an animated GIF to a public URL.",
   "gifExportSettingSectionUncheckToPlay": "Uncheck to play the animation only one time.",
   "gifExportSettingSectionBuildingAnimatedGif": "Building animated GIF ...",
-  "gifExportSettingSectionYourImageAvailableAt": "Your image is now available at"
+  "gifExportSettingSectionYourImageAvailableAt": "Your image is now available at {url}"
 }
