@@ -74,7 +74,7 @@
   "resizeSettingSectionAnchor": "Anchor",
   "resizeSettingSectionDefaultTitle": "Default size", 
   "resizeSettingSectionDefaultSubmitButton": "Set Default",
-  "resizeSettingSectionDefaultWidth": "Width",
+  "resizeSettingSectionDefaultWidth": "Width", 
   "resizeSettingSectionDefaultHeight": "Height",
   "zipExportSettingSectionDesc": "ZIP archive containing one PNG for each frame. File names will start with the prefix below.",
   "zipExportSettingSectionPrefix": "Prefix",
@@ -90,9 +90,5 @@
   "gifExportSettingSectionUploadDesc": "Upload as an animated GIF to a public URL.",
   "gifExportSettingSectionUncheckToPlay": "Uncheck to play the animation only one time.",
   "gifExportSettingSectionBuildingAnimatedGif": "Building animated GIF ...",
-<<<<<<< HEAD
-  "gifExportSettingSectionYourImageAvailableAt": "Your image is now available at"
-=======
   "gifExportSettingSectionYourImageAvailableAt": "Your image is now available at {url}"
->>>>>>> 961e60f7b2c6f7e73fda5d2100701af689dd57d2
 }
