@@ -50,6 +50,8 @@
   "duplicateThisFrameFramesListTool" :"Duplicate this frame",
   "deleteThisFrameFramesListTool": "Delete this frame",
   "loadingPiskelMessage": "Loading Piskel...",
+  "penSizeChangeTitle": "Pen size",
+  "penSizeChangeAvailableSizes": "at 1, 4, 8, or 16 pixels",
   "preferencesSetting": "PREFERENCES",
   "resizeSetting": "RESIZE",
   "resizeSettingDescriptorResizeTheDrawingArea":"Resize the drawing area",
