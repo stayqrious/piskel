@@ -31,6 +31,7 @@
   var EXP_DRAWER_CLS = 'expanded';
 
   ns.SettingsController = function (piskelController, i18n) {
+    this.createSettingsDom_(i18n);
     this.i18n = i18n;
     this.piskelController = piskelController;
     this.closeDrawerShortcut = pskl.service.keyboard.Shortcuts.MISC.CLOSE_POPUP;
@@ -119,5 +120,73 @@
         this.currentController = null;
       }
     }
+  };
+
+  ns.SettingsController.prototype.createPreferencesSetting = function (i18n) {
+    var templateValues = {
+      dataSetting: 'user',
+      iconSetting: 'icon-settings-gear-white',
+      title: i18n.preferencesSetting(),
+      description: ''
+    };
+    var templateId = 'settings-options-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.SettingsController.prototype.createResizeSetting = function (i18n) {
+    var templateValues = {
+      dataSetting: 'resize',
+      iconSetting: 'icon-settings-resize-white',
+      title: i18n.resizeSetting(),
+      description: i18n.resizeSettingDescriptorResizeTheDrawingArea()
+    };
+    var templateId = 'settings-options-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.SettingsController.prototype.createSaveSetting = function (i18n) {
+    var templateValues = {
+      dataSetting: 'save',
+      iconSetting: 'icon-settings-save-white',
+      title: i18n.saveSetting(),
+      description: i18n.saveSettingDescriptorSaveToGallerySaveLocallyExportAsFile()
+    };
+    var templateId = 'settings-options-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.SettingsController.prototype.createExportSetting = function (i18n) {
+    var templateValues = {
+      dataSetting: 'export',
+      iconSetting: 'icon-settings-export-white',
+      title: i18n.exportSetting(),
+      description: i18n.exportSettingDescriptorExportAsImageSpriteSheetOrGif()
+    };
+    var templateId = 'settings-options-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.SettingsController.prototype.createImportSetting = function (i18n) {
+    var templateValues = {
+      dataSetting: 'import',
+      iconSetting: 'icon-settings-open-folder-white',
+      title: i18n.importSetting(),
+      description: i18n.importSettingDescriptorImportAsExistingImageGifOrPiskelFile()
+    };
+    var templateId = 'settings-options-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+   /**
+   * @private
+   */
+  ns.SettingsController.prototype.createSettingsDom_ = function (i18n) {
+    var html = '';
+    html += this.createPreferencesSetting(i18n);
+    html += this.createResizeSetting(i18n);
+    html += this.createSaveSetting(i18n);
+    html += this.createExportSetting(i18n);
+    html += this.createImportSetting(i18n);
+    $('#settings-vertical-centerer').html(html);
   };
 })();
