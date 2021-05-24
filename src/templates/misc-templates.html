@@ -43,6 +43,30 @@
   </script>
 
   <!-- ----------------------------------------------------------- -->
+  <!-- Color Palette Tool -->
+  <!-- Template for Primary and Secondary Color -->
+  <script type="text/template" id="color-palette-primary-secondary-template">
+    <div
+      class="tool-icon tool-color-picker"
+      data-initial-title="{{title}}"
+      rel="tooltip"
+      data-placement="right"
+    >
+      <input id="{{id}}" class="{{cssClass}} color" type="text"/>
+    </div>
+  </script>
+
+  <!-- Template for Primary and Secondary Color -->
+  <script type="text/template" id="color-palette-swap-template">
+    <div
+      class="swap-colors-button icon-common-swapcolors-arrow-grey"
+      title="{{title}}"
+      rel="tooltip"
+      data-placement="right"
+    ></div>
+  </script>
+  
+  <!-- ----------------------------------------------------------- -->
   <!-- Change Pen Size Tool -->
   <!-- Template for change pen size -->
   <script type="text/template" id="change-pen-size-template">

@@ -7,29 +7,8 @@
       <ul id="tools-container" class="tools-wrapper">
         <!-- Drawing tools will be inserted here -->
       </ul>
-      <div class="palette-wrapper">
-        <div
-          class="tool-icon tool-color-picker"
-          data-initial-title="Primary - left mouse button"
-          rel="tooltip"
-          data-placement="right"
-        >
-          <input id="color-picker" class="color" type="text"/>
-        </div>
-        <div
-          class="tool-icon tool-color-picker"
-          data-initial-title="Secondary - right mouse button"
-          rel="tooltip"
-          data-placement="right"
-        >
-          <input id="secondary-color-picker" class="secondary-color-picker color" type="text" />
-        </div>
-        <div
-          class="swap-colors-button icon-common-swapcolors-arrow-grey"
-          title="Swap colors (X)"
-          rel="tooltip"
-          data-placement="right"
-        ></div>
+      <div class="palette-wrapper" id="palette-wrapper">
+        <!-- Content comes from PaletteController createExportDom_() -->
       </div>
     </div>
   </div>
