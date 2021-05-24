@@ -74,7 +74,7 @@
   "resizeSettingSectionAnchor": "Anchor",
   "resizeSettingSectionDefaultTitle": "Default size", 
   "resizeSettingSectionDefaultSubmitButton": "Set Default",
-  "resizeSettingSectionDefaultWidth": "Width", 
+  "resizeSettingSectionDefaultWidth": "Width",
   "resizeSettingSectionDefaultHeight": "Height",
   "zipExportSettingSectionDesc": "ZIP archive containing one PNG for each frame. File names will start with the prefix below.",
   "zipExportSettingSectionPrefix": "Prefix",
