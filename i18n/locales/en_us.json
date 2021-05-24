@@ -54,14 +54,11 @@
   "resizeSetting": "RESIZE",
   "resizeSettingDescriptorResizeTheDrawingArea":"Resize the drawing area",
   "saveSetting": "SAVE",
-  "saveSettingDescriptorSaveToGallerySaveLocally": "Save to your gallery, save locally",
-  "saveSettingDescriptorExportAsFile": "export as a file",
+  "saveSettingDescriptorSaveToGallerySaveLocallyExportAsFile": "Save to your gallery, save locally, export as a file",
   "exportSetting": "EXPORT",
-  "exportSettingDescriptorExportAsImageSpriteSheet": "Export as Image, as Spritesheet",
-  "exportSettingDescriptorOrAsAnimatedGif": "or as Animated GIF",
+  "exportSettingDescriptorExportAsImageSpriteSheetOrGif": "Export as Image, as Spritesheet or as Animated GIF",
   "importSetting": "IMPORT",
-  "importSettingDescriptorImportAsExistingImage": "Import an existing image 11",
-  "importSettingDescriptorAnimatedGifOrPiskelFile": "an animated GIF or a .piskel file 12",
+  "importSettingDescriptorImportAsExistingImageGifOrPiskelFile": "Import an existing image, an animated GIF or a .piskel file",
   "exportSettingSectionTitle": "Export",
   "exportSettingSectionScaleTheAnimation": "Scale the animation for export",
   "exportSettingSectionScale": "Scale",
@@ -92,5 +89,5 @@
   "gifExportSettingSectionUploadDesc": "Upload as an animated GIF to a public URL.",
   "gifExportSettingSectionUncheckToPlay": "Uncheck to play the animation only one time.",
   "gifExportSettingSectionBuildingAnimatedGif": "Building animated GIF ...",
-  "gifExportSettingSectionYourImageAvailableAt": "Your image is now available at"
+  "gifExportSettingSectionYourImageAvailableAt": "Your image is now available at {url}"
 }

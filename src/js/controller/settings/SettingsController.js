@@ -126,7 +126,8 @@
     var templateValues = {
       dataSetting: 'user',
       iconSetting: 'icon-settings-gear-white',
-      title: "<span class='highlight'>" + i18n.preferencesSetting() + "</span></br>"
+      title: i18n.preferencesSetting(),
+      description: ''
     };
     var templateId = 'settings-options-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateValues);
@@ -136,7 +137,8 @@
     var templateValues = {
       dataSetting: 'resize',
       iconSetting: 'icon-settings-resize-white',
-      title: "<span class='highlight'>" + i18n.resizeSetting() + "</span></br>" + i18n.resizeSettingDescriptorResizeTheDrawingArea()
+      title: i18n.resizeSetting(),
+      description: i18n.resizeSettingDescriptorResizeTheDrawingArea()
     };
     var templateId = 'settings-options-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateValues);
@@ -146,7 +148,8 @@
     var templateValues = {
       dataSetting: 'save',
       iconSetting: 'icon-settings-save-white',
-      title: "<span class='highlight'>" + i18n.saveSetting() + "</span></br>" + i18n.saveSettingDescriptorSaveToGallerySaveLocally() + "</br>" + i18n.saveSettingDescriptorExportAsFile()
+      title: i18n.saveSetting(),
+      description: i18n.saveSettingDescriptorSaveToGallerySaveLocallyExportAsFile()
     };
     var templateId = 'settings-options-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateValues);
@@ -156,7 +159,8 @@
     var templateValues = {
       dataSetting: 'export',
       iconSetting: 'icon-settings-export-white',
-      title: "<span class='highlight'>" + i18n.exportSetting() + "</span></br>" + i18n.exportSettingDescriptorExportAsImageSpriteSheet() + "</br>" + i18n.exportSettingDescriptorOrAsAnimatedGif()
+      title: i18n.exportSetting(),
+      description: i18n.exportSettingDescriptorExportAsImageSpriteSheetOrGif()
     };
     var templateId = 'settings-options-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateValues);
@@ -166,7 +170,8 @@
     var templateValues = {
       dataSetting: 'import',
       iconSetting: 'icon-settings-open-folder-white',
-      title: "<span class='highlight'>" + i18n.importSetting() + "</span></br>" + i18n.importSettingDescriptorImportAsExistingImage() + "</br>" + i18n.importSettingDescriptorAnimatedGifOrPiskelFile()
+      title: i18n.importSetting(),
+      description: i18n.importSettingDescriptorImportAsExistingImageGifOrPiskelFile()
     };
     var templateId = 'settings-options-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateValues);
