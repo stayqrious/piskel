@@ -28,7 +28,7 @@
 
   ns.PenSizeController.prototype.createChangePenSize = function (i18n) {
     var templateValues = {
-      title: i18n.penSizeChangeTitle() + '</br>' + i18n.penSizeChangeAt14816(),
+      title: i18n.penSizeChangeTitle() + '</br>' + i18n.penSizeChangeAvailableSizes(),
     };
     var templateId = 'change-pen-size-template';
     return pskl.utils.Template.fillInTemplate(templateId, templateValues);
