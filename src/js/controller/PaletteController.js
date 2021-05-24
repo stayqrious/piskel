@@ -5,7 +5,9 @@
    * The PaletteController is responsible for handling the two color picker
    * widgets found in the left column, below the tools.
    */
-  ns.PaletteController = function () {};
+  ns.PaletteController = function (i18n) {
+    this.createExportDom_(i18n);
+  };
 
   /**
    * @public
@@ -126,5 +128,44 @@
     var parent = colorPicker.parent();
     title = parent.data('initial-title') + '<br/>' + title;
     parent.attr('data-original-title', title);
+  };
+
+  ns.PaletteController.prototype.createPrimary = function (i18n) {
+    var templateValues = {
+      title: i18n.colorPalettePrimary(),
+      id: 'color-picker',
+      cssClass: ''
+    };
+    var templateId = 'color-palette-primary-secondary-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.PaletteController.prototype.createSecondary = function (i18n) {
+    var templateValues = {
+      title: i18n.colorPaletteSecondary(),
+      id: 'secondary-color-picker',
+      cssClass: 'secondary-color-picker'
+    };
+    var templateId = 'color-palette-primary-secondary-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.PaletteController.prototype.createSwapColors = function (i18n) {
+    var templateValues = {
+      title: i18n.colorPaletteSwapColors()
+    };
+    var templateId = 'color-palette-swap-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  /**
+   * @private
+   */
+  ns.PaletteController.prototype.createExportDom_ = function(i18n) {
+    var html = '';
+    html += this.createPrimary(i18n);
+    html += this.createSecondary(i18n);
+    html += this.createSwapColors(i18n);
+    $('#palette-wrapper').html(html);
   };
 })();
