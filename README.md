@@ -23,31 +23,13 @@ A `piskel-root` utilty is also installed at `node_modules/.bin/piskel-root` that
 
 Note: To run local integration tests you should install CasperJS 1.0.2 (not included as a dependency in this repo) and make sure it has access to PhantomJS 1.9.2 (downloaded to node_modules/.bin on `npm install` but not necessarily in your PATH).
 
-## Local Development Between code-dot-org and forked piskel repo
-If you want the Code.org repo to point to the local version of the Piskel you are working on, your apps package must be linked to a local development copy of the Piskel repository with a complete dev build. 
-
-**[You can also find the steps below in apps/Gruntfile.js of the code-dot-org repo](https://github.com/code-dot-org/code-dot-org/blob/staging/apps/Gruntfile.js)**
-
-### The Steps:
-1. `git clone https://github.com/code-dot-org/piskel.git <new-directory>`
-2. `cd <new-directory>`
-3. `npm install && grunt build-dev`
-4. `npm link`
-5. `cd <code-dot-org apps directory>`
-6. `npm link @code-dot-org/piskel`
-7. rerun your previous command	
-
-You can do all of this in one command. Where `cd piskel` is the cloned piskel repo: 
-- `cd piskel && npm install && grunt build-dev && npm link && cd ../code-dot-org/apps && npm link @code-dot-org/piskel`
-
 ## Contributing
 **More on contributing can be found in the [main Piskel repo](https://github.com/piskelapp/piskel/wiki#contributing)**
 
 ### Prerequisite
 To build Piskel, you need to :
-- install node and grunt-cli npm install grunt-cli -g.
-- clone the repository https://github.com/juliandescottes/piskel.git
-- run npm install
+- install node and grunt-cli `npm install grunt-cli -g`.
+- run `npm install`
 
 ### Grunt build targets
 #### serve
