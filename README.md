@@ -28,7 +28,7 @@ Note: To run local integration tests you should install CasperJS 1.0.2 (not incl
 
 ### Prerequisite
 To build Piskel, you need to :
-- install node and grunt-cli `npm install grunt-cli -g`.
+- install [node](https://nodejs.org/) and grunt-cli `npm install grunt-cli -g`.
 - run `npm install`
 
 ### Grunt build targets
