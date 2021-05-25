@@ -23,6 +23,26 @@ A `piskel-root` utilty is also installed at `node_modules/.bin/piskel-root` that
 
 Note: To run local integration tests you should install CasperJS 1.0.2 (not included as a dependency in this repo) and make sure it has access to PhantomJS 1.9.2 (downloaded to node_modules/.bin on `npm install` but not necessarily in your PATH).
 
+## Contributing
+**More on contributing can be found in the [main Piskel repo](https://github.com/piskelapp/piskel/wiki#contributing)**
+
+### Prerequisite
+To build Piskel, you need to :
+- install [node](https://nodejs.org/)
+- install grunt-cli `npm install grunt-cli -g`.
+- run `npm install`
+
+### Grunt build targets
+#### serve
+`grunt serve` will:
+- build the application
+- start a server on port 9001 (serving `dest` folder)
+- open a browser on `http://localhost:9001`
+- watch for changes, and rebuild the application if needed
+
+#### Note: Using `grunt serve --force`
+- If you try grunt serve and it is aborted due to warnings do `grunt serve --force`
+
 ## Publishing a new version
 
 This repository depends on a Node version >=7. Please use Node >=7 when building and updating
