@@ -20,7 +20,7 @@
         *
         * The strings that we will be used depend on the window.piskel_locale. window.piskel_locale is the 4 letter locale
         * code defined by users of the Piskel library so they can optionally load non-English strings
-        * into the Piskel UI. For example "en_US" or "es_es"
+        * into the Piskel UI. For example "en_us" or "es_es"
         *
         * window.piskel_locales will contains all strings available, then we will use window.piskel_locale to select the language
         * we want strings to be in. All of this is happening here: var i18n = window.piskel_locales[window.piskel_locale];
