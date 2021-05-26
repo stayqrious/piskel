@@ -38,8 +38,7 @@
       if (window.piskel_locale === undefined) {
         window.piskel_locale = 'en_us';
       }
-      // var i18n = window.piskel_locales[window.piskel_locale];
-      var i18n = window.piskel_locales['es_mx'];
+      var i18n = window.piskel_locales[window.piskel_locale.toLowerCase()];
 
       // Run preferences migration scripts for version v0.12.0
       pskl.UserSettings.migrate_to_v0_12();
