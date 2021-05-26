@@ -14,8 +14,8 @@
         * Piskel supports Internalization(i18n) by providing translations of its UI elements.
         *
         * The available strings are in `i18n/locales` directory and each locale has its own file.
-        * For example: `en_us.json` where `en` is English and `us` is United States
-        * Note that en_us.json should contain all available strings because this is the locale other
+        * For example: `en_US.json` where `en` is English and `US` is United States
+        * Note that en_US.json should contain all available strings because this is the locale other
         * languages will fallback to if a translation from English doesn't exist.
         *
         * The strings that we will be used depend on the window.piskel_locale. window.piskel_locale is the 4 letter locale
@@ -38,7 +38,7 @@
       if (window.piskel_locale === undefined) {
         window.piskel_locale = 'en_us';
       }
-      var i18n = window.piskel_locales[window.piskel_locale];
+      var i18n = window.piskel_locales[window.piskel_locale.toLowerCase()];
 
       // Run preferences migration scripts for version v0.12.0
       pskl.UserSettings.migrate_to_v0_12();

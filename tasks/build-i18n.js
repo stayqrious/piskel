@@ -6,9 +6,9 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('build-i18n', 'Compile i18n strings!', function() {
     this.files.forEach(function(file) {
       file.src.forEach(function(src) {
-       // the locale is in the file name, i.e. i18n/locales/en_us.json. This returns the string "en_us".
-        var locale = path.basename(src, '.json').toLowerCase();
-        var englishData = grunt.file.readJSON(src.replace(locale, 'en_us'));
+       // the locale is in the file name, i.e. i18n/locales/en_US.json. This returns the string "en_US".
+        var locale = path.basename(src, '.json');
+        var englishData = grunt.file.readJSON(src.replace(locale, 'en_US'));
         var localeData = grunt.file.readJSON(src);
         // Remove any strings which are empty
         Object.keys(localeData).forEach(function(key) {
@@ -38,6 +38,7 @@ module.exports = function(grunt) {
   // A locale's i18n string are accessible through the `window.piskel_locales` objects.
   // For example, to access the English 'hello': `window.piskel_locales.en_us.hello()`
   function process(locale, json) {
+    locale = locale.toLowerCase();
     var mf;
     try {
       mf = new MessageFormat(locale);
