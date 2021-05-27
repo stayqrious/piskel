@@ -18,19 +18,20 @@
         * Note that en_US.json should contain all available strings because this is the locale other
         * languages will fallback to if a translation from English doesn't exist.
         *
-        * The strings that we will be used depend on the window.piskel_locale. window.piskel_locale is the 4 letter locale
-        * code defined by users of the Piskel library so they can optionally load non-English strings
-        * into the Piskel UI. For example "en_us" or "es_es"
+        * The strings that we will be used depend on the window.piskel_locale. window.piskel_locale is
+        * the 4 letter locale code defined by users of the Piskel library so they can optionally
+        * load non-English strings into the Piskel UI. For example "en_us" or "es_es"
         *
-        * window.piskel_locales will contains all strings available, then we will use window.piskel_locale to select the language
-        * we want strings to be in. All of this is happening here: var i18n = window.piskel_locales[window.piskel_locale];
+        * window.piskel_locales will contains all strings available, then we will use window.piskel_locale
+        * to select the language we want strings to be in. All of this is happening here:
+        * var i18n = window.piskel_locales[window.piskel_locale];
         * In the case that window.piskel_locale is undefined, we set the strings to English by default
         *
         * Example Usage tools/drawing/SimplePen.js:
         * this.helpText = i18n.simplePenDrawingTool()
         * Now when the user hovers over the Pen tool, they will see the translation based on the locale
-        * The i18n object is passed in the Controllers that have text to translate. For example ToolController takes in the
-        * i18n object so that it can be used in all the Tools like Stroke and Pen Tool
+        * The i18n object is passed in the Controllers that have text to translate. For example
+        * ToolController takes in the i18n object so that it can be used in all the Tools like Stroke and Pen Tool
         *
         * To see how each key becomes a function look at the tasks/build-i18n.js file where we use the MessageFormat API
       */

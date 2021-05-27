@@ -26,7 +26,9 @@
       {key : 'shift', description : i18n.baseSelectDrawingSelectionToolDescriptorMoveTheContent()}
     ];
     if (!Constants.ENABLE_MULTIPLE_LAYERS) {
-      this.tooltipDescriptors[0] = {description : i18n.baseSelectDrawingSelectionToolDescriptorDragTheSelectionMaySwitchToOtherFrames()};
+      this.tooltipDescriptors[0] = {
+        description: i18n.baseSelectDrawingSelectionToolDescriptorDragTheSelectionMaySwitchToOtherFrames()
+      };
     }
     $.subscribe(Events.SELECTION_DISMISSED, this.onSelectionDismissed_.bind(this));
   };
