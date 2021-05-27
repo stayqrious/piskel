@@ -23,6 +23,26 @@ A `piskel-root` utilty is also installed at `node_modules/.bin/piskel-root` that
 
 Note: To run local integration tests you should install CasperJS 1.0.2 (not included as a dependency in this repo) and make sure it has access to PhantomJS 1.9.2 (downloaded to node_modules/.bin on `npm install` but not necessarily in your PATH).
 
+## Contributing
+**More on contributing can be found in the [main Piskel repo](https://github.com/piskelapp/piskel/wiki#contributing)**
+
+### Prerequisite
+To build Piskel, you need to :
+- install [node](https://nodejs.org/)
+- install grunt-cli `npm install grunt-cli -g`.
+- run `npm install`
+
+### Grunt build targets
+#### serve
+`grunt serve` will:
+- build the application
+- start a server on port 9001 (serving `dest` folder)
+- open a browser on `http://localhost:9001`
+- watch for changes, and rebuild the application if needed
+
+#### Note: Using `grunt serve --force`
+- If you try grunt serve and it is aborted due to warnings do `grunt serve --force`
+
 ## Publishing a new version
 
 This repository depends on a Node version >=7. Please use Node >=7 when building and updating
@@ -35,6 +55,20 @@ To publish a new version to npm switch to the master branch, use `npm login` to 
 * Bump the version, adding a corresponding commit and version tag.
 * Push the commit and tag to github.
 * Publish the new release package to npm.
+
+## Internationalization (i18n)
+The Piskel UI can support different languages by setting the `window.piskel_locale` to a four letter locale code, i.e. `en_us`, `es_mx`, etc.
+
+The available strings are in `i18n/locales` directory and each locale has its own file. For example: `en_US.json` where `en` is English and `US` is United States
+Note that en_US.json should contain all available strings because this is the locale other languages will fallback to if a translation from English doesn't exist.
+
+The strings for all the languages are loaded into `window.piskel_locales` and the language specific strings can be accessed using the four letter locale code. For example:
+```
+var i18n = window.piskel_locales[window.piskel_locale];
+console.log(i18n.simplePenDrawingTool());
+```
+
+The JSON files are converted to Javascript files during the build in `tasks/build-i18n.js`.  The [MessageFormat](http://messageformat.github.io/messageformat/) library is used to convert the static JSON strings into Javascript functions so dynamic content can be injected into the strings.
 
 ## License
 

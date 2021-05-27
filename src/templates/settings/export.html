@@ -1,25 +1,20 @@
 <script type="text/html" id="templates/settings/export.html">
-  <div class="settings-section settings-section-export">
-    <div class="settings-title">Export</div>
-    <div class="settings-item export-scale" title="Scale the animation for export"
-        rel="tooltip"
-        data-placement="top">
-      <label for="scale-input">Scale</label>
-      <input type="range" class="scale-input" name="scale-input" min="1"  max="32" step="1"/>
-      <span class="scale-text"></span>
+  <div class="settings-section settings-section-export" id="settings-section-export">
+    <div class="settings-title" id="settings-title">
+      <!-- Content comes from ExportController.js createExportTitle() -->
     </div>
+    <!-- HTML for Scale Changing -->
+    <!-- Content comes from ExportController.js createExportChangeScale() -->
     <div class="settings-item export-resize">
-      <span class="resize-label">Resolution</span>
-      <input type="text" class="textfield  resize-field  resize-width" autocomplete="off" name="resize-width"/>
-      <div class="resize-label">x</div>
-      <input type="text" class="textfield  resize-field  resize-height" autocomplete="off" name="resize-height"/>
+      <!-- HTML for Change Resolution -->
+      <!-- Content comes from ExportController.js createExportChangeResolution() -->
     </div>
     <div class="export-tabs tab-list">
-      <div class="export-tab tab-item" data-tab-id="gif">GIF</div>
-      <div class="export-tab tab-item" data-tab-id="png">PNG</div>
-      <div class="export-tab tab-item" data-tab-id="zip">Zip</div>
-      <div class="export-tab tab-item" data-tab-id="misc">Others</div>
+      <!-- HTML for Change Export Tabs -->
+      <!-- Content comes from ExportController.js createExportTabs() -->
     </div>
-    <div class="export-panel tab-content"></div>
+
+    <!-- HTML for export-panel tab-content -->
+    <!-- Content comes from ExportController.js createExportDom_() -->  
   </div>
 </script>

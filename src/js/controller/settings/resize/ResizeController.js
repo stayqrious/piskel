@@ -1,7 +1,8 @@
 (function () {
   var ns = $.namespace('pskl.controller.settings.resize');
 
-  ns.ResizeController = function (piskelController) {
+  ns.ResizeController = function (piskelController, i18n) {
+    this.createResizeDom_(i18n);
     this.piskelController = piskelController;
 
     this.container = document.querySelector('.resize-canvas');
@@ -100,5 +101,121 @@
       resizeContent : !!this.resizeContentCheckbox.checked,
       maintainRatio : !!this.maintainRatioCheckbox.checked
     });
+  };
+
+  ns.ResizeController.prototype.createResizeTitleDefault = function (i18n) {
+    var templateValues = {
+      title: i18n.resizeSettingSectionDefaultTitle()
+    };
+    var templateId = 'resize-settings-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.ResizeController.prototype.createResizeTitle = function (i18n) {
+    var templateValues = {
+      title: i18n.resizeSettingSectionTitle()
+    };
+    var templateId = 'resize-settings-template';
+    return pskl.utils.Template.fillInTemplate(templateId, templateValues);
+  };
+
+  ns.ResizeController.prototype.createResizeCanvasForm = function (i18n) {
+    var html = '';
+
+    // Width
+    // ----------------------------
+    var templateValues = {
+      inputName: 'resize-width',
+      label: i18n.resizeSettingSectionWidth()
+    };
+    var templateId = 'resize-tool-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateValues);
+
+    // Heigth
+    // ----------------------------
+    templateValues = {
+      inputName: 'resize-height',
+      label: i18n.resizeSettingSectionHeight()
+    };
+    templateId = 'resize-tool-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateValues);
+
+    // Checkbox
+    // ----------------------------
+    templateValues = {
+      cssClass: 'resize-content-checkbox',
+      label: i18n.resizeSettingSectionMaintainAspectRatio()
+    };
+    templateId = 'ratio-canvas-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateValues);
+
+    // Ratio
+    // ----------------------------
+    templateValues = {
+      cssClass: 'resize-ratio-checkbox',
+      label: i18n.resizeSettingSectionResizeCanvasContent()
+    };
+    templateId = 'ratio-canvas-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateValues);
+
+    // Anchor
+    // ----------------------------
+    templateValues = {
+      title: i18n.resizeSettingSectionAnchor()
+    };
+    templateId = 'resize-anchor-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateValues);
+
+    // Submit Button
+    // ----------------------------
+    templateValues = {
+      valueText: i18n.resizeSettingSectionSubmitButton()
+    };
+    templateId = 'resize-button-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateValues);
+
+    return html;
+  };
+
+  ns.ResizeController.prototype.createResizeCanvasDefaultForm = function (i18n) {
+    var html = '';
+
+    // Default Width
+    // ----------------------------
+    var templateValues = {
+      inputName: 'default-width',
+      label: i18n.resizeSettingSectionDefaultWidth()
+    };
+    var templateId = 'resize-tool-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateValues);
+
+    // Default Height
+    // ----------------------------
+    templateValues = {
+      inputName: 'default-height',
+      label: i18n.resizeSettingSectionDefaultHeight()
+    };
+    templateId = 'resize-tool-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateValues);
+
+    // Default Submit Button
+    // ----------------------------
+    templateValues = {
+      valueText: i18n.resizeSettingSectionDefaultSubmitButton()
+    };
+    templateId = 'resize-button-template';
+    html += pskl.utils.Template.fillInTemplate(templateId, templateValues);
+
+    return html;
+  };
+
+   /**
+   * @private
+   */
+  ns.ResizeController.prototype.createResizeDom_ = function (i18n) {
+    $('#settings-title').html(this.createResizeTitle(i18n));
+    $('#resize-canvas-form').html(this.createResizeCanvasForm(i18n));
+    $('#settings-title-default').html(this.createResizeTitleDefault(i18n));
+    $('#default-size-form').html(this.createResizeCanvasDefaultForm(i18n));
   };
 })();

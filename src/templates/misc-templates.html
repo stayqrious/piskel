@@ -29,4 +29,193 @@
       {{description}}
     </div>
   </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Settings -->
+  <!-- Template for Settings Options -->
+  <script type="text/template" id="settings-options-template">
+    <div
+      data-setting="{{dataSetting}}"
+      class="tool-icon {{iconSetting}}"
+      title="<span class='highlight'> {{title}} </span></br> {{description}}"
+      rel="tooltip" data-placement="left">
+    </div>  
+  </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Color Palette Tool -->
+  <!-- Template for Primary and Secondary Color -->
+  <script type="text/template" id="color-palette-primary-secondary-template">
+    <div
+      class="tool-icon tool-color-picker"
+      data-initial-title="{{title}}"
+      rel="tooltip"
+      data-placement="right"
+    >
+      <input id="{{id}}" class="{{cssClass}} color" type="text"/>
+    </div>
+  </script>
+
+  <!-- Template for Primary and Secondary Color -->
+  <script type="text/template" id="color-palette-swap-template">
+    <div
+      class="swap-colors-button icon-common-swapcolors-arrow-grey"
+      title="{{title}}"
+      rel="tooltip"
+      data-placement="right"
+    ></div>
+  </script>
+  
+  <!-- ----------------------------------------------------------- -->
+  <!-- Change Pen Size Tool -->
+  <!-- Template for change pen size -->
+  <script type="text/template" id="change-pen-size-template">
+    <div class="pen-size-container size-picker-container" title="{{title}}" rel="tooltip" data-placement="top">
+      <div class="pen-size-option size-picker-option" data-size="1"></div>
+      <div class="pen-size-option size-picker-option" data-size="4"></div>
+      <div class="pen-size-option size-picker-option" data-size="8"></div>
+      <div class="pen-size-option size-picker-option" data-size="16"></div>
+    </div>
+  </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Resize Tool -->
+  <!-- Template for Resize Settings Title -->
+  <script type="text/template" id="resize-settings-template">
+    {{title}}
+  </script>
+
+  <!-- Template for Width and Height -->
+  <script type="text/template" id="resize-tool-template">
+    <div class="resize-section">
+      <span class="resize-section-title">{{label}}</span>
+      <input type="text" class="textfield resize-size-field" autocomplete="off" name="{{inputName}}"/>
+      <span>px</span>
+    </div>
+  </script>
+
+  <!-- Template for Ratio and Canvas -->
+  <script type="text/template" id="ratio-canvas-template">
+    <div class="resize-section">
+      <label class="checkbox-container">
+        <input type="checkbox" class="{{cssClass}} checkbox-fix" value="true"/>
+        <span>{{label}}</span>
+      </label>
+    </div>
+  </script>
+
+  <!-- Template for Anchor -->
+  <script type="text/template" id="resize-anchor-template">
+    <div class="resize-section">
+      <span class="resize-section-title">{{title}}</span>
+      <div class="resize-anchor-container"></div>
+    </div>
+  </script>
+
+  <!-- Template for Resize Submit Button -->
+  <script type="text/template" id="resize-button-template">
+    <input type="submit" class="button button-primary resize-button" value="{{valueText}}" />
+  </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Export Tool -->
+  <!-- Template for Export Settings Title -->
+  <script type="text/template" id="export-settings-template">
+    <div class="settings-title" id="settings-title">
+      {{text}}
+    </div>
+  </script>
+
+   <!-- Template for Scale Changing -->
+   <script type="text/template" id="export-scale-template">
+    <div class="settings-item export-scale" title="{{tooltipTitle}}"
+        rel="tooltip"
+        data-placement="top"
+        id="exportScale">
+      <label for="scale-input">{{label}}</label>
+      <input type="range" class="scale-input" name="scale-input" min="1"  max="32" step="1"/>
+      <span class="scale-text"></span>
+    </div>
+  </script>
+
+  <!-- Template for Change Resolution -->
+  <script type="text/template" id="export-change-resolution-template">
+    <div class="settings-item export-resize" id="export-resize">
+      <span class="resize-label">{{label}}</span>
+      <input type="text" class="textfield  resize-field  resize-width" autocomplete="off" name="resize-width"/>
+      <div class="resize-label">x</div>
+      <input type="text" class="textfield  resize-field  resize-height" autocomplete="off" name="resize-height"/>
+    </div>
+  </script>
+
+  <!-- Template for Export Tabs -->
+  <script type="text/template" id="export-tabs-template">
+    <div class="export-tabs tab-list" id="tab-list">
+      <div class="export-tab tab-item" data-tab-id="gif">GIF</div>
+      <div class="export-tab tab-item" data-tab-id="png">PNG</div>
+      <div class="export-tab tab-item" data-tab-id="zip">Zip</div>
+      <div class="export-tab tab-item" data-tab-id="misc">{{tabText}}</div>
+    </div>
+  </script>
+
+  <!-- ----------------------------------------------------------- -->
+  <!-- Zip Export Tool -->
+  <!-- Template for Zip Export Desc -->
+  <script type="text/template" id="zip-export-desc-template">
+    {{description}}
+  </script>
+
+  <!-- Template for Zip Export Prefix -->
+  <script type="text/template" id="zip-export-prefix-template">
+    <div style="display: flex; line-height: 23px;">
+      <label style="flex-shrink: 0; padding-right:5px;">{{label}}</label>
+      <input type="text" style="flex: 1;" class="zip-prefix-name textfield"
+            autocomplete="off" placeholder="{{placeholderText}}">
+    </div>
+  </script>
+
+  <!-- Template for Zip Export Split By Layers -->
+  <script type="text/template" id="zip-export-layers-template">
+    <div class="checkbox-container" style="margin: 5px 0;">
+      <input id="zip-split-layers" class="zip-split-layers-checkbox checkbox-fix" type="checkbox" />
+      <label for="zip-split-layers">{{label}}</label>
+    </div>
+  </script>
+
+  <!-- Template for Zip Export Download Button -->
+  <script type="text/template" id="zip-export-download-button-template">
+    <button type="button" class="button button-primary zip-generate-button">{{buttonText}}</button>
+  </script>
+  
+  <!-- ----------------------------------------------------------- -->
+  <!-- Gif Export Tool -->
+  <!-- Template for Gif Export Desc -->
+  <script type="text/template" id="gif-export-desc-template">
+    {{description}}
+  </script>
+
+  <!-- Template for Gif Export Warning -->
+  <script type="text/template" id="gif-export-warning-template">
+    <div class="gif-export-warning-icon icon-common-warning-red">&nbsp;</div>
+    <div class="gif-export-warning-message">
+      {{description}}
+    </div>
+  </script>
+
+  <!-- Template for Gif Export Loop Repeatedly -->
+  <script type="text/template" id="gif-export-loop-repeatedly-template">
+    <input id="gif-repeat-checkbox" class="gif-repeat-checkbox checkbox-fix" type="checkbox" />
+    <label for="gif-repeat-checkbox"
+           title="{{tooltipTitle}}"
+           rel="tooltip"
+           data-placement="top">{{label}}</label>
+  </script>
+
+  <!-- Template for Gif Export Download and Upload Section -->
+  <script type="text/template" id="gif-export-upload-download-template">
+    <div class="export-panel-section export-panel-row {{codeDotOrgClass}}" id="{{id}}">
+      <button type="button" class="button button-primary {{cssClass}}">{{buttonText}}</button>
+      <div class="export-info">{{description}}</div>
+    </div>
+  </script>
 </div>
