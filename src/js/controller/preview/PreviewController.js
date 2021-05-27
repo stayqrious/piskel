@@ -57,7 +57,10 @@
 
     var registerShortcut = pskl.app.shortcutService.registerShortcut.bind(pskl.app.shortcutService);
     registerShortcut(this.onionSkinShortcut, this.toggleOnionSkin_.bind(this));
-    var onionSkinTooltip = pskl.utils.TooltipFormatter.format(this.i18n.onionSkinTogglePreviewTool(), this.onionSkinShortcut);
+    var onionSkinTooltip = pskl.utils.TooltipFormatter.format(
+      this.i18n.onionSkinTogglePreviewTool(),
+      this.onionSkinShortcut
+    );
     this.toggleOnionSkinButton.setAttribute('title', onionSkinTooltip);
 
     for (var size in this.previewSizes) {

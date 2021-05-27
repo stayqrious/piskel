@@ -38,7 +38,11 @@
     }
 
     this.tabContentlEl.innerHTML = pskl.utils.Template.get(this.tabs[tabId].template);
-    this.currentController = new this.tabs[tabId].controller(pskl.app.piskelController, this.parentController, this.i18n);
+    this.currentController = new this.tabs[tabId].controller(
+      pskl.app.piskelController,
+      this.parentController,
+      this.i18n
+    );
     this.currentController.init();
     this.currentTab = tabId;
     pskl.UserSettings.set(this.settingsName, tabId);

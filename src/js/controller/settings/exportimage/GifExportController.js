@@ -252,7 +252,8 @@
     var html = '';
     html += this.createGifExportDownloadSection(i18n);
     html += this.createGifExportUploadSection(i18n);
-    html += '<div class=\'gif-upload\'><div class=\'gif-export-preview\'></div><div class=\'gif-upload-status\'></div></div>';
+    html += '<div class=\'gif-upload\'><div class=\'gif-export-preview\'></div>' +
+      '<div class=\'gif-upload-status\'></div></div>';
     $('#gif-export-actions-section').html(html);
   };
 })();
