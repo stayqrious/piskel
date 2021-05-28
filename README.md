@@ -43,6 +43,9 @@ To build Piskel, you need to :
 #### Note: Using `grunt serve --force`
 - If you try grunt serve and it is aborted due to warnings do `grunt serve --force`
 
+#### Note: If you make new changes to JSON files, use `grunt build-dev`
+- If you added new strings to the JSON files in the locales directory and you want to see the changes, you need to do `grunt build-dev`
+
 ## Publishing a new version
 
 This repository depends on a Node version >=7. Please use Node >=7 when building and updating
