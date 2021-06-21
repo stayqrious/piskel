@@ -25,6 +25,7 @@
   "scripts": {
     "test": "grunt test",
     "start": "nodewebkit",
+    "build": "grunt build",
     "preversion": "grunt test build",
     "postversion": "git push && git push --tags && npm publish",
     "release": "grunt && node ./bin/copy-to-piskel-website"

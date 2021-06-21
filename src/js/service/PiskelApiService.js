@@ -97,7 +97,7 @@
    * @private
    */
   ns.PiskelApiService.prototype.sendMessage_ = function (message) {
-    this.parentWindow_.postMessage(message, this.allowedOrigin_);
+    this.parentWindow_.postMessage(message, '*');// this.allowedOrigin_);
   };
 
   /**
@@ -107,10 +107,10 @@
    */
   ns.PiskelApiService.prototype.receiveMessage_ = function (event) {
     // Ignore messages not sent from the allowed origin
-    var origin = event.origin || event.originalEvent.origin;
-    if (origin !== this.allowedOrigin_) {
-      return;
-    }
+    // var origin = event.origin || event.originalEvent.origin;
+    // if (origin !== this.allowedOrigin_) {
+    //   return;
+    // }
 
     var message = event.data;
     this.log('Received message:', message);
